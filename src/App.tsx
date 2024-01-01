@@ -1,12 +1,12 @@
 //import//
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import { Home } from './pages/Home';
-import { Header } from './components/Header'
-import { About } from './pages/About';
-import { Services } from './pages/Services';
-import { Contact } from './pages/Contact';
-import { HolidayHeroes } from './pages/HolidayHeroes';
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Home } from "./pages/Home";
+import { Header } from "./components/Header";
+import { About } from "./pages/About";
+import { Services } from "./pages/Services";
+import { Contact } from "./pages/Contact";
+import { HolidayHeroes } from "./pages/HolidayHeroes";
+import { Admin } from "./pages/Admin";
 
 function App() {
   return (
@@ -19,6 +19,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/holiday-heroes" element={<HolidayHeroes />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </Router>
     </>
