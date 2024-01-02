@@ -2,6 +2,7 @@
 import Hero from "../assets/THG Large.png";
 
 export const Home = () => {
+
   return (
     <div className="flex h-screen flex-col justify-center px-12 md:flex-row md:items-center">
       <div className="flex w-full justify-end md:w-[50%]">
