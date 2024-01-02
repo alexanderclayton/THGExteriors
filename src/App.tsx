@@ -7,6 +7,7 @@ import { Services } from "./pages/Services";
 import { Contact } from "./pages/Contact";
 import { HolidayHeroes } from "./pages/HolidayHeroes";
 import { Admin } from "./pages/Admin";
+import { AllClients } from "./pages/AllClients";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/holiday-heroes" element={<HolidayHeroes />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/allclients" element={<AllClients />} />
         </Routes>
       </Router>
     </>
