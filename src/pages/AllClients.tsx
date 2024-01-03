@@ -44,6 +44,7 @@ export const AllClients = () => {
   };
 
   const addClient = async () => {
+    console.log("button clicked")
     try {
       const docRef = await addDoc(collection(db, "clients"), {
         name: client.name,
