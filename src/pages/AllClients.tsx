@@ -1,6 +1,6 @@
 //import//
-import { useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
+import { useState, useEffect } from "react";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 import { FirebaseError } from "firebase/app";
 import { db } from "../firebase/firebaseConfig";
 
@@ -16,6 +16,24 @@ export const AllClients = () => {
     phone: "",
     email: "",
   });
+  const [allClients, setAllClients] = useState<TClient[]>([]);
+
+  const getClients = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "clients"));
+      let docs = querySnapshot.docs.map((doc) => doc.data()) as TClient[];
+      setAllClients(docs);
+    } catch (error: unknown) {
+      if (error instanceof FirebaseError) {
+        console.error(error.message);
+      }
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getClients();
+  }, []);
 
   const handleClientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -51,6 +69,16 @@ export const AllClients = () => {
       <label htmlFor="email">Email Address</label>
       <input type="text" id="email" onChange={handleClientChange} />
       <button onClick={addClient}>add client</button>
+      <button onClick={getClients}>get clients</button>
+      <div>
+        {allClients.map((client) => (
+          <div key={client.name} className="border border-black">
+            <p>{client.name}</p>
+            <p>{client.email}</p>
+            <p>{client.phone}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
