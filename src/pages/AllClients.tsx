@@ -19,7 +19,6 @@ export const AllClients = () => {
     address: "",
   });
   const [allClients, setAllClients] = useState<TClient[]>([]);
-  const [newClientAdded, setNewClientAdded] = useState<boolean>(false);
 
   const getClients = async () => {
     try {
@@ -35,11 +34,8 @@ export const AllClients = () => {
   };
 
   useEffect(() => {
-    if (newClientAdded) {
-      getClients();
-      setNewClientAdded(false);
-    }
-  }, [newClientAdded]);
+    getClients();
+  }, []);
 
   const handleClientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -58,13 +54,14 @@ export const AllClients = () => {
         address: client.address,
       });
       console.log("client added", client.name);
-      setNewClientAdded(true);
       setClient({ name: "", phone: "", email: "", address: "" });
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         console.error(error.message);
       }
       console.error("error adding document", error);
+    } finally {
+      getClients();
     }
   };
 
