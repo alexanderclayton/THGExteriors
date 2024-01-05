@@ -10,6 +10,7 @@ import { Admin } from "./pages/Admin";
 import { AllClients } from "./pages/AllClients";
 import { Client } from "./pages/Client";
 import { Project } from "./pages/Project";
+import { AllProjects } from "./pages/AllProjects";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/allclients" element={<AllClients />} />
           <Route path="/client/:id" element={<Client />} />
+          <Route path="/allprojects" element={<AllProjects />} />
           <Route path="/project/:id" element={<Project />} />
         </Routes>
       </Router>
