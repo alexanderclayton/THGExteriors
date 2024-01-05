@@ -1,7 +1,7 @@
 //import//
 import { FirebaseError } from "firebase/app";
 import { useState, useEffect } from "react";
-import { collection, doc, getDoc, setDoc, addDoc } from "firebase/firestore";
+import { collection, doc, getDoc, addDoc } from "firebase/firestore";
 import { useParams } from "react-router-dom";
 import { db } from "../firebase/firebaseConfig";
 
