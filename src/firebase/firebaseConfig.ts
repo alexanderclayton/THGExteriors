@@ -1,14 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-
-type FirebaseApp = {
-    apiKey: string,
-    authDomain: string,
-    projectId: string,
-    storageBucket: string,
-    messagingSenderId: string,
-    appId: string 
-}
+import { FirebaseApp } from "../types";
 
 const API_KEY = import.meta.env.VITE_API_KEY
 const AUTH_DOMAIN = import.meta.env.VITE_AUTH_DOMAIN

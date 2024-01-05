@@ -4,14 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
-
-type TProject = {
-  id?: string;
-  clientId: string;
-  projectName: string;
-  projectDate: string;
-  paid: boolean;
-};
+import { TProject } from "../types";
 
 export const Project = () => {
   const params = useParams();

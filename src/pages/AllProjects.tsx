@@ -3,14 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
-
-type TProject = {
-  id?: string;
-  clientId: string;
-  projectName: string;
-  projectDate: string;
-  paid: boolean;
-};
+import { TProject } from "../types";
 
 export const AllProjects = () => {
   const navigate = useNavigate();

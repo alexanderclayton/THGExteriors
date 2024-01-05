@@ -4,13 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { collection, doc, setDoc, getDocs } from "firebase/firestore";
 import { FirebaseError } from "firebase/app";
 import { db } from "../firebase/firebaseConfig";
-
-type TClient = {
-  name: string;
-  phone: string;
-  email: string;
-  address: string;
-};
+import { TClient } from "../types";
 
 export const AllClients = () => {
   const [client, setClient] = useState<TClient>({
