@@ -12,21 +12,7 @@ import {
 } from "firebase/firestore";
 import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../firebase/firebaseConfig";
-
-type TClient = {
-  name: string;
-  phone: string;
-  email: string;
-  address: string;
-};
-
-type TProject = {
-  id?: string;
-  clientId: string;
-  projectName: string;
-  projectDate: string;
-  paid: boolean;
-};
+import { TClient, TProject } from "../types";
 
 export const Client = () => {
   const params = useParams();
