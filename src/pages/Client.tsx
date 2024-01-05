@@ -1,7 +1,15 @@
 //import//
 import { FirebaseError } from "firebase/app";
 import { useState, useEffect } from "react";
-import { collection, doc, getDoc, addDoc } from "firebase/firestore";
+import {
+  collection,
+  query,
+  doc,
+  getDoc,
+  getDocs,
+  where,
+  addDoc,
+} from "firebase/firestore";
 import { useParams } from "react-router-dom";
 import { db } from "../firebase/firebaseConfig";
 
@@ -27,6 +35,7 @@ export const Client = () => {
     email: "",
     address: "",
   });
+  const [clientProjects, setClientProjects] = useState<TProject[]>([]);
   const [project, setProject] = useState<TProject>({
     clientId: params.id as string,
     projectName: "",
@@ -40,6 +49,23 @@ export const Client = () => {
       if (docSnap.exists()) {
         setClient({ ...docSnap.data() } as TClient);
       }
+    } catch (error: unknown) {
+      if (error instanceof FirebaseError) {
+        console.error(error.message);
+      }
+      console.error(error);
+    }
+  };
+
+  const getProjects = async () => {
+    try {
+      const q = query(
+        collection(db, "projects"),
+        where("clientId", "==", params.id),
+      );
+      const querySnapshot = await getDocs(q);
+      let docs = querySnapshot.docs.map((doc) => doc.data()) as TProject[];
+      setClientProjects(docs);
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         console.error(error.message);
@@ -81,6 +107,7 @@ export const Client = () => {
 
   useEffect(() => {
     getClient();
+    getProjects();
   }, []);
 
   return (
@@ -90,6 +117,16 @@ export const Client = () => {
         <p>{client.phone}</p>
         <p>{client.email}</p>
         <p>{client.address}</p>
+        <div>
+          <p>projects</p>
+          {clientProjects.map((project) => (
+            <div key={project.projectName} className="border border-black">
+              <p>{project.projectName}</p>
+              <p>{project.projectDate}</p>
+              <p>{project.paid}</p>
+            </div>
+          ))}
+        </div>
       </div>
       <div>
         <label htmlFor="projectName">Project Name</label>
