@@ -10,7 +10,7 @@ import {
   where,
   addDoc,
 } from "firebase/firestore";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../firebase/firebaseConfig";
 
 type TClient = {
@@ -21,6 +21,7 @@ type TClient = {
 };
 
 type TProject = {
+  id?: string;
   clientId: string;
   projectName: string;
   projectDate: string;
@@ -29,6 +30,7 @@ type TProject = {
 
 export const Client = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const [client, setClient] = useState<TClient>({
     name: "",
     phone: "",
@@ -64,7 +66,13 @@ export const Client = () => {
         where("clientId", "==", params.id),
       );
       const querySnapshot = await getDocs(q);
-      let docs = querySnapshot.docs.map((doc) => doc.data()) as TProject[];
+      let docs = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        clientId: doc.data().clientId,
+        projectName: doc.data().projectName,
+        projectDate: doc.data().projectDate,
+        paid: doc.data().paid,
+      })) as TProject[];
       setClientProjects(docs);
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
@@ -102,6 +110,8 @@ export const Client = () => {
         console.error(error.message);
       }
       console.error(error);
+    } finally {
+      getProjects();
     }
   };
 
@@ -120,10 +130,15 @@ export const Client = () => {
         <div>
           <p>projects</p>
           {clientProjects.map((project) => (
-            <div key={project.projectName} className="border border-black">
+            <div
+              key={project.id}
+              className="border border-black hover:cursor-pointer"
+              onClick={() => navigate(`/project/${project.id}`)}
+            >
               <p>{project.projectName}</p>
               <p>{project.projectDate}</p>
               <p>{project.paid}</p>
+              <p>{project.id}</p>
             </div>
           ))}
         </div>

@@ -9,6 +9,7 @@ import { HolidayHeroes } from "./pages/HolidayHeroes";
 import { Admin } from "./pages/Admin";
 import { AllClients } from "./pages/AllClients";
 import { Client } from "./pages/Client";
+import { Project } from "./pages/Project";
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
           <Route path="/holiday-heroes" element={<HolidayHeroes />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/allclients" element={<AllClients />} />
-          <Route path="client/:id" element={<Client />} />
+          <Route path="/client/:id" element={<Client />} />
+          <Route path="/project/:id" element={<Project />} />
         </Routes>
       </Router>
     </>
