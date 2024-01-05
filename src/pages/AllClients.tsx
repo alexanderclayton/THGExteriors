@@ -5,6 +5,7 @@ import { TClient } from "../types";
 import { getClients, addClient } from "../services";
 
 export const AllClients = () => {
+  const navigate = useNavigate();
   const [client, setClient] = useState<TClient>({
     name: "",
     phone: "",
@@ -12,13 +13,7 @@ export const AllClients = () => {
     address: "",
   });
   const [allClients, setAllClients] = useState<TClient[]>([]);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    getClients(setAllClients);
-  }, []);
-
+  
   const handleClientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setClient((prevClient) => ({
@@ -26,6 +21,10 @@ export const AllClients = () => {
       [id]: value,
     }));
   };
+
+  useEffect(() => {
+    getClients(setAllClients);
+  }, []);
 
   return (
     <div>

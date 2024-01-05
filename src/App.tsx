@@ -16,19 +16,21 @@ function App() {
   return (
     <>
       <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/holiday-heroes" element={<HolidayHeroes />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/allclients" element={<AllClients />} />
-          <Route path="/client/:id" element={<Client />} />
-          <Route path="/allprojects" element={<AllProjects />} />
-          <Route path="/project/:id" element={<Project />} />
-        </Routes>
+        <div className="bg-background-50">
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/holiday-heroes" element={<HolidayHeroes />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/allclients" element={<AllClients />} />
+            <Route path="/client/:id" element={<Client />} />
+            <Route path="/allprojects" element={<AllProjects />} />
+            <Route path="/project/:id" element={<Project />} />
+          </Routes>
+        </div>
       </Router>
     </>
   );

@@ -44,7 +44,7 @@ export const addClient = async (
       }
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
-        console.error(error.message);
+        console.error(error.message);        
       }
       console.error(error);
     }
