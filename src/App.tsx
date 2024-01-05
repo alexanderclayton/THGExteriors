@@ -8,6 +8,7 @@ import { Contact } from "./pages/Contact";
 import { HolidayHeroes } from "./pages/HolidayHeroes";
 import { Admin } from "./pages/Admin";
 import { AllClients } from "./pages/AllClients";
+import { Client } from "./pages/Client";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/holiday-heroes" element={<HolidayHeroes />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/allclients" element={<AllClients />} />
+          <Route path="client/:id" element={<Client />} />
         </Routes>
       </Router>
     </>
