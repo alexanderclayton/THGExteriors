@@ -1,5 +1,6 @@
 //import//
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { collection, doc, setDoc, getDocs } from "firebase/firestore";
 import { FirebaseError } from "firebase/app";
 import { db } from "../firebase/firebaseConfig";
@@ -19,6 +20,8 @@ export const AllClients = () => {
     address: "",
   });
   const [allClients, setAllClients] = useState<TClient[]>([]);
+
+  const navigate = useNavigate();
 
   const getClients = async () => {
     try {
@@ -102,7 +105,11 @@ export const AllClients = () => {
       </div>
       <div>
         {allClients.map((client) => (
-          <div key={client.name} className="border border-black">
+          <div
+            key={client.name}
+            className="border border-black hover:cursor-pointer"
+            onClick={() => navigate(`/client/${client.name}`)}
+          >
             <p>
               <span className="font-bold">Name: </span>
               {client.name}
