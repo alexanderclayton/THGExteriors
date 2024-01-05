@@ -1,10 +1,8 @@
 //import//
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { collection, doc, setDoc, getDocs } from "firebase/firestore";
-import { FirebaseError } from "firebase/app";
-import { db } from "../firebase/firebaseConfig";
 import { TClient } from "../types";
+import { getClients, addClient } from "../services";
 
 export const AllClients = () => {
   const [client, setClient] = useState<TClient>({
@@ -17,21 +15,8 @@ export const AllClients = () => {
 
   const navigate = useNavigate();
 
-  const getClients = async () => {
-    try {
-      const querySnapshot = await getDocs(collection(db, "clients"));
-      let docs = querySnapshot.docs.map((doc) => doc.data()) as TClient[];
-      setAllClients(docs);
-    } catch (error: unknown) {
-      if (error instanceof FirebaseError) {
-        console.error(error.message);
-      }
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
-    getClients();
+    getClients(setAllClients);
   }, []);
 
   const handleClientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,26 +25,6 @@ export const AllClients = () => {
       ...prevClient,
       [id]: value,
     }));
-  };
-
-  const addClient = async () => {
-    try {
-      await setDoc(doc(db, "clients", `${client.name}`), {
-        name: client.name,
-        phone: client.phone,
-        email: client.email,
-        address: client.address,
-      });
-      console.log("client added", client.name);
-      setClient({ name: "", phone: "", email: "", address: "" });
-    } catch (error: unknown) {
-      if (error instanceof FirebaseError) {
-        console.error(error.message);
-      }
-      console.error("error adding document", error);
-    } finally {
-      getClients();
-    }
   };
 
   return (
@@ -94,8 +59,14 @@ export const AllClients = () => {
           onChange={handleClientChange}
           value={client.address}
         />
-        <button onClick={addClient}>add client</button>
-        <button onClick={getClients}>get clients</button>
+        <button
+          onClick={() =>
+            addClient(client, setClient, () => getClients(setAllClients))
+          }
+        >
+          add client
+        </button>
+        <button onClick={() => getClients(setAllClients)}>get clients</button>
       </div>
       <div>
         {allClients.map((client) => (

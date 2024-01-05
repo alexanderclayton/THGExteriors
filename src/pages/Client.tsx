@@ -1,18 +1,8 @@
 //import//
-import { FirebaseError } from "firebase/app";
 import { useState, useEffect } from "react";
-import {
-  collection,
-  query,
-  doc,
-  getDoc,
-  getDocs,
-  where,
-  addDoc,
-} from "firebase/firestore";
 import { useParams, useNavigate } from "react-router-dom";
-import { db } from "../firebase/firebaseConfig";
 import { TClient, TProject } from "../types";
+import { getClient, getClientProjects, addProject } from "../services";
 
 export const Client = () => {
   const params = useParams();
@@ -31,43 +21,6 @@ export const Client = () => {
     paid: false,
   });
 
-  const getClient = async () => {
-    try {
-      const docSnap = await getDoc(doc(db, "clients", `${params.id}`));
-      if (docSnap.exists()) {
-        setClient({ ...docSnap.data() } as TClient);
-      }
-    } catch (error: unknown) {
-      if (error instanceof FirebaseError) {
-        console.error(error.message);
-      }
-      console.error(error);
-    }
-  };
-
-  const getProjects = async () => {
-    try {
-      const q = query(
-        collection(db, "projects"),
-        where("clientId", "==", params.id),
-      );
-      const querySnapshot = await getDocs(q);
-      let docs = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        clientId: doc.data().clientId,
-        projectName: doc.data().projectName,
-        projectDate: doc.data().projectDate,
-        paid: doc.data().paid,
-      })) as TProject[];
-      setClientProjects(docs);
-    } catch (error: unknown) {
-      if (error instanceof FirebaseError) {
-        console.error(error.message);
-      }
-      console.error(error);
-    }
-  };
-
   const handleProjectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setProject((prevProject) => ({
@@ -76,34 +29,9 @@ export const Client = () => {
     }));
   };
 
-  const addProject = async () => {
-    try {
-      await addDoc(collection(db, "projects"), {
-        clientId: project.clientId,
-        projectName: project.projectName,
-        projectDate: project.projectDate,
-        paid: project.paid,
-      });
-      console.log("project added", project.projectName);
-      setProject({
-        clientId: params.id as string,
-        projectName: "",
-        projectDate: "",
-        paid: false,
-      });
-    } catch (error: unknown) {
-      if (error instanceof FirebaseError) {
-        console.error(error.message);
-      }
-      console.error(error);
-    } finally {
-      getProjects();
-    }
-  };
-
   useEffect(() => {
-    getClient();
-    getProjects();
+    getClient(params, setClient);
+    getClientProjects(params, setClientProjects);
   }, []);
 
   return (
@@ -146,7 +74,15 @@ export const Client = () => {
         />
       </div>
       <button onClick={() => console.log(project)}>check</button>
-      <button onClick={addProject}>add project</button>
+      <button
+        onClick={() =>
+          addProject(project, setProject, params, () =>
+            getClientProjects(params, setClientProjects),
+          )
+        }
+      >
+        add project
+      </button>
     </div>
   );
 };

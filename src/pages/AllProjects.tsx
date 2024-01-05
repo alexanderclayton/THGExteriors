@@ -1,35 +1,14 @@
-import { FirebaseError } from "firebase/app";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase/firebaseConfig";
 import { TProject } from "../types";
+import { getProjects } from "../services";
 
 export const AllProjects = () => {
   const navigate = useNavigate();
   const [allProjects, setAllProjects] = useState<TProject[]>([]);
 
-  const getProjects = async () => {
-    try {
-      const querySnapshot = await getDocs(collection(db, "projects"));
-      let docs = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        clientId: doc.data().clientId,
-        projectName: doc.data().projectName,
-        projectDate: doc.data().projectDate,
-        paid: doc.data().paid,
-      })) as TProject[];
-      setAllProjects(docs);
-    } catch (error: unknown) {
-      if (error instanceof FirebaseError) {
-        console.error(error.message);
-      }
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
-    getProjects();
+    getProjects(setAllProjects);
   }, []);
 
   return (
