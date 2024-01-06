@@ -97,6 +97,31 @@ export const addClient = async (
     }
   };
 
+  //  Delete document and subcollections from "clients" collection  //
+  //  Usage: src/pages/Client.tsx  //
+  export const deleteClient = async (
+    params: Readonly<Params<string>>,
+    navigate: NavigateFunction
+  ) => {
+    try {
+      const clientRef = doc(db, "clients", `${params.id}`);
+      await updateDoc(clientRef, {
+        name: deleteField(),
+        phone: deleteField(),
+        email: deleteField(),
+        address: deleteField(),
+      });
+      await deleteDoc(doc(db, "clients", `${params.id}`));
+      console.log("client deleted");
+      navigate("/allclients");
+    } catch (error: unknown) {
+      if (error instanceof FirebaseError) {
+        console.error(error.message);
+      }
+      console.error(error);
+    }
+  };
+
   //  Add document to the "projects" collection in Firebase with clientId property  //
   //  Usage: src/pages/Client.tsx //
   export const addProject = async (
@@ -223,7 +248,7 @@ export const addClient = async (
     }
   };
 
-  //  Delete document and subcollections from Firebase  //
+  //  Delete document and subcollections from "projects" collection  //
   //  Usage:  src/pages/Project.tsx  //
   export const deleteProject = async (
     params: Readonly<Params<string>>,
@@ -238,7 +263,7 @@ export const addClient = async (
         paid: deleteField(),
       });
       await deleteDoc(doc(db, "projects", `${params.id}`));
-      console.log("deleted");
+      console.log("project deleted");
       navigate("/allprojects");
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
