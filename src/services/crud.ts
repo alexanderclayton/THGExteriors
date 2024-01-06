@@ -1,8 +1,8 @@
 import { FirebaseError } from "firebase/app";
 import { db } from "../firebase/firebaseConfig";
-import { collection, doc, addDoc, getDoc, getDocs, updateDoc, query, where } from "firebase/firestore";
+import { collection, doc, addDoc, getDoc, getDocs, updateDoc, deleteField, deleteDoc, query, where } from "firebase/firestore";
 import { TClient, TProject } from "../types";
-import { Params } from "react-router-dom";
+import { NavigateFunction, Params } from "react-router-dom";
 
 
 //  Add document to the "clients" collection in Firebase  //
@@ -220,5 +220,30 @@ export const addClient = async (
     } finally {
       getProject(params, setProject);
       setUpdate(!update);
+    }
+  };
+
+  //  Delete document and subcollections from Firebase  //
+  //  Usage:  src/pages/Project.tsx  //
+  export const deleteProject = async (
+    params: Readonly<Params<string>>,
+    navigate: NavigateFunction
+  ) => {
+    try {
+      const projectRef = doc(db, "projects", `${params.id}`);
+      await updateDoc(projectRef, {
+        clientId: deleteField(),
+        projectName: deleteField(),
+        projectDate: deleteField(),
+        paid: deleteField(),
+      });
+      await deleteDoc(doc(db, "projects", `${params.id}`));
+      console.log("deleted");
+      navigate("/allprojects");
+    } catch (error: unknown) {
+      if (error instanceof FirebaseError) {
+        console.error(error.message);
+      }
+      console.error(error);
     }
   };

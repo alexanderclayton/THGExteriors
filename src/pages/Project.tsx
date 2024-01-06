@@ -1,12 +1,13 @@
 //import//
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { TProject } from "../types";
-import { getProject } from "../services";
+import { getProject, deleteProject } from "../services";
 import { UpdateProject } from "../components/UpdateProject";
 
 export const Project = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const [project, setProject] = useState<TProject>({
     clientId: "",
     projectName: "",
@@ -35,6 +36,7 @@ export const Project = () => {
           update={update}
         />
       )}
+      <button onClick={() => deleteProject(params, navigate)}>Delete</button>
     </div>
   );
 };
