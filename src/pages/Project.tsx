@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { TProject } from "../types";
 import { getProject } from "../services";
+import { UpdateProject } from "../components/UpdateProject";
 
 export const Project = () => {
   const params = useParams();
@@ -12,6 +13,7 @@ export const Project = () => {
     projectDate: "",
     paid: false,
   });
+  const [update, setUpdate] = useState<boolean>(false);
 
   useEffect(() => {
     getProject(params, setProject);
@@ -19,8 +21,20 @@ export const Project = () => {
 
   return (
     <div>
-      <p>{project.projectDate}</p>
-      <p>{project.projectName}</p>
+      <div>
+        <p>{project.projectDate}</p>
+        <p>{project.projectName}</p>
+      </div>
+      <button onClick={() => setUpdate(!update)}>Update</button>
+      {update && (
+        <UpdateProject
+          params={params}
+          project={project}
+          setProject={setProject}
+          setUpdate={setUpdate}
+          update={update}
+        />
+      )}
     </div>
   );
 };
