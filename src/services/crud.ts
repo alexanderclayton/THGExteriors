@@ -1,6 +1,6 @@
 import { FirebaseError } from "firebase/app";
 import { db } from "../firebase/firebaseConfig";
-import { collection, doc, addDoc, setDoc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { collection, doc, addDoc, getDoc, getDocs, updateDoc, query, where } from "firebase/firestore";
 import { TClient, TProject } from "../types";
 import { Params } from "react-router-dom";
 
@@ -13,7 +13,7 @@ export const addClient = async (
     getClients: () => Promise<void>
     ) => {
     try {
-      await setDoc(doc(db, "clients", `${client.name}`), {
+      await addDoc(collection(db, "clients"), {
         name: client.name,
         phone: client.phone,
         email: client.email,
@@ -57,13 +57,43 @@ export const addClient = async (
   ) => {
     try {
       const querySnapshot = await getDocs(collection(db, "clients"));
-      let docs = querySnapshot.docs.map((doc) => doc.data()) as TClient[];
+      let docs = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        name: doc.data().name,
+        phone: doc.data().phone,
+        email: doc.data().email,
+        address: doc.data().address
+      })) as TClient[];
       setAllClients(docs);
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         console.error(error.message);
       }
       console.error(error);
+    }
+  };
+
+  //  Update document in the "clients" collection  //
+  //  Usage: src/components/UpdateClient.tsx  //
+  export const updateClient = async (
+    params: Readonly<Params<string>>,
+    updatedClient: TClient,
+    setClient: React.Dispatch<React.SetStateAction<TClient>>,
+    update: boolean,
+    setUpdate: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    try {
+      const clientRef = doc(db, "clients", `${params.id}`);
+      await updateDoc(clientRef, updatedClient);
+      console.log("updated client");
+    } catch (error: unknown) {
+      if (error instanceof FirebaseError) {
+        console.error(error.message);
+      }
+      console.log(error);
+    } finally {
+      getClient(params, setClient)
+      setUpdate(!update)
     }
   };
 

@@ -7,6 +7,8 @@ export const AllProjects = () => {
   const navigate = useNavigate();
   const [allProjects, setAllProjects] = useState<TProject[]>([]);
 
+  
+
   useEffect(() => {
     getProjects(setAllProjects);
   }, []);

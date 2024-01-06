@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { TClient, TProject } from "../types";
 import { getClient, getClientProjects, addProject } from "../services";
+import { UpdateClient } from "../components/UpdateClient";
 
 export const Client = () => {
   const params = useParams();
@@ -20,6 +21,7 @@ export const Client = () => {
     projectDate: "",
     paid: false,
   });
+  const [update, setUpdate] = useState<boolean>(false);
 
   const handleProjectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -83,6 +85,16 @@ export const Client = () => {
       >
         add project
       </button>
+      <button onClick={() => setUpdate(!update)}>Update</button>
+      {update && (
+        <UpdateClient
+          params={params}
+          client={client}
+          setClient={setClient}
+          update={update}
+          setUpdate={setUpdate}
+        />
+      )}
     </div>
   );
 };

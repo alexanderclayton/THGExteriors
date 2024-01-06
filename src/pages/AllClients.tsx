@@ -13,7 +13,7 @@ export const AllClients = () => {
     address: "",
   });
   const [allClients, setAllClients] = useState<TClient[]>([]);
-  
+
   const handleClientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setClient((prevClient) => ({
@@ -70,9 +70,9 @@ export const AllClients = () => {
       <div>
         {allClients.map((client) => (
           <div
-            key={client.name}
+            key={client.id}
             className="border border-black hover:cursor-pointer"
-            onClick={() => navigate(`/client/${client.name}`)}
+            onClick={() => navigate(`/client/${client.id}`)}
           >
             <p>
               <span className="font-bold">Name: </span>
