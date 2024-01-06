@@ -79,8 +79,8 @@ export const addClient = async (
     params: Readonly<Params<string>>,
     updatedClient: TClient,
     setClient: React.Dispatch<React.SetStateAction<TClient>>,
-    update: boolean,
-    setUpdate: React.Dispatch<React.SetStateAction<boolean>>
+    setUpdate: React.Dispatch<React.SetStateAction<boolean>>,
+    update: boolean
   ) => {
     try {
       const clientRef = doc(db, "clients", `${params.id}`);
@@ -196,5 +196,29 @@ export const addClient = async (
         console.error(error.message);
       }
       console.error(error);
+    }
+  };
+
+  //  Update document in the "projects" collection //
+  //  Usage: src/component/UpdateProject.tsx  //
+  export const updateProject = async (
+    params: Readonly<Params<string>>,
+    updatedProject: TProject,
+    setProject: React.Dispatch<React.SetStateAction<TProject>>,
+    setUpdate: React.Dispatch<React.SetStateAction<boolean>>,
+    update: boolean,
+  ) => {
+    try {
+      const projectRef = doc(db, "projects", `${params.id}`);
+      await updateDoc(projectRef, updatedProject);
+      console.log("updated project");
+    } catch (error: unknown) {
+      if (error instanceof FirebaseError) {
+        console.error(error.message);
+      }
+      console.log(error);
+    } finally {
+      getProject(params, setProject);
+      setUpdate(!update);
     }
   };

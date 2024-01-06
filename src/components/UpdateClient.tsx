@@ -7,16 +7,16 @@ interface IUpdateClientProps {
   params: Readonly<Params<string>>;
   client: TClient;
   setClient: React.Dispatch<React.SetStateAction<TClient>>;
-  update: boolean
   setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+  update: boolean;
 }
 
 export const UpdateClient: React.FC<IUpdateClientProps> = ({
   params,
   client,
   setClient,
-  update,
   setUpdate,
+  update,
 }) => {
   const [updatedClient, setUpdatedClient] = useState<TClient>({
     name: client.name,
@@ -25,7 +25,7 @@ export const UpdateClient: React.FC<IUpdateClientProps> = ({
     address: client.address,
   });
 
-  const handleUpdateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUpdateClientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setUpdatedClient((prevClient) => ({
       ...prevClient,
@@ -40,7 +40,7 @@ export const UpdateClient: React.FC<IUpdateClientProps> = ({
         type="text"
         id="name"
         className="border border-black"
-        onChange={handleUpdateChange}
+        onChange={handleUpdateClientChange}
         value={updatedClient.name}
       />
       <label htmlFor="phone">Name:</label>
@@ -48,7 +48,7 @@ export const UpdateClient: React.FC<IUpdateClientProps> = ({
         type="text"
         id="phone"
         className="border border-black"
-        onChange={handleUpdateChange}
+        onChange={handleUpdateClientChange}
         value={updatedClient.phone}
       />
       <label htmlFor="email">Name:</label>
@@ -56,7 +56,7 @@ export const UpdateClient: React.FC<IUpdateClientProps> = ({
         type="text"
         id="email"
         className="border border-black"
-        onChange={handleUpdateChange}
+        onChange={handleUpdateClientChange}
         value={updatedClient.email}
       />
       <label htmlFor="address">Name:</label>
@@ -64,13 +64,13 @@ export const UpdateClient: React.FC<IUpdateClientProps> = ({
         type="text"
         id="address"
         className="border border-black"
-        onChange={handleUpdateChange}
+        onChange={handleUpdateClientChange}
         value={updatedClient.address}
       />
-      <button onClick={() => console.log(updatedClient)}>Check Update</button>
+      <button onClick={() => console.log(updatedClient)}>Check</button>
       <button
         onClick={() =>
-          updateClient(params, updatedClient, setClient, update, setUpdate)
+          updateClient(params, updatedClient, setClient, setUpdate, update)
         }
       >
         Update Client In Firebase

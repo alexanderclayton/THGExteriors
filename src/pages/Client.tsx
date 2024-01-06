@@ -91,8 +91,8 @@ export const Client = () => {
           params={params}
           client={client}
           setClient={setClient}
-          update={update}
           setUpdate={setUpdate}
+          update={update}
         />
       )}
     </div>
