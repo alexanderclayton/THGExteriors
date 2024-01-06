@@ -2,7 +2,12 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { TClient, TProject } from "../types";
-import { getClient, getClientProjects, addProject } from "../services";
+import {
+  getClient,
+  getClientProjects,
+  addProject,
+  deleteClient,
+} from "../services";
 import { UpdateClient } from "../components/UpdateClient";
 
 export const Client = () => {
@@ -95,6 +100,9 @@ export const Client = () => {
           update={update}
         />
       )}
+      <button onClick={() => deleteClient(params, navigate)}>
+        Delete Client
+      </button>
     </div>
   );
 };
