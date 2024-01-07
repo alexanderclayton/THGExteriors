@@ -1,7 +1,7 @@
 //import//
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { TProject, TClient } from "../types";
+import { TProject } from "../types";
 import { getProject, deleteProject } from "../services";
 import { UpdateProject } from "../components/UpdateProject";
 import { FirebaseError } from "firebase/app";
