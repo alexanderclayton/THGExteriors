@@ -4,6 +4,7 @@ export type TClient = {
     phone: string
     email: string
     address: string
+    imageUrl?: string
   };
 
 export type TProject = {
@@ -12,4 +13,5 @@ export type TProject = {
     projectName: string
     projectDate: string
     paid: boolean
+    imageUrl?: string
   };

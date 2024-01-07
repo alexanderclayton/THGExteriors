@@ -23,6 +23,7 @@ export const UpdateClient: React.FC<IUpdateClientProps> = ({
     phone: client.phone,
     email: client.email,
     address: client.address,
+    imageUrl: client.imageUrl,
   });
 
   const handleUpdateClientChange = (e: React.ChangeEvent<HTMLInputElement>) => {

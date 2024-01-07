@@ -18,6 +18,7 @@ export const addClient = async (
         phone: client.phone,
         email: client.email,
         address: client.address,
+        imageUrl: client.imageUrl,
       });
       console.log("client added", client.name);
       setClient({ name: "", phone: "", email: "", address: "" });
@@ -62,7 +63,8 @@ export const addClient = async (
         name: doc.data().name,
         phone: doc.data().phone,
         email: doc.data().email,
-        address: doc.data().address
+        address: doc.data().address,
+        imageUrl: doc.data().imageUrl,
       })) as TClient[];
       setAllClients(docs);
     } catch (error: unknown) {
@@ -110,6 +112,7 @@ export const addClient = async (
         phone: deleteField(),
         email: deleteField(),
         address: deleteField(),
+        imageUrl: deleteField(),
       });
       await deleteDoc(doc(db, "clients", `${params.id}`));
       console.log("client deleted");
@@ -136,6 +139,7 @@ export const addClient = async (
         projectName: project.projectName,
         projectDate: project.projectDate,
         paid: project.paid,
+        imageUrl: project.imageUrl,
       });
       console.log("project added", project.projectName);
       setProject({
@@ -143,6 +147,7 @@ export const addClient = async (
         projectName: "",
         projectDate: "",
         paid: false,
+        imageUrl: "",
       });
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
@@ -186,6 +191,7 @@ export const addClient = async (
         projectName: doc.data().projectName,
         projectDate: doc.data().projectDate,
         paid: doc.data().paid,
+        imageUrl: doc.data().imageUrl,
       })) as TProject[];
       setAllProjects(docs);
     } catch (error: unknown) {
@@ -214,6 +220,7 @@ export const addClient = async (
         projectName: doc.data().projectName,
         projectDate: doc.data().projectDate,
         paid: doc.data().paid,
+        imageUrl: doc.data().imageUrl,
       })) as TProject[];
       setClientProjects(docs);
     } catch (error: unknown) {
@@ -261,6 +268,7 @@ export const addClient = async (
         projectName: deleteField(),
         projectDate: deleteField(),
         paid: deleteField(),
+        imageUrl: deleteField(),
       });
       await deleteDoc(doc(db, "projects", `${params.id}`));
       console.log("project deleted");
