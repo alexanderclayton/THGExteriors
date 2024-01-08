@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { TClient } from "../types";
 import { Params } from "react-router";
-import { updateClient } from "../services";
+import { updateDocument } from "../services";
 import { ClientForm } from "./ClientForm";
 
 interface IUpdateClientProps {
@@ -15,7 +15,7 @@ interface IUpdateClientProps {
 export const UpdateClient: React.FC<IUpdateClientProps> = ({
   params,
   client,
-  // setClient,
+  setClient,
   setUpdate,
   update,
 }) => {
@@ -29,7 +29,14 @@ export const UpdateClient: React.FC<IUpdateClientProps> = ({
 
   const formSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    updateClient(params, updatedClient, setUpdate, update);
+    updateDocument(
+      "clients",
+      params,
+      updatedClient,
+      setClient,
+      setUpdate,
+      update,
+    );
   };
 
   return (

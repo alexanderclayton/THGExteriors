@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { TProject } from "../types";
 import { Params } from "react-router-dom";
-import { updateProject } from "../services";
+import { updateDocument } from "../services";
 
 interface IUpdateProjectProps {
   params: Readonly<Params<string>>;
@@ -14,7 +14,7 @@ interface IUpdateProjectProps {
 export const UpdateProject: React.FC<IUpdateProjectProps> = ({
   params,
   project,
-  // setProject,
+  setProject,
   setUpdate,
   update,
 }) => {
@@ -54,7 +54,16 @@ export const UpdateProject: React.FC<IUpdateProjectProps> = ({
       />
       <button onClick={() => console.log(updatedProject)}>Check</button>
       <button
-        onClick={() => updateProject(params, updatedProject, setUpdate, update)}
+        onClick={() =>
+          updateDocument(
+            "projects",
+            params,
+            updatedProject,
+            setProject,
+            setUpdate,
+            update,
+          )
+        }
       >
         Update Project in Firebase
       </button>
