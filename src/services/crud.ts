@@ -1,6 +1,6 @@
 import { FirebaseError } from "firebase/app";
 import { db, storage } from "../firebase/firebaseConfig";
-import { collection, doc, addDoc, getDoc, getDocs, updateDoc, deleteField, deleteDoc, query, where, QueryDocumentSnapshot, DocumentData } from "firebase/firestore";
+import { collection, doc, addDoc, getDoc, getDocs, updateDoc, deleteField, deleteDoc, query, where, QueryDocumentSnapshot, DocumentData, FieldValue } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { TClient, TProject } from "../types";
 import { NavigateFunction, Params } from "react-router-dom";
@@ -94,22 +94,19 @@ export const addDocument = async (
 
   //  Delete document and subcollections from "clients" collection  //
   //  Usage: src/pages/Client.tsx  //
-  export const deleteClient = async (
+  export const deleteDocument = async (
+    collectionName: string,
     params: Readonly<Params<string>>,
-    navigate: NavigateFunction
+    deleteFieldsFunction: (deleteField: FieldValue) => Record<string, FieldValue>,
+    navigate: NavigateFunction,
+    navigateUrl: string
   ) => {
     try {
-      const clientRef = doc(db, "clients", `${params.id}`);
-      await updateDoc(clientRef, {
-        name: deleteField(),
-        phone: deleteField(),
-        email: deleteField(),
-        address: deleteField(),
-        imageUrl: deleteField(),
-      });
-      await deleteDoc(doc(db, "clients", `${params.id}`));
-      console.log("client deleted");
-      navigate("/allclients");
+      const clientRef = doc(db, `${collectionName}`, `${params.id}`);
+      await updateDoc(clientRef, deleteFieldsFunction(deleteField()));
+      await deleteDoc(doc(db, `${collectionName}`, `${params.id}`));
+      console.log(`${collectionName} doc deleted`);
+      navigate(`${navigateUrl}`)
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         console.error(error.message);
@@ -251,29 +248,29 @@ export const addDocument = async (
 
   //  Delete document and subcollections from "projects" collection  //
   //  Usage:  src/pages/Project.tsx  //
-  export const deleteProject = async (
-    params: Readonly<Params<string>>,
-    navigate: NavigateFunction
-  ) => {
-    try {
-      const projectRef = doc(db, "projects", `${params.id}`);
-      await updateDoc(projectRef, {
-        clientId: deleteField(),
-        projectName: deleteField(),
-        projectDate: deleteField(),
-        paid: deleteField(),
-        imageUrl: deleteField(),
-      });
-      await deleteDoc(doc(db, "projects", `${params.id}`));
-      console.log("project deleted");
-      navigate("/allprojects");
-    } catch (error: unknown) {
-      if (error instanceof FirebaseError) {
-        console.error(error.message);
-      }
-      console.error(error);
-    }
-  };
+  // export const deleteProject = async (
+  //   params: Readonly<Params<string>>,
+  //   navigate: NavigateFunction
+  // ) => {
+  //   try {
+  //     const projectRef = doc(db, "projects", `${params.id}`);
+  //     await updateDoc(projectRef, {
+  //       clientId: deleteField(),
+  //       projectName: deleteField(),
+  //       projectDate: deleteField(),
+  //       paid: deleteField(),
+  //       imageUrl: deleteField(),
+  //     });
+  //     await deleteDoc(doc(db, "projects", `${params.id}`));
+  //     console.log("project deleted");
+  //     navigate("/allprojects");
+  //   } catch (error: unknown) {
+  //     if (error instanceof FirebaseError) {
+  //       console.error(error.message);
+  //     }
+  //     console.error(error);
+  //   }
+  // };
 
   //  Update doc in collection to include imageUrl field  //
   //  Usage src/pages/Project.tsx  //
