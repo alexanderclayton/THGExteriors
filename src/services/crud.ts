@@ -1,6 +1,6 @@
 import { FirebaseError } from "firebase/app";
 import { db, storage } from "../firebase/firebaseConfig";
-import { collection, doc, addDoc, getDoc, getDocs, updateDoc, deleteField, deleteDoc, query, where } from "firebase/firestore";
+import { collection, doc, addDoc, getDoc, getDocs, updateDoc, deleteField, deleteDoc, query, where, QueryDocumentSnapshot, DocumentData } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { TClient, TProject } from "../types";
 import { NavigateFunction, Params } from "react-router-dom";
@@ -30,13 +30,14 @@ export const addDocument = async (
 
   //  Get individual document from Firebase  //
   //  Usage: src/pages/Client.tsx //
+  //  Usage: src/pages/Project.tsx  //
   export const getDocument = async<T>(
-    collection: string,
+    collectionName: string,
     params: Readonly<Params<string>>,
     setData: (data: T) => void,
     ) => {
     try {
-      const docSnap = await getDoc(doc(db, `${collection}`, `${params.id}`));
+      const docSnap = await getDoc(doc(db, `${collectionName}`, `${params.id}`));
       if (docSnap.exists()) {
         setData(docSnap.data() as T);
       }
@@ -50,20 +51,15 @@ export const addDocument = async (
 
   //  Get all documents from the "clients" collection in Firebase  //
   //  Usage: src/pages/AllClients.tsx //
-  export const getClients = async (
-    setAllClients: React.Dispatch<React.SetStateAction<TClient[]>>
+  export const getDocuments = async<T>(
+    collectionName: string,
+    mapFunction: (doc: QueryDocumentSnapshot<DocumentData>) => T,
+    setData: (data: T[]) => void,
   ) => {
     try {
-      const querySnapshot = await getDocs(collection(db, "clients"));
-      let docs = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        name: doc.data().name,
-        phone: doc.data().phone,
-        email: doc.data().email,
-        address: doc.data().address,
-        imageUrl: doc.data().imageUrl,
-      })) as TClient[];
-      setAllClients(docs);
+      const querySnapshot = await getDocs(collection(db, `${collectionName}`));
+      let docs = querySnapshot.docs.map(mapFunction);
+      setData(docs);
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         console.error(error.message);
@@ -177,27 +173,28 @@ export const addDocument = async (
 
   //  Get all documents from the "projects" collection in Firebase  //
   //  Usage: src/pages/AllProjects.tsx  //
-  export const getProjects = async (
-    setAllProjects: React.Dispatch<React.SetStateAction<TProject[]>>
-  ) => {
-    try {
-      const querySnapshot = await getDocs(collection(db, "projects"));
-      let docs = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        clientId: doc.data().clientId,
-        projectName: doc.data().projectName,
-        projectDate: doc.data().projectDate,
-        paid: doc.data().paid,
-        imageUrl: doc.data().imageUrl,
-      })) as TProject[];
-      setAllProjects(docs);
-    } catch (error: unknown) {
-      if (error instanceof FirebaseError) {
-        console.error(error.message);
-      }
-      console.error(error);
-    }
-  };
+  // export const getProjects = async<T>(
+  //   collectionName: string,
+  //   setData: (data: T) => void
+  // ) => {
+  //   try {
+  //     const querySnapshot = await getDocs(collection(db, `${collectionName}`));
+  //     let docs = querySnapshot.docs.map((doc) => ({
+  //       id: doc.id,
+  //       clientId: doc.data().clientId,
+  //       projectName: doc.data().projectName,
+  //       projectDate: doc.data().projectDate,
+  //       paid: doc.data().paid,
+  //       imageUrl: doc.data().imageUrl,
+  //     })) as TProject[];
+  //     setData(docs as T);
+  //   } catch (error: unknown) {
+  //     if (error instanceof FirebaseError) {
+  //       console.error(error.message);
+  //     }
+  //     console.error(error);
+  //   }
+  // };
 
   //  Get all documents in the "projects" collection associated with a particular clientId  //
   //  Usage: src/pages/Client.tsx  //

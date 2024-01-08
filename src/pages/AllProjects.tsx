@@ -1,16 +1,30 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { TProject } from "../types";
-import { getProjects } from "../services";
+import { getDocuments } from "../services";
+import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 
 export const AllProjects = () => {
   const navigate = useNavigate();
   const [allProjects, setAllProjects] = useState<TProject[]>([]);
 
-  
+  const mapProjectDocument = (
+    doc: QueryDocumentSnapshot<DocumentData>,
+  ): TProject => ({
+    id: doc.id,
+    clientId: doc.data().clientId,
+    projectName: doc.data().projectName,
+    projectDate: doc.data().projectDate,
+    paid: doc.data().paid,
+    imageUrl: doc.data().imageUrl,
+  });
+
+  const setAllProjectsDocs = (data: TProject[]) => {
+    setAllProjects(data);
+  };
 
   useEffect(() => {
-    getProjects(setAllProjects);
+    getDocuments("projects", mapProjectDocument, setAllProjectsDocs);
   }, []);
 
   return (

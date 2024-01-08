@@ -2,8 +2,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { TClient } from "../types";
-import { getClients, addDocument } from "../services";
+import { getDocuments, addDocument } from "../services";
 import { ClientForm } from "../components/ClientForm";
+import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 
 export const AllClients = () => {
   const navigate = useNavigate();
@@ -16,8 +17,23 @@ export const AllClients = () => {
   });
   const [allClients, setAllClients] = useState<TClient[]>([]);
 
+  const mapClientDocument = (
+    doc: QueryDocumentSnapshot<DocumentData>,
+  ): TClient => ({
+    id: doc.id,
+    name: doc.data().name,
+    phone: doc.data().phone,
+    email: doc.data().email,
+    address: doc.data().address,
+    imageUrl: doc.data().imageUrl,
+  });
+
+  const setAllClientsDocs = (data: TClient[]) => {
+    setAllClients(data);
+  };
+
   useEffect(() => {
-    getClients(setAllClients);
+    getDocuments("clients", mapClientDocument, setAllClientsDocs);
   }, []);
 
   const resetClients = () => {
@@ -36,7 +52,12 @@ export const AllClients = () => {
       "clients",
       client,
       () => resetClients,
-      () => getClients(setAllClients),
+      () =>
+        getDocuments(
+          "clients",
+          mapClientDocument,
+          setAllClientsDocs
+        ),
     );
   };
 
@@ -49,6 +70,7 @@ export const AllClients = () => {
         client={client}
         submit="Add Client"
       />
+      <button onClick={() => console.log(allClients)}>All Clients</button>
       <div>
         {allClients.map((client) => (
           <div
