@@ -6,31 +6,26 @@ import { TClient, TProject } from "../types";
 import { NavigateFunction, Params } from "react-router-dom";
 
 
-//  Add document to the "clients" collection in Firebase  //
+//  Add document to Firebase  //
 //  Usage: src/pages/AllClients.tsx  //
-export const addClient = async ( 
-    client: TClient, 
-    setClient: React.Dispatch<React.SetStateAction<TClient>>,
-    getClients: () => Promise<void>
+//  Usage: src/pages/Client.tsx  //
+export const addDocument = async ( 
+    collectionName: string,
+    data: TClient | TProject,
+    reset: () => void,
+    callback: () => Promise<void>
     ) => {
     try {
-      await addDoc(collection(db, "clients"), {
-        name: client.name,
-        phone: client.phone,
-        email: client.email,
-        address: client.address,
-        imageUrl: client.imageUrl,
-      });
-      console.log("client added", client.name);
-      setClient({ name: "", phone: 0, email: "", address: "" });
+      await addDoc(collection(db, `${collectionName}`), data);
+      console.log("document added", data.id);
+      reset();
+      callback()
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         console.error(error.message);
       }
       console.error("error adding document", error);
-    } finally {
-      getClients();
-    }
+    } 
   };
 
   //  Get individual document from the "clients" collection in Firebase  //
@@ -128,37 +123,37 @@ export const addClient = async (
 
   //  Add document to the "projects" collection in Firebase with clientId property  //
   //  Usage: src/pages/Client.tsx //
-  export const addProject = async (
-    project: TProject,
-    setProject: React.Dispatch<React.SetStateAction<TProject>>,
-    params: Readonly<Params<string>>,
-    getClientProjects: () => Promise<void>
-  ) => {
-    try {
-      await addDoc(collection(db, "projects"), {
-        clientId: project.clientId,
-        projectName: project.projectName,
-        projectDate: project.projectDate,
-        paid: project.paid,
-        imageUrl: project.imageUrl,
-      });
-      console.log("project added", project.projectName);
-      setProject({
-        clientId: params.id as string,
-        projectName: "",
-        projectDate: "",
-        paid: false,
-        imageUrl: "",
-      });
-    } catch (error: unknown) {
-      if (error instanceof FirebaseError) {
-        console.error(error.message);
-      }
-      console.error(error);
-    } finally {
-      getClientProjects();
-    }
-  };
+  // export const addProject = async (
+  //   project: TProject,
+  //   setProject: React.Dispatch<React.SetStateAction<TProject>>,
+  //   params: Readonly<Params<string>>,
+  //   getClientProjects: () => Promise<void>
+  // ) => {
+  //   try {
+  //     await addDoc(collection(db, "projects"), {
+  //       clientId: project.clientId,
+  //       projectName: project.projectName,
+  //       projectDate: project.projectDate,
+  //       paid: project.paid,
+  //       imageUrl: project.imageUrl,
+  //     });
+  //     console.log("project added", project.projectName);
+  //     setProject({
+  //       clientId: params.id as string,
+  //       projectName: "",
+  //       projectDate: "",
+  //       paid: false,
+  //       imageUrl: "",
+  //     });
+  //   } catch (error: unknown) {
+  //     if (error instanceof FirebaseError) {
+  //       console.error(error.message);
+  //     }
+  //     console.error(error);
+  //   } finally {
+  //     getClientProjects();
+  //   }
+  // };
 
   //  Get individual document from the "projects" collection in Firebase  //
   //  Usage: src/pages/Project.tsx  //
