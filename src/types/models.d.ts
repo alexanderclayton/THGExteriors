@@ -1,7 +1,7 @@
 export type TClient = {
     id?: string
     name: string
-    phone: string
+    phone: number
     email: string
     address: string
     imageUrl?: string
