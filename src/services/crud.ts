@@ -70,26 +70,26 @@ export const addDocument = async (
 
   //  Update document in the "clients" collection  //
   //  Usage: src/components/UpdateClient.tsx  //
-  export const updateClient = async (
+  export const updateDocument = async<T>(
+    collectionName: string,
     params: Readonly<Params<string>>,
-    updatedClient: TClient,
-    // setClient: React.Dispatch<React.SetStateAction<TClient>>,
+    updatedDocument: TClient | TProject,
+    setClient: React.Dispatch<React.SetStateAction<T>>,
     setUpdate: React.Dispatch<React.SetStateAction<boolean>>,
     update: boolean
   ) => {
     try {
-      const clientRef = doc(db, "clients", `${params.id}`);
-      await updateDoc(clientRef, updatedClient);
-      console.log("updated client");
+      const clientRef = doc(db, `${collectionName}`, `${params.id}`);
+      await updateDoc(clientRef, updatedDocument);
+      console.log(`updated ${collectionName}`);
+      getDocument(collectionName, params, setClient)
+      setUpdate(!update)
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         console.error(error.message);
       }
       console.log(error);
-    } finally {
-      // getClient(params, setClient)
-      setUpdate(!update)
-    }
+    } 
   };
 
   //  Delete document and subcollections from "clients" collection  //
@@ -227,27 +227,27 @@ export const addDocument = async (
 
   //  Update document in the "projects" collection //
   //  Usage: src/component/UpdateProject.tsx  //
-  export const updateProject = async (
-    params: Readonly<Params<string>>,
-    updatedProject: TProject,
-    // setProject: React.Dispatch<React.SetStateAction<TProject>>,
-    setUpdate: React.Dispatch<React.SetStateAction<boolean>>,
-    update: boolean,
-  ) => {
-    try {
-      const projectRef = doc(db, "projects", `${params.id}`);
-      await updateDoc(projectRef, updatedProject);
-      console.log("updated project");
-    } catch (error: unknown) {
-      if (error instanceof FirebaseError) {
-        console.error(error.message);
-      }
-      console.log(error);
-    } finally {
-      // getProject(params, setProject);
-      setUpdate(!update);
-    }
-  };
+  // export const updateProject = async (
+  //   params: Readonly<Params<string>>,
+  //   updatedProject: TProject,
+  //   // setProject: React.Dispatch<React.SetStateAction<TProject>>,
+  //   setUpdate: React.Dispatch<React.SetStateAction<boolean>>,
+  //   update: boolean,
+  // ) => {
+  //   try {
+  //     const projectRef = doc(db, "projects", `${params.id}`);
+  //     await updateDoc(projectRef, updatedProject);
+  //     console.log("updated project");
+  //   } catch (error: unknown) {
+  //     if (error instanceof FirebaseError) {
+  //       console.error(error.message);
+  //     }
+  //     console.log(error);
+  //   } finally {
+  //     // getProject(params, setProject);
+  //     setUpdate(!update);
+  //   }
+  // };
 
   //  Delete document and subcollections from "projects" collection  //
   //  Usage:  src/pages/Project.tsx  //
