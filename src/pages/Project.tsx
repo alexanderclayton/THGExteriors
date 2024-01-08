@@ -2,11 +2,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { TProject } from "../types";
-import { getProject, deleteProject } from "../services";
+import { getProject, deleteProject, uploadImage } from "../services";
 import { UpdateProject } from "../components/UpdateProject";
-import { FirebaseError } from "firebase/app";
-import { storage } from "../firebase/firebaseConfig";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export const Project = () => {
   const params = useParams();
@@ -34,29 +31,11 @@ export const Project = () => {
     }
   };
 
-  const uploadImage = async () => {
-    if (image == null) return;
-    try {
-      const imageRef = ref(storage, `images/${image.name}`);
-      await uploadBytes(imageRef, image);
-      const downloadUrl = await getDownloadURL(imageRef);
-
-      setProject((prevState) => ({
-        ...prevState,
-        imageUrl: downloadUrl,
-      }));
-
-      console.log("image uploaded");
-    } catch (error: unknown) {
-      if (error instanceof FirebaseError) {
-        console.error(error.message);
-      }
-      console.log(error);
-    }
-  };
-
-  const showState = () => {
-    console.log("imageUrl", typeof project.imageUrl, project.imageUrl);
+  const setImageState = (url: string) => {
+    setProject((prevState) => ({
+      ...prevState,
+      imageUrl: url,
+    }));
   };
 
   return (
@@ -86,8 +65,16 @@ export const Project = () => {
       <button onClick={() => console.log("image", typeof image, image)}>
         Image
       </button>
-      <button onClick={uploadImage}>Upload Image to Storage</button>
-      <button onClick={showState}>State</button>
+      <button
+        onClick={() => uploadImage(image, setImageState, "projects", params)}
+      >
+        Upload Image to Storage
+      </button>
+      {project.imageUrl === undefined ? (
+        <p>No Project Image</p>
+      ) : (
+        <img src={project.imageUrl} alt="project exterior" />
+      )}
     </div>
   );
 };

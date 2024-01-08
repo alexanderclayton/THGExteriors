@@ -1,6 +1,7 @@
 import { FirebaseError } from "firebase/app";
-import { db } from "../firebase/firebaseConfig";
+import { db, storage } from "../firebase/firebaseConfig";
 import { collection, doc, addDoc, getDoc, getDocs, updateDoc, deleteField, deleteDoc, query, where } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { TClient, TProject } from "../types";
 import { NavigateFunction, Params } from "react-router-dom";
 
@@ -278,5 +279,31 @@ export const addClient = async (
         console.error(error.message);
       }
       console.error(error);
+    }
+  };
+
+  //  Update doc in collection to include imageUrl field  //
+  //  Usage src/pages/Project.tsx  //
+  export const uploadImage = async (
+    image: File | null,
+    setterFunction: (url: string) => void,
+    collection: string,
+    params: Readonly<Params<string>>,
+  ) => {
+    if (image == null) return;
+    try {
+      const imageRef = ref(storage, `images/${image.name}`);
+      await uploadBytes(imageRef, image);
+      const downloadUrl = await getDownloadURL(imageRef);
+      setterFunction(downloadUrl);
+      await updateDoc(doc(db, collection, `${params.id}`), {
+        imageUrl: downloadUrl,
+      });
+      console.log("image uploaded");
+    } catch (error: unknown) {
+      if (error instanceof FirebaseError) {
+        console.error(error.message);
+      }
+      console.log(error);
     }
   };
