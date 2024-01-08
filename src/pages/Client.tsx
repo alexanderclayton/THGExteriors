@@ -6,10 +6,11 @@ import {
   getDocument,
   getClientProjects,
   addDocument,
-  deleteClient,
+  deleteDocument,
   uploadImage,
 } from "../services";
 import { UpdateClient } from "../components/UpdateClient";
+import { FieldValue } from "firebase/firestore";
 
 export const Client = () => {
   const params = useParams();
@@ -74,6 +75,14 @@ export const Client = () => {
     });
   };
 
+  const deleteClientFields = (deleteField: FieldValue) => ({
+    name: deleteField,
+    phone: deleteField,
+    email: deleteField,
+    address: deleteField,
+    imageUrl: deleteField,
+  });
+
   return (
     <div>
       <div>
@@ -133,7 +142,17 @@ export const Client = () => {
           update={update}
         />
       )}
-      <button onClick={() => deleteClient(params, navigate)}>
+      <button
+        onClick={() =>
+          deleteDocument(
+            "clients",
+            params,
+            deleteClientFields,
+            navigate,
+            "/allclients",
+          )
+        }
+      >
         Delete Client
       </button>
       <label htmlFor="image">Upload Image:</label>

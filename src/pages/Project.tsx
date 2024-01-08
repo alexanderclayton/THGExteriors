@@ -2,8 +2,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { TProject } from "../types";
-import { getDocument, deleteProject, uploadImage } from "../services";
+import { getDocument, uploadImage, deleteDocument } from "../services";
 import { UpdateProject } from "../components/UpdateProject";
+import { FieldValue } from "firebase/firestore";
 
 export const Project = () => {
   const params = useParams();
@@ -42,6 +43,14 @@ export const Project = () => {
     }));
   };
 
+  const deleteProjectFields = (deleteFields: FieldValue) => ({
+    clientId: deleteFields,
+    projectName: deleteFields,
+    projectDate: deleteFields,
+    paid: deleteFields,
+    imageUrl: deleteFields,
+  });
+
   return (
     <div>
       <div>
@@ -58,7 +67,19 @@ export const Project = () => {
           update={update}
         />
       )}
-      <button onClick={() => deleteProject(params, navigate)}>Delete</button>
+      <button
+        onClick={() =>
+          deleteDocument(
+            "projects",
+            params,
+            deleteProjectFields,
+            navigate,
+            "/allprojects",
+          )
+        }
+      >
+        Delete
+      </button>
       <label htmlFor="image">Upload Image:</label>
       <input
         type="file"
