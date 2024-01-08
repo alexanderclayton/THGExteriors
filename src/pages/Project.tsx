@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { TProject } from "../types";
-import { getProject, deleteProject, uploadImage } from "../services";
+import { getDocument, deleteProject, uploadImage } from "../services";
 import { UpdateProject } from "../components/UpdateProject";
 
 export const Project = () => {
@@ -18,8 +18,12 @@ export const Project = () => {
 
   const [update, setUpdate] = useState<boolean>(false);
 
+  const setProjectData = (data: TProject) => {
+    setProject(data);
+  };
+
   useEffect(() => {
-    getProject(params, setProject);
+    getDocument("projects", params, setProjectData);
   }, []);
 
   const [image, setImage] = useState<File | null>(null);
