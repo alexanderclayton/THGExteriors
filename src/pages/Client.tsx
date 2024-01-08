@@ -7,6 +7,7 @@ import {
   getClientProjects,
   addProject,
   deleteClient,
+  uploadImage,
 } from "../services";
 import { UpdateClient } from "../components/UpdateClient";
 
@@ -30,11 +31,27 @@ export const Client = () => {
   });
   const [update, setUpdate] = useState<boolean>(false);
 
+  const [image, setImage] = useState<File | null>(null);
+
   const handleProjectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setProject((prevProject) => ({
       ...prevProject,
       [id]: value,
+    }));
+  };
+
+  const handleClientImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      setImage(files[0]);
+    }
+  };
+
+  const setClientImageState = (url: string) => {
+    setClient((prevClient) => ({
+      ...prevClient,
+      imageUrl: url,
     }));
   };
 
@@ -105,6 +122,25 @@ export const Client = () => {
       <button onClick={() => deleteClient(params, navigate)}>
         Delete Client
       </button>
+      <label htmlFor="image">Upload Image:</label>
+      <input
+        type="file"
+        id="image"
+        className="border border-black"
+        onChange={handleClientImageChange}
+      />
+      <button
+        onClick={() =>
+          uploadImage(image, setClientImageState, "clients", params)
+        }
+      >
+        Upload Image to Storage
+      </button>
+      {client.imageUrl === undefined ? (
+        <p>No Project Image</p>
+      ) : (
+        <img src={client.imageUrl} alt="client home exterior" />
+      )}
     </div>
   );
 };
