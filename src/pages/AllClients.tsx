@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { TClient } from "../types";
-import { getClients, addClient } from "../services";
+import { getClients, addDocument } from "../services";
 import { ClientForm } from "../components/ClientForm";
 
 export const AllClients = () => {
@@ -20,9 +20,24 @@ export const AllClients = () => {
     getClients(setAllClients);
   }, []);
 
+  const resetClients = () => {
+    setClient({
+      name: "",
+      phone: 0,
+      email: "",
+      address: "",
+      imageUrl: "",
+    });
+  };
+
   const formSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    addClient(client, setClient, () => getClients(setAllClients));
+    addDocument(
+      "clients",
+      client,
+      () => resetClients,
+      () => getClients(setAllClients),
+    );
   };
 
   return (

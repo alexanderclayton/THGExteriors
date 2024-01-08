@@ -5,7 +5,7 @@ import { TClient, TProject } from "../types";
 import {
   getClient,
   getClientProjects,
-  addProject,
+  addDocument,
   deleteClient,
   uploadImage,
 } from "../services";
@@ -60,6 +60,16 @@ export const Client = () => {
     getClientProjects(params, setClientProjects);
   }, []);
 
+  const resetProject = () => {
+    setProject({
+      clientId: params.id as string,
+      projectName: "",
+      projectDate: "",
+      paid: false,
+      imageUrl: "",
+    });
+  };
+
   return (
     <div>
       <div>
@@ -102,7 +112,7 @@ export const Client = () => {
       <button onClick={() => console.log(project)}>check</button>
       <button
         onClick={() =>
-          addProject(project, setProject, params, () =>
+          addDocument("projects", project, resetProject, () =>
             getClientProjects(params, setClientProjects),
           )
         }
