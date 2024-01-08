@@ -16,7 +16,7 @@ export const Client = () => {
   const navigate = useNavigate();
   const [client, setClient] = useState<TClient>({
     name: "",
-    phone: "",
+    phone: 0,
     email: "",
     address: "",
     imageUrl: "",

@@ -22,7 +22,7 @@ export const addClient = async (
         imageUrl: client.imageUrl,
       });
       console.log("client added", client.name);
-      setClient({ name: "", phone: "", email: "", address: "" });
+      setClient({ name: "", phone: 0, email: "", address: "" });
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         console.error(error.message);
