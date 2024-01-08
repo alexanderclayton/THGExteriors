@@ -15,7 +15,7 @@ interface IUpdateClientProps {
 export const UpdateClient: React.FC<IUpdateClientProps> = ({
   params,
   client,
-  setClient,
+  // setClient,
   setUpdate,
   update,
 }) => {
@@ -29,7 +29,7 @@ export const UpdateClient: React.FC<IUpdateClientProps> = ({
 
   const formSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    updateClient(params, updatedClient, setClient, setUpdate, update);
+    updateClient(params, updatedClient, setUpdate, update);
   };
 
   return (

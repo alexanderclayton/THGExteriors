@@ -14,7 +14,7 @@ interface IUpdateProjectProps {
 export const UpdateProject: React.FC<IUpdateProjectProps> = ({
   params,
   project,
-  setProject,
+  // setProject,
   setUpdate,
   update,
 }) => {
@@ -54,9 +54,7 @@ export const UpdateProject: React.FC<IUpdateProjectProps> = ({
       />
       <button onClick={() => console.log(updatedProject)}>Check</button>
       <button
-        onClick={() =>
-          updateProject(params, updatedProject, setProject, setUpdate, update)
-        }
+        onClick={() => updateProject(params, updatedProject, setUpdate, update)}
       >
         Update Project in Firebase
       </button>
