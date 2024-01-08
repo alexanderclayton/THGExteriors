@@ -2,6 +2,7 @@ import { useState } from "react";
 import { TClient } from "../types";
 import { Params } from "react-router";
 import { updateClient } from "../services";
+import { ClientForm } from "./ClientForm";
 
 interface IUpdateClientProps {
   params: Readonly<Params<string>>;
@@ -26,56 +27,20 @@ export const UpdateClient: React.FC<IUpdateClientProps> = ({
     imageUrl: client.imageUrl,
   });
 
-  const handleUpdateClientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    setUpdatedClient((prevClient) => ({
-      ...prevClient,
-      [id]: value,
-    }));
+  const formSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    updateClient(params, updatedClient, setClient, setUpdate, update);
   };
 
   return (
     <div>
-      <label htmlFor="name">Name:</label>
-      <input
-        type="text"
-        id="name"
-        className="border border-black"
-        onChange={handleUpdateClientChange}
-        value={updatedClient.name}
+      <ClientForm
+        legend="Update Client Information"
+        setState={setUpdatedClient}
+        formSubmit={formSubmit}
+        client={updatedClient}
+        submit="Update"
       />
-      <label htmlFor="phone">Name:</label>
-      <input
-        type="text"
-        id="phone"
-        className="border border-black"
-        onChange={handleUpdateClientChange}
-        value={updatedClient.phone}
-      />
-      <label htmlFor="email">Name:</label>
-      <input
-        type="text"
-        id="email"
-        className="border border-black"
-        onChange={handleUpdateClientChange}
-        value={updatedClient.email}
-      />
-      <label htmlFor="address">Name:</label>
-      <input
-        type="text"
-        id="address"
-        className="border border-black"
-        onChange={handleUpdateClientChange}
-        value={updatedClient.address}
-      />
-      <button onClick={() => console.log(updatedClient)}>Check</button>
-      <button
-        onClick={() =>
-          updateClient(params, updatedClient, setClient, setUpdate, update)
-        }
-      >
-        Update Client In Firebase
-      </button>
     </div>
   );
 };
