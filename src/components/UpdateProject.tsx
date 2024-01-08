@@ -23,6 +23,7 @@ export const UpdateProject: React.FC<IUpdateProjectProps> = ({
     projectName: project.projectName,
     projectDate: project.projectDate,
     paid: project.paid,
+    imageUrl: project.imageUrl,
   });
 
   const handleUpdateProjectChange = (

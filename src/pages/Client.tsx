@@ -18,6 +18,7 @@ export const Client = () => {
     phone: "",
     email: "",
     address: "",
+    imageUrl: "",
   });
   const [clientProjects, setClientProjects] = useState<TProject[]>([]);
   const [project, setProject] = useState<TProject>({
@@ -25,6 +26,7 @@ export const Client = () => {
     projectName: "",
     projectDate: "",
     paid: false,
+    imageUrl: "",
   });
   const [update, setUpdate] = useState<boolean>(false);
 

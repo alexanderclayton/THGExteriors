@@ -1,6 +1,7 @@
 import { FirebaseError } from "firebase/app";
-import { db } from "../firebase/firebaseConfig";
+import { db, storage } from "../firebase/firebaseConfig";
 import { collection, doc, addDoc, getDoc, getDocs, updateDoc, deleteField, deleteDoc, query, where } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { TClient, TProject } from "../types";
 import { NavigateFunction, Params } from "react-router-dom";
 
@@ -18,6 +19,7 @@ export const addClient = async (
         phone: client.phone,
         email: client.email,
         address: client.address,
+        imageUrl: client.imageUrl,
       });
       console.log("client added", client.name);
       setClient({ name: "", phone: "", email: "", address: "" });
@@ -62,7 +64,8 @@ export const addClient = async (
         name: doc.data().name,
         phone: doc.data().phone,
         email: doc.data().email,
-        address: doc.data().address
+        address: doc.data().address,
+        imageUrl: doc.data().imageUrl,
       })) as TClient[];
       setAllClients(docs);
     } catch (error: unknown) {
@@ -110,6 +113,7 @@ export const addClient = async (
         phone: deleteField(),
         email: deleteField(),
         address: deleteField(),
+        imageUrl: deleteField(),
       });
       await deleteDoc(doc(db, "clients", `${params.id}`));
       console.log("client deleted");
@@ -136,6 +140,7 @@ export const addClient = async (
         projectName: project.projectName,
         projectDate: project.projectDate,
         paid: project.paid,
+        imageUrl: project.imageUrl,
       });
       console.log("project added", project.projectName);
       setProject({
@@ -143,6 +148,7 @@ export const addClient = async (
         projectName: "",
         projectDate: "",
         paid: false,
+        imageUrl: "",
       });
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
@@ -186,6 +192,7 @@ export const addClient = async (
         projectName: doc.data().projectName,
         projectDate: doc.data().projectDate,
         paid: doc.data().paid,
+        imageUrl: doc.data().imageUrl,
       })) as TProject[];
       setAllProjects(docs);
     } catch (error: unknown) {
@@ -214,6 +221,7 @@ export const addClient = async (
         projectName: doc.data().projectName,
         projectDate: doc.data().projectDate,
         paid: doc.data().paid,
+        imageUrl: doc.data().imageUrl,
       })) as TProject[];
       setClientProjects(docs);
     } catch (error: unknown) {
@@ -261,6 +269,7 @@ export const addClient = async (
         projectName: deleteField(),
         projectDate: deleteField(),
         paid: deleteField(),
+        imageUrl: deleteField(),
       });
       await deleteDoc(doc(db, "projects", `${params.id}`));
       console.log("project deleted");
@@ -270,5 +279,31 @@ export const addClient = async (
         console.error(error.message);
       }
       console.error(error);
+    }
+  };
+
+  //  Update doc in collection to include imageUrl field  //
+  //  Usage src/pages/Project.tsx  //
+  export const uploadImage = async (
+    image: File | null,
+    setterFunction: (url: string) => void,
+    collection: string,
+    params: Readonly<Params<string>>,
+  ) => {
+    if (image == null) return;
+    try {
+      const imageRef = ref(storage, `images/${image.name}`);
+      await uploadBytes(imageRef, image);
+      const downloadUrl = await getDownloadURL(imageRef);
+      setterFunction(downloadUrl);
+      await updateDoc(doc(db, collection, `${params.id}`), {
+        imageUrl: downloadUrl,
+      });
+      console.log("image uploaded");
+    } catch (error: unknown) {
+      if (error instanceof FirebaseError) {
+        console.error(error.message);
+      }
+      console.log(error);
     }
   };

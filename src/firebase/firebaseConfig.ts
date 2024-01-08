@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 import { FirebaseApp } from "../types";
 
 const API_KEY = import.meta.env.VITE_API_KEY
@@ -20,6 +21,7 @@ const firebaseConfig: FirebaseApp = {
 
   const app = initializeApp(firebaseConfig);
   export const db = getFirestore(app)
+  export const storage = getStorage(app)
 
   console.log("app", app)
   console.log("db", db)
