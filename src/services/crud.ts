@@ -28,16 +28,17 @@ export const addDocument = async (
     } 
   };
 
-  //  Get individual document from the "clients" collection in Firebase  //
+  //  Get individual document from Firebase  //
   //  Usage: src/pages/Client.tsx //
-  export const getClient = async (
+  export const getDocument = async<T>(
+    collection: string,
     params: Readonly<Params<string>>,
-    setClient: React.Dispatch<React.SetStateAction<TClient>>
+    setData: (data: T) => void,
     ) => {
     try {
-      const docSnap = await getDoc(doc(db, "clients", `${params.id}`));
+      const docSnap = await getDoc(doc(db, `${collection}`, `${params.id}`));
       if (docSnap.exists()) {
-        setClient({ ...docSnap.data() } as TClient);
+        setData(docSnap.data() as T);
       }
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
@@ -76,7 +77,7 @@ export const addDocument = async (
   export const updateClient = async (
     params: Readonly<Params<string>>,
     updatedClient: TClient,
-    setClient: React.Dispatch<React.SetStateAction<TClient>>,
+    // setClient: React.Dispatch<React.SetStateAction<TClient>>,
     setUpdate: React.Dispatch<React.SetStateAction<boolean>>,
     update: boolean
   ) => {
@@ -90,7 +91,7 @@ export const addDocument = async (
       }
       console.log(error);
     } finally {
-      getClient(params, setClient)
+      // getClient(params, setClient)
       setUpdate(!update)
     }
   };
@@ -157,22 +158,22 @@ export const addDocument = async (
 
   //  Get individual document from the "projects" collection in Firebase  //
   //  Usage: src/pages/Project.tsx  //
-  export const getProject = async (
-    params: Readonly<Params<string>>,
-    setProject: React.Dispatch<React.SetStateAction<TProject>>
-  ) => {
-    try {
-      const docSnap = await getDoc(doc(db, "projects", `${params.id}`));
-      if (docSnap.exists()) {
-        setProject({ ...docSnap.data() } as TProject);
-      }
-    } catch (error: unknown) {
-      if (error instanceof FirebaseError) {
-        console.error(error.message);
-      }
-      console.error(error);
-    }
-  };
+  // export const getProject = async (
+  //   params: Readonly<Params<string>>,
+  //   setProject: React.Dispatch<React.SetStateAction<TProject>>
+  // ) => {
+  //   try {
+  //     const docSnap = await getDoc(doc(db, "projects", `${params.id}`));
+  //     if (docSnap.exists()) {
+  //       setProject({ ...docSnap.data() } as TProject);
+  //     }
+  //   } catch (error: unknown) {
+  //     if (error instanceof FirebaseError) {
+  //       console.error(error.message);
+  //     }
+  //     console.error(error);
+  //   }
+  // };
 
   //  Get all documents from the "projects" collection in Firebase  //
   //  Usage: src/pages/AllProjects.tsx  //
@@ -232,7 +233,7 @@ export const addDocument = async (
   export const updateProject = async (
     params: Readonly<Params<string>>,
     updatedProject: TProject,
-    setProject: React.Dispatch<React.SetStateAction<TProject>>,
+    // setProject: React.Dispatch<React.SetStateAction<TProject>>,
     setUpdate: React.Dispatch<React.SetStateAction<boolean>>,
     update: boolean,
   ) => {
@@ -246,7 +247,7 @@ export const addDocument = async (
       }
       console.log(error);
     } finally {
-      getProject(params, setProject);
+      // getProject(params, setProject);
       setUpdate(!update);
     }
   };

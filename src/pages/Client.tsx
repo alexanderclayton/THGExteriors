@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { TClient, TProject } from "../types";
 import {
-  getClient,
+  getDocument,
   getClientProjects,
   addDocument,
   deleteClient,
@@ -55,8 +55,12 @@ export const Client = () => {
     }));
   };
 
+  const setClientData = (data: TClient) => {
+    setClient(data);
+  };
+
   useEffect(() => {
-    getClient(params, setClient);
+    getDocument("clients", params, setClientData);
     getClientProjects(params, setClientProjects);
   }, []);
 
