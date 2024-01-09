@@ -1,16 +1,7 @@
 import { useState } from "react";
-import { TClient } from "../types";
-import { Params } from "react-router";
+import { TClient, IUpdateClientProps } from "../types";
 import { updateDocument } from "../services";
 import { ClientForm } from "./ClientForm";
-
-interface IUpdateClientProps {
-  params: Readonly<Params<string>>;
-  client: TClient;
-  setClient: React.Dispatch<React.SetStateAction<TClient>>;
-  setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
-  update: boolean;
-}
 
 export const UpdateClient: React.FC<IUpdateClientProps> = ({
   params,

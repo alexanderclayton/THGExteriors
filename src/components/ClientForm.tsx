@@ -1,14 +1,5 @@
 //import//
-
-import { TClient } from "../types";
-
-interface IClientFormProps {
-  legend: string;
-  setState: React.Dispatch<React.SetStateAction<TClient>>;
-  formSubmit: (e: React.FormEvent) => void
-  client: TClient;
-  submit: string;
-}
+import { IClientFormProps } from "../types";
 
 export const ClientForm: React.FC<IClientFormProps> = ({
   legend,

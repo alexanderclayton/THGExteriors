@@ -1,15 +1,6 @@
 import { useState } from "react";
-import { TProject } from "../types";
-import { Params } from "react-router-dom";
+import { TProject, IUpdateProjectProps } from "../types";
 import { updateDocument } from "../services";
-
-interface IUpdateProjectProps {
-  params: Readonly<Params<string>>;
-  project: TProject;
-  setProject: React.Dispatch<React.SetStateAction<TProject>>;
-  setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
-  update: boolean;
-}
 
 export const UpdateProject: React.FC<IUpdateProjectProps> = ({
   params,

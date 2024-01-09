@@ -51,6 +51,7 @@ export const addDocument = async (
 
   //  Get all documents from the "clients" collection in Firebase  //
   //  Usage: src/pages/AllClients.tsx //
+  //  Usage: src/pages/AllProjects.tsx  //
   export const getDocuments = async<T>(
     collectionName: string,
     mapFunction: (doc: QueryDocumentSnapshot<DocumentData>) => T,
@@ -68,8 +69,34 @@ export const addDocument = async (
     }
   };
 
+  //  Get specific documents from firebase matching query criteria  //
+  //  Usage: src/pages/Client.tsx  //
+  export const queryDocuments = async<T>(
+    collectionName: string,
+    fieldName: string,
+    params: Readonly<Params<string>>,
+    mapFunction: (doc: QueryDocumentSnapshot<DocumentData>) => T,
+    setData: (data: T[]) => void
+  ) => {
+    try {
+      const q = query(
+        collection(db, `${collectionName}`),
+        where(`${fieldName}`, "==", params.id)
+      )
+      const querySnapshot = await getDocs(q)
+      let docs = querySnapshot.docs.map(mapFunction)
+      setData(docs)
+    } catch (error: unknown) {
+      if (error instanceof FirebaseError) {
+        console.error(error.message)
+      }
+      console.error(error)
+    }
+  }
+
   //  Update document in the "clients" collection  //
   //  Usage: src/components/UpdateClient.tsx  //
+  //  Usage: src/components/UpdateProject.tsx  //
   export const updateDocument = async<T>(
     collectionName: string,
     params: Readonly<Params<string>>,
@@ -94,6 +121,7 @@ export const addDocument = async (
 
   //  Delete document and subcollections from "clients" collection  //
   //  Usage: src/pages/Client.tsx  //
+  //  Usage: src/pages/Project.tsx  //
   export const deleteDocument = async (
     collectionName: string,
     params: Readonly<Params<string>>,
@@ -195,32 +223,32 @@ export const addDocument = async (
 
   //  Get all documents in the "projects" collection associated with a particular clientId  //
   //  Usage: src/pages/Client.tsx  //
-  export const getClientProjects = async (
-    params: Readonly<Params<string>>,
-    setClientProjects: React.Dispatch<React.SetStateAction<TProject[]>>
-  ) => {
-    try {
-      const q = query(
-        collection(db, "projects"),
-        where("clientId", "==", params.id),
-      );
-      const querySnapshot = await getDocs(q);
-      let docs = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        clientId: doc.data().clientId,
-        projectName: doc.data().projectName,
-        projectDate: doc.data().projectDate,
-        paid: doc.data().paid,
-        imageUrl: doc.data().imageUrl,
-      })) as TProject[];
-      setClientProjects(docs);
-    } catch (error: unknown) {
-      if (error instanceof FirebaseError) {
-        console.error(error.message);
-      }
-      console.error(error);
-    }
-  };
+  // export const getClientProjects = async (
+  //   params: Readonly<Params<string>>,
+  //   setClientProjects: React.Dispatch<React.SetStateAction<TProject[]>>
+  // ) => {
+  //   try {
+  //     const q = query(
+  //       collection(db, "projects"),
+  //       where("clientId", "==", params.id),
+  //     );
+  //     const querySnapshot = await getDocs(q);
+  //     let docs = querySnapshot.docs.map((doc) => ({
+  //       id: doc.id,
+  //       clientId: doc.data().clientId,
+  //       projectName: doc.data().projectName,
+  //       projectDate: doc.data().projectDate,
+  //       paid: doc.data().paid,
+  //       imageUrl: doc.data().imageUrl,
+  //     })) as TProject[];
+  //     setClientProjects(docs);
+  //   } catch (error: unknown) {
+  //     if (error instanceof FirebaseError) {
+  //       console.error(error.message);
+  //     }
+  //     console.error(error);
+  //   }
+  // };
 
   //  Update document in the "projects" collection //
   //  Usage: src/component/UpdateProject.tsx  //

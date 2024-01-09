@@ -2,9 +2,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { TProject } from "../types";
-import { getDocument, uploadImage, deleteDocument } from "../services";
+import { getDocument, uploadImage, deleteDocument, deleteProjectFields } from "../services";
 import { UpdateProject } from "../components/UpdateProject";
-import { FieldValue } from "firebase/firestore";
 
 export const Project = () => {
   const params = useParams();
@@ -42,14 +41,6 @@ export const Project = () => {
       imageUrl: url,
     }));
   };
-
-  const deleteProjectFields = (deleteFields: FieldValue) => ({
-    clientId: deleteFields,
-    projectName: deleteFields,
-    projectDate: deleteFields,
-    paid: deleteFields,
-    imageUrl: deleteFields,
-  });
 
   return (
     <div>

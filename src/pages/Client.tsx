@@ -4,13 +4,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import { TClient, TProject } from "../types";
 import {
   getDocument,
-  getClientProjects,
   addDocument,
   deleteDocument,
   uploadImage,
+  deleteClientFields,
+  queryDocuments,
+  mapProjectDocument,
 } from "../services";
 import { UpdateClient } from "../components/UpdateClient";
-import { FieldValue } from "firebase/firestore";
 
 export const Client = () => {
   const params = useParams();
@@ -60,9 +61,19 @@ export const Client = () => {
     setClient(data);
   };
 
+  const setClientProjectsDocs = (data: TProject[]) => {
+    setClientProjects(data);
+  };
+
   useEffect(() => {
     getDocument("clients", params, setClientData);
-    getClientProjects(params, setClientProjects);
+    queryDocuments(
+      "projects",
+      "clientId",
+      params,
+      mapProjectDocument,
+      setClientProjectsDocs,
+    );
   }, []);
 
   const resetProject = () => {
@@ -74,14 +85,6 @@ export const Client = () => {
       imageUrl: "",
     });
   };
-
-  const deleteClientFields = (deleteField: FieldValue) => ({
-    name: deleteField,
-    phone: deleteField,
-    email: deleteField,
-    address: deleteField,
-    imageUrl: deleteField,
-  });
 
   return (
     <div>
@@ -126,7 +129,13 @@ export const Client = () => {
       <button
         onClick={() =>
           addDocument("projects", project, resetProject, () =>
-            getClientProjects(params, setClientProjects),
+            queryDocuments(
+              "projects",
+              "clientId",
+              params,
+              mapProjectDocument,
+              setClientProjectsDocs,
+            ),
           )
         }
       >
