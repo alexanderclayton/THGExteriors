@@ -37,16 +37,11 @@ export const AllClients = () => {
 
   const formSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    addDocument(
+    addDocument<TClient>(
       "clients",
       client,
       () => resetClients,
-      () =>
-        getDocuments(
-          "clients",
-          mapClientDocument,
-          setAllClientsDocs
-        ),
+      () => getDocuments("clients", mapClientDocument, setAllClientsDocs),
     );
   };
 
@@ -77,7 +72,7 @@ export const AllClients = () => {
             </p>
             <p>
               <span className="font-bold">phone: </span>
-              {client.phone}
+              {client.phone.toString()}
             </p>
             <p>
               <span className="font-bold">address: </span>
