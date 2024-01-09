@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { TClient } from "../types";
 import { getDocuments, addDocument } from "../services";
 import { ClientForm } from "../components/ClientForm";
-import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
+import { mapClientDocument } from "../services";
 
 export const AllClients = () => {
   const navigate = useNavigate();
@@ -16,17 +16,6 @@ export const AllClients = () => {
     imageUrl: "",
   });
   const [allClients, setAllClients] = useState<TClient[]>([]);
-
-  const mapClientDocument = (
-    doc: QueryDocumentSnapshot<DocumentData>,
-  ): TClient => ({
-    id: doc.id,
-    name: doc.data().name,
-    phone: doc.data().phone,
-    email: doc.data().email,
-    address: doc.data().address,
-    imageUrl: doc.data().imageUrl,
-  });
 
   const setAllClientsDocs = (data: TClient[]) => {
     setAllClients(data);
