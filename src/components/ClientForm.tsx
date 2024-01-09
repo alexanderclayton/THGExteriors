@@ -40,7 +40,7 @@ export const ClientForm: React.FC<IClientFormProps> = ({
             name="phone"
             className="border border-black"
             onChange={handleChange}
-            value={client.phone}
+            value={client.phone.toString()}
           />
         </div>
         <div>

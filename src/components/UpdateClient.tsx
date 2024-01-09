@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { TClient, IUpdateClientProps } from "../types";
-import { updateDocument } from "../services";
+import { mapClientDocument, updateDocument } from "../services";
 import { ClientForm } from "./ClientForm";
 
 export const UpdateClient: React.FC<IUpdateClientProps> = ({
@@ -24,6 +24,7 @@ export const UpdateClient: React.FC<IUpdateClientProps> = ({
       "clients",
       params,
       updatedClient,
+      mapClientDocument,
       setClient,
       setUpdate,
       update,

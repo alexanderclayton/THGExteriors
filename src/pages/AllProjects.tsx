@@ -31,7 +31,7 @@ export const AllProjects = () => {
           </p>
           <p>
             <span className="font-bold">Project Date: </span>{" "}
-            {project.projectDate}
+            {project.projectDate.toDateString()}
           </p>
         </div>
       ))}

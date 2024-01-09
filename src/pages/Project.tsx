@@ -2,7 +2,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { TProject } from "../types";
-import { getDocument, uploadImage, deleteDocument, deleteProjectFields } from "../services";
+import {
+  getDocument,
+  uploadImage,
+  deleteDocument,
+  deleteProjectFields,
+  mapProjectDocument,
+} from "../services";
 import { UpdateProject } from "../components/UpdateProject";
 
 export const Project = () => {
@@ -11,7 +17,7 @@ export const Project = () => {
   const [project, setProject] = useState<TProject>({
     clientId: "",
     projectName: "",
-    projectDate: "",
+    projectDate: new Date(),
     paid: false,
     imageUrl: "",
   });
@@ -23,7 +29,7 @@ export const Project = () => {
   };
 
   useEffect(() => {
-    getDocument("projects", params, setProjectData);
+    getDocument("projects", params, mapProjectDocument, setProjectData);
   }, []);
 
   const [image, setImage] = useState<File | null>(null);
@@ -45,7 +51,7 @@ export const Project = () => {
   return (
     <div>
       <div>
-        <p>{project.projectDate}</p>
+        <p>{project.projectDate.toDateString()}</p>
         <p>{project.projectName}</p>
       </div>
       <button onClick={() => setUpdate(!update)}>Update</button>

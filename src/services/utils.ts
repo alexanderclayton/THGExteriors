@@ -17,14 +17,15 @@ export const mapClientDocument = (
 
 //  Maps a Firestore document snapshot to a TProject object  //
 //  Passed into crud function as an argument  //
-//  Usage:  src/pages/AllProjects.tsx  //
+//  Usage: src/pages/AllProjects.tsx  //
+//  Usage: src/pages/Client.tsx  //
 export const mapProjectDocument = (
     doc: QueryDocumentSnapshot<DocumentData>,
   ): TProject => ({
     id: doc.id,
     clientId: doc.data().clientId,
     projectName: doc.data().projectName,
-    projectDate: doc.data().projectDate,
+    projectDate: doc.data().projectDate.toDate(),
     paid: doc.data().paid,
     imageUrl: doc.data().imageUrl,
 });

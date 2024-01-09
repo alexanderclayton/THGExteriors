@@ -9,6 +9,7 @@ import {
   uploadImage,
   deleteClientFields,
   queryDocuments,
+  mapClientDocument,
   mapProjectDocument,
 } from "../services";
 import { UpdateClient } from "../components/UpdateClient";
@@ -27,7 +28,7 @@ export const Client = () => {
   const [project, setProject] = useState<TProject>({
     clientId: params.id as string,
     projectName: "",
-    projectDate: "",
+    projectDate: new Date(),
     paid: false,
     imageUrl: "",
   });
@@ -35,11 +36,20 @@ export const Client = () => {
 
   const [image, setImage] = useState<File | null>(null);
 
+  const handleDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedDate = new Date(e.target.value);
+    const adjustedDate = new Date(
+      selectedDate.getTime() + selectedDate.getTimezoneOffset() * 60000,
+    );
+    return adjustedDate;
+  };
+
   const handleProjectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
+    const { id, value, name } = e.target;
+    const newValue = name === "date" ? new Date(handleDate(e)) : value;
     setProject((prevProject) => ({
       ...prevProject,
-      [id]: value,
+      [id]: newValue,
     }));
   };
 
@@ -66,7 +76,7 @@ export const Client = () => {
   };
 
   useEffect(() => {
-    getDocument("clients", params, setClientData);
+    getDocument("clients", params, mapClientDocument, setClientData);
     queryDocuments(
       "projects",
       "clientId",
@@ -74,13 +84,14 @@ export const Client = () => {
       mapProjectDocument,
       setClientProjectsDocs,
     );
+    console.log(clientProjects);
   }, []);
 
   const resetProject = () => {
     setProject({
       clientId: params.id as string,
       projectName: "",
-      projectDate: "",
+      projectDate: new Date(),
       paid: false,
       imageUrl: "",
     });
@@ -90,7 +101,7 @@ export const Client = () => {
     <div>
       <div>
         <p>{client.name}</p>
-        <p>{client.phone}</p>
+        <p>{client.phone.toString()}</p>
         <p>{client.email}</p>
         <p>{client.address}</p>
         <div>
@@ -102,7 +113,7 @@ export const Client = () => {
               onClick={() => navigate(`/project/${project.id}`)}
             >
               <p>{project.projectName}</p>
-              <p>{project.projectDate}</p>
+              <p>{project.projectDate.toDateString()}</p>
               <p>{project.paid}</p>
               <p>{project.id}</p>
             </div>
@@ -119,13 +130,14 @@ export const Client = () => {
         />
         <label htmlFor="projectDate">Project Date</label>
         <input
-          type="text"
+          type="date"
           id="projectDate"
+          name="date"
           onChange={handleProjectChange}
-          value={project.projectDate}
+          value={project.projectDate.toISOString().split("T")[0]}
         />
       </div>
-      <button onClick={() => console.log(project)}>check</button>
+      <button onClick={() => console.log("check")}>check</button>
       <button
         onClick={() =>
           addDocument("projects", project, resetProject, () =>
