@@ -1,4 +1,5 @@
-import { BidStatus, TClient, TProject } from "../types";
+import { BidStatus } from "../types";
+import { validateEmail, validatePhone } from "./formValidation";
 
 //  Adjusts selected date from input field to register correctly  //
 const handleDate = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -10,7 +11,7 @@ const handleDate = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) 
 };
 
 //  Allows creation of nested fields in TProject.bid  //
-const handleBid = (setState: any, field: string, value: boolean | BidStatus | number) => {
+const handleBid = <T>(setState: React.Dispatch<React.SetStateAction<T>>, field: string, value: boolean | BidStatus | number) => {
   setState((prevProject: any) => ({
     ...prevProject,
     bid: {
@@ -21,13 +22,29 @@ const handleBid = (setState: any, field: string, value: boolean | BidStatus | nu
 };
 
 //  Handles change on form input elements, sets state of TClient | TProject objects accordingly  //
-export const handleChange = (
+//  Usage: src/components/ClientForm.tsx  //
+//  Usage: src/components/ProjectForm.tsx  //
+export const handleChange = <T, U>(
   e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  setState: any,
+  setState: React.Dispatch<React.SetStateAction<T>>,
+  setValidation?: React.Dispatch<React.SetStateAction<U>>,
   bid?: string,
   bidField?: string,
 ) => {
-  const { name, type } = e.target;
+  const { name, type, value } = e.target;
+
+  let isValid = true;
+  if (setValidation) {
+    if (name === "email") {
+      isValid = validateEmail(value);
+    } else if (name === "phone") {
+      isValid = validatePhone(value);
+    }
+    setValidation((prevValidation: any) => ({
+      ...prevValidation,
+      [name]: isValid,
+    }));
+  }
 
   const newValue =
     type === "date"
@@ -36,12 +53,14 @@ export const handleChange = (
       ? (e.target as HTMLInputElement).checked
       : type === "number"
       ? parseInt(e.target.value)
+      : type === "tel"
+      ? parseInt(e.target.value)
       : e.target.value;
 
   if (bid && bidField && name === bid) {
     handleBid(setState, bidField, newValue as boolean | BidStatus | number);
   } else {
-    setState((prevProject: TClient | TProject) => ({
+    setState((prevProject) => ({
       ...prevProject,
       [name]: newValue,
     }));

@@ -56,7 +56,9 @@ export const ProjectForm: React.FC<IProjectFormProps> = ({
             id="bidSent"
             name="bidSent"
             className="border border-black"
-            onChange={(e) => handleChange(e, setState, "bidSent", "sent")}
+            onChange={(e) =>
+              handleChange(e, setState, undefined, "bidSent", "sent")
+            }
             checked={project.bid.sent}
           />
           <label htmlFor="bidStatus">Status</label>
@@ -64,7 +66,9 @@ export const ProjectForm: React.FC<IProjectFormProps> = ({
             name="bidStatus"
             id="bidStatus"
             className="border border-black"
-            onChange={(e) => handleChange(e, setState, "bidStatus", "status")}
+            onChange={(e) =>
+              handleChange(e, setState, undefined, "bidStatus", "status")
+            }
             value={project.bid.status}
           >
             <option value={BidStatus.Tentative}>Tentative</option>
@@ -77,7 +81,9 @@ export const ProjectForm: React.FC<IProjectFormProps> = ({
             id="bidAmount"
             name="bidAmount"
             className="border border-black"
-            onChange={(e) => handleChange(e, setState, "bidAmount", "amount")}
+            onChange={(e) =>
+              handleChange(e, setState, undefined, "bidAmount", "amount")
+            }
             value={project.bid.amount.toString()}
           />
         </div>
