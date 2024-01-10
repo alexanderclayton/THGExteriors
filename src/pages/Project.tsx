@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { TProject, BidStatus, ProjectType } from "../types";
 import {
   getDocument,
-  uploadImage,
   deleteDocument,
   deleteProjectFields,
   mapProjectDocument,
@@ -34,22 +33,6 @@ export const Project = () => {
     getDocument("projects", params, mapProjectDocument, setProjectData);
   }, []);
 
-  const [image, setImage] = useState<File | null>(null);
-
-  const handleProjectImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files && files.length > 0) {
-      setImage(files[0]);
-    }
-  };
-
-  const setProjectImageState = (url: string) => {
-    setProject((prevProject) => ({
-      ...prevProject,
-      imageUrl: url,
-    }));
-  };
-
   return (
     <div>
       <div>
@@ -78,20 +61,6 @@ export const Project = () => {
         }
       >
         Delete
-      </button>
-      <label htmlFor="image">Upload Image:</label>
-      <input
-        type="file"
-        id="image"
-        className="border border-black"
-        onChange={handleProjectImageChange}
-      />
-      <button
-        onClick={() =>
-          uploadImage(image, setProjectImageState, "projects", params)
-        }
-      >
-        Upload Image to Storage
       </button>
       {project.imageUrl === undefined ? (
         <p>No Project Image</p>

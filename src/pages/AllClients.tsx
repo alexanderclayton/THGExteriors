@@ -26,13 +26,14 @@ export const AllClients = () => {
     getDocuments("clients", mapClientDocument, setAllClientsDocs);
   }, []);
 
-  const formSubmit = (e: React.FormEvent) => {
+  const formSubmit = (e: React.FormEvent, image: any) => {
     e.preventDefault();
     addDocument<TClient>(
       "clients",
       client,
       () => resetClients(setClient),
       () => getDocuments("clients", mapClientDocument, setAllClientsDocs),
+      image
     );
   };
 

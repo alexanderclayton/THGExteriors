@@ -13,10 +13,18 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
     collectionName: string,
     data: T,
     reset: () => void,
-    callback: () => Promise<void>
+    callback: () => Promise<void>,
+    image?: File | undefined
     ) => {
     try {
-      await addDoc(collection(db, `${collectionName}`), data);
+      if (image !== undefined) {
+        await addDoc(collection(db, `${collectionName}`), {
+          ...data,
+          imageUrl: await addImageToStorage(image as File)
+        })
+      } else {
+        await addDoc(collection(db, `${collectionName}`), data);
+      }
       console.log(`Document added to ${collectionName} collection!`);
       reset();
       callback()
@@ -146,28 +154,17 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
     }
   };
 
-  //  Update doc in collection to include imageUrl field  //
-  //  Usage src/pages/Project.tsx  //
-  export const uploadImage = async (
-    image: File | null,
-    setterFunction: (url: string) => void,
-    collection: string,
-    params: Readonly<Params<string>>,
-  ) => {
+  export const addImageToStorage = async (image: File | null) => {
     if (image == null) return;
     try {
-      const imageRef = ref(storage, `images/${image.name}`);
+      const imageRef = ref(storage, `images/${image.name}`)
       await uploadBytes(imageRef, image);
-      const downloadUrl = await getDownloadURL(imageRef);
-      setterFunction(downloadUrl);
-      await updateDoc(doc(db, collection, `${params.id}`), {
-        imageUrl: downloadUrl,
-      });
-      console.log("image uploaded");
+      const downloadUrl = await getDownloadURL(imageRef)
+      return downloadUrl
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
-        console.error(error.message);
+        console.error(error.message)
       }
-      console.log(error);
+      console.error(error)
     }
-  };
+  }

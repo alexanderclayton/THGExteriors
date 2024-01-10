@@ -6,7 +6,6 @@ import {
   getDocument,
   addDocument,
   deleteDocument,
-  uploadImage,
   deleteClientFields,
   queryDocuments,
   mapClientDocument,
@@ -38,22 +37,6 @@ export const Client = () => {
   });
   const [update, setUpdate] = useState<boolean>(false);
 
-  const [image, setImage] = useState<File | null>(null);
-
-  const handleClientImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files && files.length > 0) {
-      setImage(files[0]);
-    }
-  };
-
-  const setClientImageState = (url: string) => {
-    setClient((prevClient) => ({
-      ...prevClient,
-      imageUrl: url,
-    }));
-  };
-
   const setClientData = (data: TClient) => {
     setClient(data);
   };
@@ -74,7 +57,7 @@ export const Client = () => {
     console.log(clientProjects);
   }, []);
 
-  const formSubmit = (e: React.FormEvent) => {
+  const formSubmit = (e: React.FormEvent, image: any) => {
     e.preventDefault();
     addDocument(
       "projects",
@@ -88,6 +71,7 @@ export const Client = () => {
           mapProjectDocument,
           setClientProjectsDocs,
         ),
+      image,
     );
   };
 
@@ -143,20 +127,6 @@ export const Client = () => {
         }
       >
         Delete Client
-      </button>
-      <label htmlFor="image">Upload Image:</label>
-      <input
-        type="file"
-        id="image"
-        className="border border-black"
-        onChange={handleClientImageChange}
-      />
-      <button
-        onClick={() =>
-          uploadImage(image, setClientImageState, "clients", params)
-        }
-      >
-        Upload Image to Storage
       </button>
       {client.imageUrl === undefined ? (
         <p>No Project Image</p>
