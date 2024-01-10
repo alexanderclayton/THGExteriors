@@ -17,7 +17,7 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
     ) => {
     try {
       await addDoc(collection(db, `${collectionName}`), data);
-      console.log("document added", data.id);
+      console.log(`Document added to ${collectionName} collection!`);
       reset();
       callback()
     } catch (error: unknown) {

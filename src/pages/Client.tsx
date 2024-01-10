@@ -1,5 +1,5 @@
 //import//
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { TClient, TProject } from "../types";
 import {
@@ -13,6 +13,8 @@ import {
   mapProjectDocument,
 } from "../services";
 import { UpdateClient } from "../components/UpdateClient";
+import { resetProject } from "../helpers/setterFunctions";
+import { ProjectForm } from "../components/ProjectForm";
 
 export const Client = () => {
   const params = useParams();
@@ -35,23 +37,6 @@ export const Client = () => {
   const [update, setUpdate] = useState<boolean>(false);
 
   const [image, setImage] = useState<File | null>(null);
-
-  const handleDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedDate = new Date(e.target.value);
-    const adjustedDate = new Date(
-      selectedDate.getTime() + selectedDate.getTimezoneOffset() * 60000,
-    );
-    return adjustedDate;
-  };
-
-  const handleProjectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value, name } = e.target;
-    const newValue = name === "date" ? new Date(handleDate(e)) : value;
-    setProject((prevProject) => ({
-      ...prevProject,
-      [id]: newValue,
-    }));
-  };
 
   const handleClientImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -87,14 +72,21 @@ export const Client = () => {
     console.log(clientProjects);
   }, []);
 
-  const resetProject = () => {
-    setProject({
-      clientId: params.id as string,
-      projectName: "",
-      projectDate: new Date(),
-      paid: false,
-      imageUrl: "",
-    });
+  const formSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    addDocument(
+      "projects",
+      project,
+      () => resetProject(setProject, params),
+      () =>
+        queryDocuments(
+          "projects",
+          "clientId",
+          params,
+          mapProjectDocument,
+          setClientProjectsDocs,
+        ),
+    );
   };
 
   return (
@@ -120,39 +112,13 @@ export const Client = () => {
           ))}
         </div>
       </div>
-      <div>
-        <label htmlFor="projectName">Project Name</label>
-        <input
-          type="text"
-          id="projectName"
-          onChange={handleProjectChange}
-          value={project.projectName}
-        />
-        <label htmlFor="projectDate">Project Date</label>
-        <input
-          type="date"
-          id="projectDate"
-          name="date"
-          onChange={handleProjectChange}
-          value={project.projectDate.toISOString().split("T")[0]}
-        />
-      </div>
-      <button onClick={() => console.log("check")}>check</button>
-      <button
-        onClick={() =>
-          addDocument("projects", project, resetProject, () =>
-            queryDocuments(
-              "projects",
-              "clientId",
-              params,
-              mapProjectDocument,
-              setClientProjectsDocs,
-            ),
-          )
-        }
-      >
-        add project
-      </button>
+      <ProjectForm
+        legend="Add Project"
+        setState={setProject}
+        formSubmit={formSubmit}
+        project={project}
+        submit="submit form"
+      />
       <button onClick={() => setUpdate(!update)}>Update</button>
       {update && (
         <UpdateClient
