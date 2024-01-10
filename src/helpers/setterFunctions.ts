@@ -1,4 +1,4 @@
-import { TClient, TProject, BidStatus } from "../types";
+import { TClient, TProject, BidStatus, ProjectType } from "../types";
 import { Params } from "react-router-dom";
 
 export const resetClients = (setState: React.Dispatch<React.SetStateAction<TClient>>) => {
@@ -21,6 +21,7 @@ export const resetProject = (
       projectDate: new Date(),
       paid: false,
       bid: { sent: false, status: BidStatus.Tentative, amount: 0},
+      projectType: ProjectType.Other,
       imageUrl: "",
     });
 };

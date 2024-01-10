@@ -14,6 +14,7 @@ export type TProject = {
   projectDate: Date
   paid: boolean
   bid: TBid
+  projectType: ProjectType
   imageUrl?: string
 };
 
@@ -27,4 +28,10 @@ type TBid = {
   sent: boolean
   status: BidStatus
   amount: number
+}
+
+export enum ProjectType {
+  Other = 'other',
+  Painting = 'painting',
+  Lights = 'lights'
 }

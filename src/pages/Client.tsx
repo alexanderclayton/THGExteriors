@@ -1,7 +1,7 @@
 //import//
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { TClient, TProject, BidStatus } from "../types";
+import { TClient, TProject, BidStatus, ProjectType } from "../types";
 import {
   getDocument,
   addDocument,
@@ -33,6 +33,7 @@ export const Client = () => {
     projectDate: new Date(),
     paid: false,
     bid: { sent: false, status: BidStatus.Tentative, amount: 0 },
+    projectType: ProjectType.Other,
     imageUrl: "",
   });
   const [update, setUpdate] = useState<boolean>(false);

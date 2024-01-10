@@ -16,6 +16,7 @@ export const UpdateProject: React.FC<IUpdateProjectProps> = ({
     projectDate: project.projectDate,
     paid: project.paid,
     bid: project.bid,
+    projectType: project.projectType,
     imageUrl: project.imageUrl,
   });
 
