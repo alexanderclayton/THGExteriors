@@ -1,7 +1,7 @@
 //import//
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { TProject } from "../types";
+import { TProject, BidStatus } from "../types";
 import {
   getDocument,
   uploadImage,
@@ -19,6 +19,7 @@ export const Project = () => {
     projectName: "",
     projectDate: new Date(),
     paid: false,
+    bid: { sent: false, status: BidStatus.Tentative, amount: 0},
     imageUrl: "",
   });
 

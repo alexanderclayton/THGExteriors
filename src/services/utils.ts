@@ -27,6 +27,7 @@ export const mapProjectDocument = (
     projectName: doc.data().projectName,
     projectDate: doc.data().projectDate.toDate(),
     paid: doc.data().paid,
+    bid: doc.data().bid,
     imageUrl: doc.data().imageUrl,
 });
 
@@ -49,5 +50,6 @@ export const deleteProjectFields = (deleteFields: FieldValue) => ({
     projectName: deleteFields,
     projectDate: deleteFields,
     paid: deleteFields,
+    bid: deleteFields,
     imageUrl: deleteFields,
 });
