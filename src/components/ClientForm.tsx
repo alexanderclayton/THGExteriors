@@ -16,6 +16,16 @@ export const ClientForm: React.FC<IClientFormProps> = ({
     email: true,
     address: true,
   });
+  const [image, setImage] = useState<File | null>(null);
+
+  const handleImage = (e: any) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      setImage(files[0]);
+      return files[0];
+    }
+    return undefined;
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,7 +33,7 @@ export const ClientForm: React.FC<IClientFormProps> = ({
       (isValid) => isValid,
     );
     if (isFormValid) {
-      formSubmit(e);
+      formSubmit(e, image);
     } else {
       console.error("form invalid");
     }
@@ -43,6 +53,7 @@ export const ClientForm: React.FC<IClientFormProps> = ({
               className="border border-black"
               onChange={(e) => handleChange(e, setState, setClientValidation)}
               value={client.name}
+              required
             />
           </div>
           <div>
@@ -76,6 +87,15 @@ export const ClientForm: React.FC<IClientFormProps> = ({
               className="border border-black"
               onChange={(e) => handleChange(e, setState, setClientValidation)}
               value={client.address}
+            />
+          </div>
+          <div>
+            <label htmlFor="image">Upload Image:</label>
+            <input
+              type="file"
+              id="image"
+              className="border border-black"
+              onChange={handleImage}
             />
           </div>
         </fieldset>

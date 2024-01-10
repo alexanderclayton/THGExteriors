@@ -4,7 +4,7 @@ import { TClient, TProject } from ".";
 export interface IClientFormProps {
     legend: string;
     setState: React.Dispatch<React.SetStateAction<TClient>>;
-    formSubmit: (e: React.FormEvent) => void;
+    formSubmit: (e: React.FormEvent, image: any) => void;
     client: TClient;
     submit: string;
 }
@@ -12,7 +12,7 @@ export interface IClientFormProps {
 export interface IProjectFormProps {
     legend: string;
     setState: React.Dispatch<React.SetStateAction<TProject>>;
-    formSubmit: (e: React.FormEvent) => void;
+    formSubmit: (e: React.FormEvent, image: any) => void;
     project: TProject;
     submit: string;
   }

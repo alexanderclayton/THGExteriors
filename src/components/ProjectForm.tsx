@@ -1,6 +1,7 @@
-//import
+//import//
 import { IProjectFormProps, ProjectType, BidStatus } from "../types";
 import { handleChange } from "../helpers";
+import { useState } from "react";
 
 export const ProjectForm: React.FC<IProjectFormProps> = ({
   legend,
@@ -9,8 +10,19 @@ export const ProjectForm: React.FC<IProjectFormProps> = ({
   project,
   submit,
 }) => {
+  const [image, setImage] = useState<File | null>(null);
+
+  const handleImage = (e: any) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      setImage(files[0]);
+      return files[0];
+    }
+    return undefined;
+  };
+
   return (
-    <form onSubmit={formSubmit}>
+    <form onSubmit={(e) => formSubmit(e, image)}>
       <fieldset className="flex flex-col">
         <legend>{legend}</legend>
         <div>
@@ -22,6 +34,7 @@ export const ProjectForm: React.FC<IProjectFormProps> = ({
             className="border border-black"
             onChange={(e) => handleChange(e, setState)}
             value={project.projectName}
+            required
           />
         </div>
         <div>
@@ -96,6 +109,15 @@ export const ProjectForm: React.FC<IProjectFormProps> = ({
             className="border border-black"
             onChange={(e) => handleChange(e, setState)}
             checked={project.paid}
+          />
+        </div>
+        <div>
+          <label htmlFor="image">Upload Image:</label>
+          <input
+            type="file"
+            id="image"
+            className="border border-black"
+            onChange={handleImage}
           />
         </div>
       </fieldset>
