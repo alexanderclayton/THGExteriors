@@ -9,6 +9,14 @@ export interface IClientFormProps {
     submit: string;
 }
 
+export interface IProjectFormProps {
+    legend: string;
+    setState: React.Dispatch<React.SetStateAction<TProject>>;
+    formSubmit: (e: React.FormEvent) => void;
+    project: TProject;
+    submit: string;
+  }
+
 export interface IUpdateClientProps {
     params: Readonly<Params<string>>;
     client: TClient;

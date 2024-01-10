@@ -1,30 +1,52 @@
 //import
+import { IProjectFormProps } from "../types";
+import { handleDate } from "../helpers";
 
-interface IProjectFormProps {}
+export const ProjectForm: React.FC<IProjectFormProps> = ({
+  legend,
+  setState,
+  formSubmit,
+  project,
+  submit,
+}) => {
 
-export const ProjectForm: React.FC<IProjectFormProps> = ({}) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type } = e.target;
+    const newValue = type === "date" ? new Date(handleDate(e)) : value;
+    setState((prevProject) => ({
+      ...prevProject,
+      [name]: newValue,
+    }));
+  };
+
   return (
-    <form action="">
-      <legend>
+    <form onSubmit={formSubmit}>
+      <fieldset>
+        <legend>{legend}</legend>
         <div>
-          <label htmlFor="clientId">Client ID</label>
+          <label htmlFor="projectName">Project Name:</label>
           <input
             type="text"
-            id="clientId"
-            name="clientId"
+            id="projectName"
+            name="projectName"
             className="border border-black"
+            onChange={handleChange}
+            value={project.projectName}
           />
         </div>
         <div>
-          <label htmlFor="clientId"></label>
+          <label htmlFor="projectDate">Project Date:</label>
           <input
-            type="text"
-            id="clientId"
-            name="clientId"
+            type="date"
+            id="projectDate"
+            name="projectDate"
             className="border border-black"
+            onChange={handleChange}
+            value={project.projectDate.toISOString().split("T")[0]}
           />
         </div>
-      </legend>
+      </fieldset>
+      <input type="submit" value={submit} />
     </form>
   );
 };

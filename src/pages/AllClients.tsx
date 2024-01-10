@@ -5,6 +5,7 @@ import { TClient } from "../types";
 import { getDocuments, addDocument } from "../services";
 import { ClientForm } from "../components/ClientForm";
 import { mapClientDocument } from "../services";
+import { resetClients } from "../helpers/setterFunctions";
 
 export const AllClients = () => {
   const navigate = useNavigate();
@@ -25,22 +26,12 @@ export const AllClients = () => {
     getDocuments("clients", mapClientDocument, setAllClientsDocs);
   }, []);
 
-  const resetClients = () => {
-    setClient({
-      name: "",
-      phone: 0,
-      email: "",
-      address: "",
-      imageUrl: "",
-    });
-  };
-
   const formSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     addDocument<TClient>(
       "clients",
       client,
-      () => resetClients,
+      () => resetClients(setClient),
       () => getDocuments("clients", mapClientDocument, setAllClientsDocs),
     );
   };
