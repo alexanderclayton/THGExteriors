@@ -1,4 +1,5 @@
 //import//
+import { handleChange } from "../helpers";
 import { IClientFormProps } from "../types";
 
 export const ClientForm: React.FC<IClientFormProps> = ({
@@ -8,15 +9,6 @@ export const ClientForm: React.FC<IClientFormProps> = ({
   client,
   submit,
 }) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type } = e.target;
-    const newValue = type === "number" ? parseInt(value) : value;
-    setState((prevClient) => ({
-      ...prevClient,
-      [name]: newValue,
-    }));
-  };
-
   return (
     <form onSubmit={formSubmit}>
       <fieldset>
@@ -28,7 +20,7 @@ export const ClientForm: React.FC<IClientFormProps> = ({
             id="name"
             name="name"
             className="border border-black"
-            onChange={handleChange}
+            onChange={(e) => handleChange(e, setState)}
             value={client.name}
           />
         </div>
@@ -39,7 +31,7 @@ export const ClientForm: React.FC<IClientFormProps> = ({
             id="phone"
             name="phone"
             className="border border-black"
-            onChange={handleChange}
+            onChange={(e) => handleChange(e, setState)}
             value={client.phone.toString()}
           />
         </div>
@@ -50,7 +42,7 @@ export const ClientForm: React.FC<IClientFormProps> = ({
             id="email"
             name="email"
             className="border border-black"
-            onChange={handleChange}
+            onChange={(e) => handleChange(e, setState)}
             value={client.email}
           />
         </div>
@@ -61,7 +53,7 @@ export const ClientForm: React.FC<IClientFormProps> = ({
             id="address"
             name="address"
             className="border border-black"
-            onChange={handleChange}
+            onChange={(e) => handleChange(e, setState)}
             value={client.address}
           />
         </div>
