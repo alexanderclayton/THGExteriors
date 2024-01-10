@@ -35,3 +35,10 @@ export enum ProjectType {
   Painting = 'painting',
   Lights = 'lights'
 }
+
+export type TClientValidation = {
+  name: true,
+  phone: true,
+  email: true,
+  address: true,
+}
