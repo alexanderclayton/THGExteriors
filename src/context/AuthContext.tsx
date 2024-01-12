@@ -16,7 +16,8 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         setUser(null);
       }
     });
-    return unsubscribe();
+    console.log("auth state changed");
+    return () => unsubscribe();
   }, []);
   const value = {
     user,
@@ -24,6 +25,6 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-export const userAuth = () => {
+export const useAuth = () => {
   return useContext(AuthContext);
 };

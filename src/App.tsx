@@ -10,6 +10,7 @@ import { AllClients } from "./pages/AllClients";
 import { Client } from "./pages/Client";
 import { Project } from "./pages/Project";
 import { AllProjects } from "./pages/AllProjects";
+import { Signin } from "./pages/Signin";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/holiday-heroes" element={<HolidayHeroes />} />
+            <Route path="/signin" element={<Signin />} />
             <Route path="/allclients" element={<AllClients />} />
             <Route path="/client/:id" element={<Client />} />
             <Route path="/allprojects" element={<AllProjects />} />
