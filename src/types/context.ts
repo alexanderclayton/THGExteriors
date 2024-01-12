@@ -6,4 +6,5 @@ export interface IAuthProviderProps {
   
 export type TAuthContext = {
     user: User | null;
+    loading: boolean
 };
