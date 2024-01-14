@@ -15,6 +15,7 @@ export const ClientForm: React.FC<IClientFormProps> = ({
     phone: true,
     email: true,
     address: true,
+    zip: true,
   });
   const [image, setImage] = useState<File | null>(null);
 
@@ -87,6 +88,17 @@ export const ClientForm: React.FC<IClientFormProps> = ({
               className="border border-black"
               onChange={(e) => handleChange(e, setState, setClientValidation)}
               value={client.address}
+            />
+          </div>
+          <div>
+            <label htmlFor="zip">Zip:</label>
+            <input
+              type="number"
+              id="zip"
+              name="zip"
+              className="border border-black"
+              onChange={(e) => handleChange(e, setState, setClientValidation)}
+              value={client.zip}
             />
           </div>
           <div>

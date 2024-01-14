@@ -15,6 +15,7 @@ export const UpdateClient: React.FC<IUpdateClientProps> = ({
     phone: client.phone,
     email: client.email,
     address: client.address,
+    zip: client.zip,
     imageUrl: client.imageUrl,
   });
 
