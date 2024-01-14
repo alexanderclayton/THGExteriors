@@ -11,3 +11,10 @@ export const validatePhone = (phone: string) => {
     const phoneRegex = /^\d{10}$/;
     return phoneRegex.test(phone.toString());
 };
+
+//  Validates form entry for 6 digit zip code  //
+//  Usage: src/helpers/eventHandlers.ts  //
+export const validateZip = (zip: string) => {
+    const zipRegex = /^\d{5}$/;
+    return zipRegex.test(zip.toString())
+}

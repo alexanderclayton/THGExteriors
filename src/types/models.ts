@@ -6,8 +6,9 @@ export type TClient = {
   address: string
   // city: string
   // state: string //**Maybe a selector? */
-  // zip: number
+  zip: number
   imageUrl?: string
+  // notes: string[] //**Array of strings to track notes */
 };
 
 export type TProject = {
@@ -18,7 +19,11 @@ export type TProject = {
   paid: boolean
   bid: TBid
   projectType: ProjectType
+  // installed: boolean //**for project type lights */
+  // teardown: boolean //**for project type lights */
+  // expeses: number[]  //**Array of numbers to calculate costs */
   imageUrl?: string
+  // notes: string[] //**Array of strings to track notes */
 };
 
 export enum BidStatus {
@@ -40,8 +45,9 @@ export enum ProjectType {
 }
 
 export type TClientValidation = {
-  name: true,
-  phone: true,
-  email: true,
-  address: true,
+  name: boolean,
+  phone: boolean,
+  email: boolean,
+  address: boolean,
+  zip: boolean
 }

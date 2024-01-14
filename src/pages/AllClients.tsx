@@ -14,6 +14,7 @@ export const AllClients = () => {
     phone: 0,
     email: "",
     address: "",
+    zip: 0,
     imageUrl: "",
   });
   const [allClients, setAllClients] = useState<TClient[]>([]);

@@ -7,6 +7,7 @@ export const resetClients = (setState: React.Dispatch<React.SetStateAction<TClie
       phone: 0,
       email: "",
       address: "",
+      zip: 0,
       imageUrl: "",
     });
 };

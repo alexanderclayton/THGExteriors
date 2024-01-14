@@ -23,6 +23,7 @@ export const Client = () => {
     phone: 0,
     email: "",
     address: "",
+    zip: 0,
     imageUrl: "",
   });
   const [clientProjects, setClientProjects] = useState<TProject[]>([]);
