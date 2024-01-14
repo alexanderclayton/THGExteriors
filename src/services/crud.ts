@@ -17,7 +17,7 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
     image?: File | undefined
     ) => {
     try {
-      if (image !== undefined) {
+      if (image !== null) {
         await addDoc(collection(db, `${collectionName}`), {
           ...data,
           imageUrl: await addImageToStorage(image as File)
@@ -114,11 +114,19 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
     mapFunction: (doc: QueryDocumentSnapshot<DocumentData>) => T,
     setClient: React.Dispatch<React.SetStateAction<T>>,
     setUpdate: React.Dispatch<React.SetStateAction<boolean>>,
-    update: boolean
+    update: boolean,
+    image?: File | null
   ) => {
     try {
       const clientRef = doc(db, `${collectionName}`, `${params.id}`);
-      await updateDoc(clientRef, updatedDocument);
+      if (image !== null) {
+        await updateDoc(clientRef, {
+          ...updatedDocument,
+          imageUrl: await addImageToStorage(image as File)
+        })
+      } else {
+        await updateDoc(clientRef, updatedDocument);
+      }
       console.log(`updated ${collectionName}`);
       getDocument(collectionName, params, mapFunction, setClient)
       setUpdate(!update)

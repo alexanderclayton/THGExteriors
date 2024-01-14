@@ -20,7 +20,7 @@ export const UpdateProject: React.FC<IUpdateProjectProps> = ({
     imageUrl: project.imageUrl,
   });
 
-  const formSubmit = (e: React.FormEvent) => {
+  const formSubmit = (e: React.FormEvent, image: any) => {
     e.preventDefault();
     updateDocument(
       "projects",
@@ -30,6 +30,7 @@ export const UpdateProject: React.FC<IUpdateProjectProps> = ({
       setProject,
       setUpdate,
       update,
+      image,
     );
   };
 

@@ -4,6 +4,9 @@ export type TClient = {
   phone: number
   email: string
   address: string
+  // city: string
+  // state: string //**Maybe a selector? */
+  // zip: number
   imageUrl?: string
 };
 
