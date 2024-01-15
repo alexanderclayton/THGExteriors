@@ -4,8 +4,8 @@ export type TClient = {
   phone: number
   email: string
   address: string
-  // city: string
-  // state: string //**Maybe a selector? */
+  city: string
+  state: string //**Maybe a selector? */
   zip: number
   imageUrl?: string
   // notes: string[] //**Array of strings to track notes */
@@ -25,6 +25,59 @@ export type TProject = {
   imageUrl?: string
   // notes: string[] //**Array of strings to track notes */
 };
+
+export enum States {
+  AL = 'Alabama',
+  AK = 'Alaska',
+  AZ = 'Arizona',
+  AR = 'Arkansas',
+  CA = 'California',
+  CO = 'Colorado',
+  CT = 'Connecticut',
+  DE = 'Delaware',
+  FL = 'Florida',
+  GA = 'Georgia',
+  HI = 'Hawaii',
+  ID = 'Idaho',
+  IL = 'Illinois',
+  IN = 'Indiana',
+  IA = 'Iowa',
+  KS = 'Kansas',
+  KY = 'Kentucky',
+  LA = 'Louisiana',
+  ME = 'Maine',
+  MD = 'Maryland',
+  MA = 'Massachusetts',
+  MI = 'Michigan',
+  MN = 'Minnesota',
+  MS = 'Mississippi',
+  MO = 'Missouri',
+  MT = 'Montana',
+  NE = 'Nebraska',
+  NV = 'Nevada',
+  NH = 'New Hampshire',
+  NJ = 'New Jersey',
+  NM = 'New Mexico',
+  NY = 'New York',
+  NC = 'North Carolina',
+  ND = 'North Dakota',
+  OH = 'Ohio',
+  OK = 'Oklahoma',
+  OR = 'Oregon',
+  PA = 'Pennsylvania',
+  RI = 'Rhode Island',
+  SC = 'South Carolina',
+  SD = 'South Dakota',
+  TN = 'Tennessee',
+  TX = 'Texas',
+  UT = 'Utah',
+  VT = 'Vermont',
+  VA = 'Virginia',
+  WA = 'Washington',
+  WV = 'West Virginia',
+  WI = 'Wisconsin',
+  WY = 'Wyoming'
+}
 
 export enum BidStatus {
   Tentative = 'tentative',
@@ -49,5 +102,7 @@ export type TClientValidation = {
   phone: boolean,
   email: boolean,
   address: boolean,
+  city: boolean,
+  state: boolean,
   zip: boolean
 }
