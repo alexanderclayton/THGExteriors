@@ -14,6 +14,8 @@ export const AllClients = () => {
     phone: 0,
     email: "",
     address: "",
+    city: "",
+    state: "",
     zip: 0,
     imageUrl: "",
   });
@@ -34,7 +36,7 @@ export const AllClients = () => {
       client,
       () => resetClients(setClient),
       () => getDocuments("clients", mapClientDocument, setAllClientsDocs),
-      image
+      image,
     );
   };
 
@@ -70,6 +72,9 @@ export const AllClients = () => {
             <p>
               <span className="font-bold">address: </span>
               {client.address}
+              {client.city && `, ${client.city}`}
+              {client.state && `, ${client.state}`}{" "}
+              {client.zip && ` ${client.zip}`}
             </p>
           </div>
         ))}

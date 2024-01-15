@@ -12,6 +12,8 @@ export const mapClientDocument = (
     phone: doc.data().phone,
     email: doc.data().email,
     address: doc.data().address,
+    city: doc.data().city,
+    state: doc.data().state,
     zip: doc.data().zip,
     imageUrl: doc.data().imageUrl,
 });
@@ -41,6 +43,8 @@ export const deleteClientFields = (deleteField: FieldValue) => ({
     phone: deleteField,
     email: deleteField,
     address: deleteField,
+    city: deleteField,
+    state: deleteField,
     zip: deleteField,
     imageUrl: deleteField,
 });

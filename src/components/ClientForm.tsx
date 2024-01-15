@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { handleChange } from "../helpers";
 import { IClientFormProps, TClientValidation } from "../types";
+import { StateDropdown } from "./StateDropdown";
 
 export const ClientForm: React.FC<IClientFormProps> = ({
   legend,
@@ -15,6 +16,8 @@ export const ClientForm: React.FC<IClientFormProps> = ({
     phone: true,
     email: true,
     address: true,
+    city: true,
+    state: true,
     zip: true,
   });
   const [image, setImage] = useState<File | null>(null);
@@ -90,6 +93,22 @@ export const ClientForm: React.FC<IClientFormProps> = ({
               value={client.address}
             />
           </div>
+          <div>
+            <label htmlFor="city">City:</label>
+            <input
+              type="text"
+              id="city"
+              name="city"
+              className="border border-black"
+              onChange={(e) => handleChange(e, setState, setClientValidation)}
+              value={client.city}
+            />
+          </div>
+          <StateDropdown
+            client={client}
+            setState={setState}
+            setClientValidation={setClientValidation}
+          />
           <div>
             <label htmlFor="zip">Zip:</label>
             <input

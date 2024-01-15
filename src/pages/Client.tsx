@@ -23,6 +23,8 @@ export const Client = () => {
     phone: 0,
     email: "",
     address: "",
+    city: "",
+    state: "",
     zip: 0,
     imageUrl: "",
   });
