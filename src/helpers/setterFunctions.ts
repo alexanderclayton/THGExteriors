@@ -10,6 +10,7 @@ export const resetClients = (setState: React.Dispatch<React.SetStateAction<TClie
       city: "",
       state: "",
       zip: 0,
+      notes: [],
       imageUrl: "",
     });
 };
@@ -25,6 +26,7 @@ export const resetProject = (
       paid: false,
       bid: { sent: false, status: BidStatus.Tentative, amount: 0},
       projectType: ProjectType.Other,
+      notes: [],
       imageUrl: "",
     });
 };

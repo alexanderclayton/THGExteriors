@@ -1,6 +1,6 @@
 import { FirebaseError } from "firebase/app";
 import { db, storage } from "../firebase/firebaseConfig";
-import { collection, doc, addDoc, getDoc, getDocs, updateDoc, deleteField, deleteDoc, query, where, QueryDocumentSnapshot, DocumentData, FieldValue, WithFieldValue } from "firebase/firestore";
+import { collection, doc, addDoc, getDoc, getDocs, updateDoc, deleteField, deleteDoc, query, where, QueryDocumentSnapshot, DocumentData, FieldValue, WithFieldValue, arrayUnion, arrayRemove } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { TClient, TProject } from "../types";
 import { NavigateFunction, Params } from "react-router-dom";
@@ -112,24 +112,43 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
     params: Readonly<Params<string>>,
     updatedDocument: TClient | TProject,
     mapFunction: (doc: QueryDocumentSnapshot<DocumentData>) => T,
-    setClient: React.Dispatch<React.SetStateAction<T>>,
-    setUpdate: React.Dispatch<React.SetStateAction<boolean>>,
-    update: boolean,
-    image?: File | null
+    setData: React.Dispatch<React.SetStateAction<T>>,
+    setUpdate?: React.Dispatch<React.SetStateAction<boolean>>,
+    update?: boolean,
+    image?: File | null,
+    note?: string,
+    setNote?: React.Dispatch<React.SetStateAction<string>>,
+    index?: number
   ) => {
     try {
-      const clientRef = doc(db, `${collectionName}`, `${params.id}`);
+      const docRef = doc(db, `${collectionName}`, `${params.id}`);
       if (image !== null) {
-        await updateDoc(clientRef, {
+        await updateDoc(docRef, {
           ...updatedDocument,
           imageUrl: await addImageToStorage(image as File)
         })
+      } else if (setNote !== undefined) {
+        if (index !== undefined) {
+          await updateDoc(docRef, {
+            notes: arrayRemove(updatedDocument.notes && updatedDocument.notes[index])
+          })
+          setNote("")
+          console.log("note deleted")
+        } else {
+          await updateDoc(docRef, {
+            notes: arrayUnion(note)
+          })
+          setNote("")
+          console.log("note not deleted")
+        }
       } else {
-        await updateDoc(clientRef, updatedDocument);
+        await updateDoc(docRef, updatedDocument);
       }
       console.log(`updated ${collectionName}`);
-      getDocument(collectionName, params, mapFunction, setClient)
-      setUpdate(!update)
+      getDocument(collectionName, params, mapFunction, setData)
+      if (setUpdate) {
+        setUpdate(!update)
+      }
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         console.error(error.message);

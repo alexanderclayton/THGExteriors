@@ -8,7 +8,7 @@ export type TClient = {
   state: string //**Maybe a selector? */
   zip: number
   imageUrl?: string
-  // notes: string[] //**Array of strings to track notes */
+  notes: string[] //**Array of strings to track notes */
 };
 
 export type TProject = {
@@ -23,7 +23,7 @@ export type TProject = {
   // teardown: boolean //**for project type lights */
   // expeses: number[]  //**Array of numbers to calculate costs */
   imageUrl?: string
-  // notes: string[] //**Array of strings to track notes */
+  notes?: string[] //**Array of strings to track notes */
 };
 
 export enum States {

@@ -7,6 +7,7 @@ import {
   deleteDocument,
   deleteProjectFields,
   mapProjectDocument,
+  updateDocument,
 } from "../services";
 import { UpdateProject } from "../components/UpdateProject";
 
@@ -18,10 +19,12 @@ export const Project = () => {
     projectName: "",
     projectDate: new Date(),
     paid: false,
-    bid: { sent: false, status: BidStatus.Tentative, amount: 0},
+    bid: { sent: false, status: BidStatus.Tentative, amount: 0 },
     projectType: ProjectType.Other,
+    notes: [],
     imageUrl: "",
   });
+  const [note, setNote] = useState("");
 
   const [update, setUpdate] = useState<boolean>(false);
 
@@ -62,6 +65,63 @@ export const Project = () => {
       >
         Delete
       </button>
+      <div>
+        {project.notes !== undefined
+          ? project.notes.map((data, index: number) => (
+              <div key={index} className="flex">
+                <p>{data}</p>
+                <button
+                  onClick={() =>
+                    updateDocument(
+                      "projects",
+                      params,
+                      project,
+                      mapProjectDocument,
+                      setProject,
+                      undefined,
+                      undefined,
+                      null,
+                      note,
+                      setNote,
+                      index,
+                    )
+                  }
+                >
+                  Delete
+                </button>
+              </div>
+            ))
+          : null}
+      </div>
+      <div>
+        <label htmlFor="note">Note</label>
+        <input
+          type="text"
+          id="note"
+          name="note"
+          className="border border-black"
+          onChange={(e) => setNote(e.target.value)}
+          value={note}
+        />
+        <button
+          onClick={() =>
+            updateDocument(
+              "projects",
+              params,
+              project,
+              mapProjectDocument,
+              setProject,
+              undefined,
+              undefined,
+              null,
+              note,
+              setNote,
+            )
+          }
+        >
+          Add Note
+        </button>
+      </div>
       {project.imageUrl === undefined ? (
         <p>No Project Image</p>
       ) : (
