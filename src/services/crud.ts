@@ -13,11 +13,11 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
     collectionName: string,
     data: T,
     reset: () => void,
-    callback: () => Promise<void>,
+    callback?: () => Promise<void>,
     image?: File | undefined
     ) => {
     try {
-      if (image !== null) {
+      if (image !== undefined) {
         await addDoc(collection(db, `${collectionName}`), {
           ...data,
           imageUrl: await addImageToStorage(image as File)
@@ -27,7 +27,9 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
       }
       console.log(`Document added to ${collectionName} collection!`);
       reset();
-      callback()
+      if (callback) {
+        callback()
+      }
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         console.error(error.message);

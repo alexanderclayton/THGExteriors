@@ -1,4 +1,4 @@
-import { TClient, TProject, BidStatus, ProjectType } from "../types";
+import { TClient, TProject, BidStatus, ProjectType, TExpense, ExpenseType, PaymentType } from "../types";
 import { Params } from "react-router-dom";
 
 export const resetClients = (setState: React.Dispatch<React.SetStateAction<TClient>>) => {
@@ -30,3 +30,16 @@ export const resetProject = (
       imageUrl: "",
     });
 };
+
+export const resetExpense = (
+  setState: React.Dispatch<React.SetStateAction<TExpense>>
+) => {
+  setState({
+    expenseType: ExpenseType.None,
+    expenseAmount: 0,
+    paymentType: PaymentType.None,
+    expenseDate: new Date(),
+    vendor: "",
+    description: "",
+  })
+}

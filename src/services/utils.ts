@@ -1,5 +1,5 @@
 import { DocumentData, FieldValue, QueryDocumentSnapshot } from "firebase/firestore";
-import { TClient, TProject } from "../types";
+import { TClient, TExpense, TProject } from "../types";
 
 //  Maps a Firestore document snapshot to a TClient object  //
 //  Passed into crud fuction as an argument  //
@@ -37,6 +37,19 @@ export const mapProjectDocument = (
     imageUrl: doc.data().imageUrl,
 });
 
+//  Maps a Firestore document snapshot to a TExpense object  //
+export const mapExpenseDocument = (
+  doc: QueryDocumentSnapshot<DocumentData>
+): TExpense => ({
+  id: doc.id,
+  expenseType: doc.data().expenseType,
+  expenseAmount: doc.data().expenseAmount,
+  paymentType: doc.data().paymentType,
+  expenseDate: doc.data().expenseDate,
+  vendor: doc.data().vendor,
+  description: doc.data().description
+})
+
 //  Applies deleteField() to TClient object  //
 //  Passed into deleteDocument() as an argument  //
 //  Usage:  src/pages/Client.tsx  //
@@ -63,3 +76,13 @@ export const deleteProjectFields = (deleteFields: FieldValue) => ({
     projectType: deleteFields,
     imageUrl: deleteFields,
 });
+
+//  Applies deleteField() to TExpense object  //
+export const deleteExpenseFields = (deleteFields: FieldValue) => ({
+  expenseType: deleteFields,
+  expenseAmount: deleteFields,
+  paymentType: deleteFields,
+  expenseDate: deleteFields,
+  vendor: deleteFields,
+  description: deleteFields
+})

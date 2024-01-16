@@ -1,6 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { ExpenseType, PaymentType, TExpense } from "../types";
 import { handleChange } from "../helpers";
+import { addDocument } from "../services";
+import { resetExpense } from "../helpers/setterFunctions";
 
 export const ExpenseForm = () => {
   const [expense, setExpense] = useState<TExpense>({
@@ -11,11 +13,17 @@ export const ExpenseForm = () => {
     vendor: "",
     description: "",
   });
+
+  const formSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    addDocument<TExpense>("expenses", expense, () => resetExpense(setExpense));
+  };
+
   return (
     <>
-      <form>
+      <form onSubmit={(e) => formSubmit(e)}>
         <fieldset>
-          <legend></legend>
+          <legend>Expense Form</legend>
           <div>
             <label htmlFor="expenseType">Expense Type:</label>
             <select
@@ -90,6 +98,7 @@ export const ExpenseForm = () => {
                   value={expense.description}
                 />
               </div>
+              <input type="submit" value={"submit form!"} />
             </>
           )}
         </fieldset>

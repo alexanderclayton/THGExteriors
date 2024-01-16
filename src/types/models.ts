@@ -28,8 +28,8 @@ export type TProject = {
 
 export type TExpense = {
   id?: string
-  projectId?: string
-  clientId?: string
+  // projectId?: string
+  // clientId?: string
   expenseType: ExpenseType
   expenseAmount: number
   paymentType: PaymentType
