@@ -15,6 +15,7 @@ export const mapClientDocument = (
     city: doc.data().city,
     state: doc.data().state,
     zip: doc.data().zip,
+    notes: doc.data().notes,
     imageUrl: doc.data().imageUrl,
 });
 
@@ -32,6 +33,7 @@ export const mapProjectDocument = (
     paid: doc.data().paid,
     bid: doc.data().bid,
     projectType: doc.data().projectType,
+    notes: doc.data().notes,
     imageUrl: doc.data().imageUrl,
 });
 
