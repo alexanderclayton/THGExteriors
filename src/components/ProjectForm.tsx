@@ -10,7 +10,7 @@ export const ProjectForm: React.FC<IProjectFormProps> = ({
   project,
   submit,
 }) => {
-  const [image, setImage] = useState<File | null>(null);
+  const [image, setImage] = useState<File | undefined>(undefined);
 
   const handleImage = (e: any) => {
     const files = e.target.files;
