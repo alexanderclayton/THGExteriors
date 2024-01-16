@@ -5,7 +5,7 @@ export type TClient = {
   email: string
   address: string
   city: string
-  state: string //**Maybe a selector? */
+  state: string
   zip: number
   imageUrl?: string
   notes: string[] //**Array of strings to track notes */
@@ -21,10 +21,22 @@ export type TProject = {
   projectType: ProjectType
   // installed: boolean //**for project type lights */
   // teardown: boolean //**for project type lights */
-  // expeses: number[]  //**Array of numbers to calculate costs */
+  // expenses: number[]  //**Array of numbers to calculate costs */
   imageUrl?: string
   notes?: string[] //**Array of strings to track notes */
 };
+
+export type TExpense = {
+  id?: string
+  projectId?: string
+  clientId?: string
+  expenseType: ExpenseType
+  expenseAmount: number
+  paymentType: PaymentType
+  expenseDate: Date
+  vendor: string
+  description: string
+}
 
 export enum States {
   AL = 'Alabama',
@@ -95,6 +107,20 @@ export enum ProjectType {
   Other = 'other',
   Painting = 'painting',
   Lights = 'lights'
+}
+
+export enum ExpenseType {
+  None = '',
+  Other = 'other',
+  Materials = 'materials',
+  Labor = 'labor'
+}
+
+export enum PaymentType {
+  None = '',
+  Cash = 'cash',
+  CreditCard = 'credit card',
+  Check = 'check'
 }
 
 export type TClientValidation = {

@@ -12,6 +12,7 @@ import { Project } from "./pages/Project";
 import { AllProjects } from "./pages/AllProjects";
 import { Signin } from "./pages/Signin";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { AllExpenses } from "./pages/AllExpenses";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
               <Route path="/client/:id" element={<Client />} />
               <Route path="/allprojects" element={<AllProjects />} />
               <Route path="/project/:id" element={<Project />} />
+              <Route path="/allexpenses" element={<AllExpenses />} />
             </Route>
           </Routes>
         </div>
