@@ -1,15 +1,15 @@
 //import//
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { TProject, BidStatus, ProjectType } from "../types";
+import { TProject, BidStatus, ProjectType, TClient } from "../types";
 import {
   getDocument,
   deleteDocument,
   deleteProjectFields,
   mapProjectDocument,
-  updateDocument,
 } from "../services";
 import { UpdateProject } from "../components/UpdateProject";
+import { Notes } from "../components/Notes";
 
 export const Project = () => {
   const params = useParams();
@@ -24,7 +24,6 @@ export const Project = () => {
     notes: [],
     imageUrl: "",
   });
-  const [note, setNote] = useState("");
 
   const [update, setUpdate] = useState<boolean>(false);
 
@@ -65,63 +64,15 @@ export const Project = () => {
       >
         Delete
       </button>
-      <div>
-        {project.notes !== undefined
-          ? project.notes.map((data, index: number) => (
-              <div key={index} className="flex">
-                <p>{data}</p>
-                <button
-                  onClick={() =>
-                    updateDocument(
-                      "projects",
-                      params,
-                      project,
-                      mapProjectDocument,
-                      setProject,
-                      undefined,
-                      undefined,
-                      null,
-                      note,
-                      setNote,
-                      index,
-                    )
-                  }
-                >
-                  Delete
-                </button>
-              </div>
-            ))
-          : null}
-      </div>
-      <div>
-        <label htmlFor="note">Note</label>
-        <input
-          type="text"
-          id="note"
-          name="note"
-          className="border border-black"
-          onChange={(e) => setNote(e.target.value)}
-          value={note}
-        />
-        <button
-          onClick={() =>
-            updateDocument(
-              "projects",
-              params,
-              project,
-              mapProjectDocument,
-              setProject,
-              undefined,
-              undefined,
-              null,
-              note,
-              setNote,
-            )
-          }
-        >
-          Add Note
-        </button>
-      </div>
+      <Notes
+        model={project}
+        collectionName="projects"
+        params={params}
+        mapFunction={mapProjectDocument}
+        setState={
+          setProject as React.Dispatch<React.SetStateAction<TClient | TProject>>
+        }
+      />
       {project.imageUrl === undefined ? (
         <p>No Project Image</p>
       ) : (
