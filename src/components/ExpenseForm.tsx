@@ -1,35 +1,32 @@
-import React, { useState } from "react";
 import { ExpenseType, PaymentType, TExpense } from "../types";
 import { handleChange } from "../helpers";
-import { addDocument } from "../services";
-import { resetExpense } from "../helpers/setterFunctions";
 
-export const ExpenseForm = () => {
-  const [expense, setExpense] = useState<TExpense>({
-    expenseType: ExpenseType.None,
-    expenseAmount: 0,
-    paymentType: PaymentType.None,
-    expenseDate: new Date(),
-    vendor: "",
-    description: "",
-  });
+interface IExpenseFormProps {
+  legend: string;
+  setState: React.Dispatch<React.SetStateAction<TExpense>>;
+  formSubmit: (e: React.FormEvent) => void;
+  expense: TExpense;
+  submit: string;
+}
 
-  const formSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    addDocument<TExpense>("expenses", expense, () => resetExpense(setExpense));
-  };
-
+export const ExpenseForm: React.FC<IExpenseFormProps> = ({
+  legend,
+  setState,
+  formSubmit,
+  expense,
+  submit,
+}) => {
   return (
     <>
       <form onSubmit={(e) => formSubmit(e)}>
         <fieldset>
-          <legend>Expense Form</legend>
+          <legend>{legend}</legend>
           <div>
             <label htmlFor="expenseType">Expense Type:</label>
             <select
               id="expenseType"
               name="expenseType"
-              onChange={(e) => handleChange(e, setExpense)}
+              onChange={(e) => handleChange(e, setState)}
               value={expense.expenseType}
             >
               <option value={ExpenseType.None}></option>
@@ -47,7 +44,7 @@ export const ExpenseForm = () => {
                   id="expenseDate"
                   name="expenseDate"
                   className="border border-black"
-                  onChange={(e) => handleChange(e, setExpense)}
+                  onChange={(e) => handleChange(e, setState)}
                   value={expense.expenseDate.toISOString().split("T")[0]}
                 />
               </div>
@@ -58,7 +55,7 @@ export const ExpenseForm = () => {
                   id="vendor"
                   name="vendor"
                   className="border border-black"
-                  onChange={(e) => handleChange(e, setExpense)}
+                  onChange={(e) => handleChange(e, setState)}
                   value={expense.vendor}
                 />
               </div>
@@ -69,7 +66,7 @@ export const ExpenseForm = () => {
                   id="expenseAmount"
                   name="expenseAmount"
                   className="border border-black"
-                  onChange={(e) => handleChange(e, setExpense)}
+                  onChange={(e) => handleChange(e, setState)}
                   value={expense.expenseAmount}
                 />
               </div>
@@ -78,7 +75,7 @@ export const ExpenseForm = () => {
                 <select
                   id="paymentType"
                   name="paymentType"
-                  onChange={(e) => handleChange(e, setExpense)}
+                  onChange={(e) => handleChange(e, setState)}
                   value={expense.paymentType}
                 >
                   <option value={PaymentType.None}></option>
@@ -94,11 +91,11 @@ export const ExpenseForm = () => {
                   id="description"
                   name="description"
                   className="border border-black"
-                  onChange={(e) => handleChange(e, setExpense)}
+                  onChange={(e) => handleChange(e, setState)}
                   value={expense.description}
                 />
               </div>
-              <input type="submit" value={"submit form!"} />
+              <input type="submit" value={submit} />
             </>
           )}
         </fieldset>
