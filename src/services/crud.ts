@@ -11,7 +11,7 @@ import { NavigateFunction, Params } from "react-router-dom";
 //  Usage: src/pages/Client.tsx  //
 export const addDocument = async<T extends WithFieldValue<DocumentData>>( 
     collectionName: string,
-    data: T,
+    document: T,
     reset: () => void,
     callback?: () => Promise<void>,
     image?: File | undefined
@@ -19,11 +19,11 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
     try {
       if (image !== undefined) {
         await addDoc(collection(db, `${collectionName}`), {
-          ...data,
+          ...document,
           imageUrl: await addImageToStorage(image as File)
         })
       } else {
-        await addDoc(collection(db, `${collectionName}`), data);
+        await addDoc(collection(db, `${collectionName}`), document);
       }
       console.log(`Document added to ${collectionName} collection!`);
       reset();

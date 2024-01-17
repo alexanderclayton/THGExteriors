@@ -13,6 +13,7 @@ import { AllProjects } from "./pages/AllProjects";
 import { Signin } from "./pages/Signin";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { AllExpenses } from "./pages/AllExpenses";
+import { Expense } from "./pages/Expense";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
               <Route path="/allprojects" element={<AllProjects />} />
               <Route path="/project/:id" element={<Project />} />
               <Route path="/allexpenses" element={<AllExpenses />} />
+              <Route path="/expense/:id" element={<Expense />} />
             </Route>
           </Routes>
         </div>

@@ -45,7 +45,7 @@ export const mapExpenseDocument = (
   expenseType: doc.data().expenseType,
   expenseAmount: doc.data().expenseAmount,
   paymentType: doc.data().paymentType,
-  expenseDate: doc.data().expenseDate,
+  expenseDate: doc.data().expenseDate.toDate(),
   vendor: doc.data().vendor,
   description: doc.data().description
 })
