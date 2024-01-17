@@ -28,7 +28,6 @@ export type TProject = {
 
 export type TExpense = {
   id?: string
-  // projectId?: string
   // clientId?: string
   expenseType: ExpenseType
   expenseAmount: number
@@ -36,6 +35,7 @@ export type TExpense = {
   expenseDate: Date
   vendor: string
   description: string
+  projectId?: string
 }
 
 export enum BidStatus {

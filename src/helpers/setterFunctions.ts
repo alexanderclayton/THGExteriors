@@ -11,7 +11,7 @@ export const resetClients = (setState: React.Dispatch<React.SetStateAction<TClie
       state: "",
       zip: 0,
       notes: [],
-      imageUrl: "",
+      imageUrl: ""
     });
 };
 
@@ -27,7 +27,7 @@ export const resetProject = (
       bid: { sent: false, status: BidStatus.Tentative, amount: 0},
       projectType: ProjectType.Other,
       notes: [],
-      imageUrl: "",
+      imageUrl: ""
     });
 };
 
@@ -41,5 +41,6 @@ export const resetExpense = (
     expenseDate: new Date(),
     vendor: "",
     description: "",
+    projectId: ""
   })
 }

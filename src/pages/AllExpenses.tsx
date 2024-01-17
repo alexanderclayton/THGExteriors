@@ -15,6 +15,7 @@ export const AllExpenses = () => {
     expenseDate: new Date(),
     vendor: "",
     description: "",
+    projectId: ""
   });
   const [allExpenses, setAllExpenses] = useState<TExpense[]>([]);
 

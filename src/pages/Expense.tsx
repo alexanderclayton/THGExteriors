@@ -19,6 +19,7 @@ export const Expense = () => {
     expenseDate: new Date(),
     vendor: "",
     description: "",
+    projectId: ""
   });
 
   const [update, setUpdate] = useState<boolean>(false);

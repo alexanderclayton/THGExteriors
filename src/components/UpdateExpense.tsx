@@ -17,6 +17,7 @@ export const UpdateExpense: React.FC<IUpdateExpenseProps> = ({
     expenseDate: expense.expenseDate,
     vendor: expense.vendor,
     description: expense.description,
+    projectId: expense.projectId,
   });
 
   const formSubmit = (e: React.FormEvent) => {

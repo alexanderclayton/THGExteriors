@@ -47,7 +47,8 @@ export const mapExpenseDocument = (
   paymentType: doc.data().paymentType,
   expenseDate: doc.data().expenseDate.toDate(),
   vendor: doc.data().vendor,
-  description: doc.data().description
+  description: doc.data().description,
+  projectId: doc.data().projectId
 })
 
 //  Applies deleteField() to TClient object  //
