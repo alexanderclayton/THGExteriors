@@ -23,7 +23,7 @@ export const UpdateProject: React.FC<IUpdateProjectProps> = ({
 
   const formSubmit = (e: React.FormEvent, image: any) => {
     e.preventDefault();
-    updateDocument(
+    updateDocument<TProject>(
       "projects",
       params,
       updatedProject,

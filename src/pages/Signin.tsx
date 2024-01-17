@@ -4,11 +4,7 @@ import { auth } from "../firebase/firebaseConfig";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 import { useAuth } from "../context/AuthContext";
-
-type TCredentials = {
-  email: string;
-  password: string;
-};
+import { TCredentials } from "../types";
 
 export const Signin = () => {
   const { user } = useAuth();

@@ -27,7 +27,7 @@ export const AllClients = () => {
   };
 
   useEffect(() => {
-    getDocuments("clients", mapClientDocument, setAllClientsDocs);
+    getDocuments<TClient>("clients", mapClientDocument, setAllClientsDocs);
   }, []);
 
   const formSubmit = (e: React.FormEvent, image: any) => {

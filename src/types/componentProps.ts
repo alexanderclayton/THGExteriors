@@ -1,5 +1,6 @@
 import { Params } from "react-router-dom";
-import { TClient, TProject } from ".";
+import { TClient, TClientValidation, TExpense, TProject } from ".";
+import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 
 export interface IClientFormProps {
     legend: string;
@@ -17,6 +18,14 @@ export interface IProjectFormProps {
     submit: string;
   }
 
+export interface IExpenseFormProps {
+    legend: string;
+    setState: React.Dispatch<React.SetStateAction<TExpense>>;
+    formSubmit: (e: React.FormEvent) => void;
+    expense: TExpense;
+    submit: string;
+}
+
 export interface IUpdateClientProps {
     params: Readonly<Params<string>>;
     client: TClient;
@@ -31,4 +40,26 @@ export interface IUpdateProjectProps {
     setProject: React.Dispatch<React.SetStateAction<TProject>>;
     setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
     update: boolean;
+}
+
+export interface IUpdateExpenseProps {
+    params: any;
+    expense: TExpense;
+    setExpense: any;
+    setUpdate: any;
+    update: boolean;
+}
+
+export interface INotesProps<T> {
+    model: T;
+    collectionName: string;
+    params: Readonly<Params<string>>;
+    mapFunction: (doc: QueryDocumentSnapshot<DocumentData>) => T;
+    setState: React.Dispatch<React.SetStateAction<T>>;
+}
+
+export interface IStateDropdownProps {
+    client: TClient;
+    setState: React.Dispatch<React.SetStateAction<TClient>>;
+    setClientValidation: React.Dispatch<React.SetStateAction<TClientValidation>>
 }

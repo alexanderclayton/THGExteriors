@@ -2,7 +2,6 @@ import { FirebaseError } from "firebase/app";
 import { db, storage } from "../firebase/firebaseConfig";
 import { collection, doc, addDoc, getDoc, getDocs, updateDoc, deleteField, deleteDoc, query, where, QueryDocumentSnapshot, DocumentData, FieldValue, WithFieldValue, arrayUnion, arrayRemove } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { TClient, TProject } from "../types";
 import { NavigateFunction, Params } from "react-router-dom";
 
 
@@ -109,22 +108,22 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
   //  Update document in the "clients" collection  //
   //  Usage: src/components/UpdateClient.tsx  //
   //  Usage: src/components/UpdateProject.tsx  //
-  export const updateDocument = async<T>(
+  export const updateDocument = async<T extends WithFieldValue<DocumentData>>(
     collectionName: string,
     params: Readonly<Params<string>>,
-    updatedDocument: TClient | TProject,
+    updatedDocument: T,
     mapFunction: (doc: QueryDocumentSnapshot<DocumentData>) => T,
     setData: React.Dispatch<React.SetStateAction<T>>,
     setUpdate?: React.Dispatch<React.SetStateAction<boolean>>,
     update?: boolean,
-    image?: File | null,
+    image?: File | undefined,
     note?: string,
     setNote?: React.Dispatch<React.SetStateAction<string>>,
     index?: number
   ) => {
     try {
       const docRef = doc(db, `${collectionName}`, `${params.id}`);
-      if (image !== null) {
+      if (image !== undefined) {
         await updateDoc(docRef, {
           ...updatedDocument,
           imageUrl: await addImageToStorage(image as File)
@@ -136,14 +135,15 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
           })
           setNote("")
           console.log("note deleted")
-        } else {
+        } else  {
           await updateDoc(docRef, {
             notes: arrayUnion(note)
           })
           setNote("")
-          console.log("note not deleted")
+          console.log("added note")
         }
       } else {
+        console.log("document deleted")
         await updateDoc(docRef, updatedDocument);
       }
       console.log(`updated ${collectionName}`);

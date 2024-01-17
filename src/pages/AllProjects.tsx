@@ -13,7 +13,7 @@ export const AllProjects = () => {
   };
 
   useEffect(() => {
-    getDocuments("projects", mapProjectDocument, setAllProjectsDocs);
+    getDocuments<TProject>("projects", mapProjectDocument, setAllProjectsDocs);
   }, []);
 
   return (
