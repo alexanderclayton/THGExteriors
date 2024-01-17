@@ -24,7 +24,7 @@ export const UpdateClient: React.FC<IUpdateClientProps> = ({
 
   const formSubmit = (e: React.FormEvent, image: any) => {
     e.preventDefault();
-    updateDocument(
+    updateDocument<TClient>(
       "clients",
       params,
       updatedClient,

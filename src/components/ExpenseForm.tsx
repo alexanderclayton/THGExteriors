@@ -1,13 +1,5 @@
-import { ExpenseType, PaymentType, TExpense } from "../types";
+import { ExpenseType, IExpenseFormProps, PaymentType } from "../types";
 import { handleChange } from "../helpers";
-
-interface IExpenseFormProps {
-  legend: string;
-  setState: React.Dispatch<React.SetStateAction<TExpense>>;
-  formSubmit: (e: React.FormEvent) => void;
-  expense: TExpense;
-  submit: string;
-}
 
 export const ExpenseForm: React.FC<IExpenseFormProps> = ({
   legend,

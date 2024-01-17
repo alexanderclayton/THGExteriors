@@ -1,16 +1,6 @@
 import { useState } from "react";
 import { updateDocument } from "../services";
-import { TClient, TProject } from "../types";
-import { Params } from "react-router-dom";
-import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
-
-interface INotesProps<T> {
-  model: T;
-  collectionName: string;
-  params: Readonly<Params<string>>;
-  mapFunction: (doc: QueryDocumentSnapshot<DocumentData>) => T;
-  setState: React.Dispatch<React.SetStateAction<T>>;
-}
+import { INotesProps, TClient, TProject } from "../types";
 
 export const Notes: React.FC<INotesProps<TClient | TProject>> = ({
   model,
@@ -38,7 +28,7 @@ export const Notes: React.FC<INotesProps<TClient | TProject>> = ({
                       setState,
                       undefined,
                       undefined,
-                      null,
+                      undefined,
                       note,
                       setNote,
                       index,
@@ -71,7 +61,7 @@ export const Notes: React.FC<INotesProps<TClient | TProject>> = ({
               setState,
               undefined,
               undefined,
-              null,
+              undefined,
               note,
               setNote,
             )

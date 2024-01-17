@@ -1,13 +1,5 @@
-import { States } from "../types";
-import { TClient } from "../types";
+import { IStateDropdownProps, States } from "../types";
 import { handleChange } from "../helpers";
-import { TClientValidation } from "../types";
-
-interface IStateDropdownProps {
-  client: TClient;
-  setState: React.Dispatch<React.SetStateAction<TClient>>;
-  setClientValidation: React.Dispatch<React.SetStateAction<TClientValidation>>
-}
 
 export const StateDropdown: React.FC<IStateDropdownProps> = ({
   client,

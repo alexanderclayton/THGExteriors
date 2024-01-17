@@ -38,6 +38,38 @@ export type TExpense = {
   description: string
 }
 
+export enum BidStatus {
+  Tentative = 'tentative',
+  Accepted = 'accepted',
+  Declined = 'declined'
+}
+
+type TBid = {
+  sent: boolean
+  status: BidStatus
+  amount: number
+}
+
+export enum ProjectType {
+  Other = 'other',
+  Painting = 'painting',
+  Lights = 'lights'
+}
+
+export enum ExpenseType {
+  None = '',
+  Other = 'other',
+  Materials = 'materials',
+  Labor = 'labor'
+}
+
+export enum PaymentType {
+  None = '',
+  Cash = 'cash',
+  CreditCard = 'credit card',
+  Check = 'check'
+}
+
 export enum States {
   AL = 'Alabama',
   AK = 'Alaska',
@@ -89,46 +121,4 @@ export enum States {
   WV = 'West Virginia',
   WI = 'Wisconsin',
   WY = 'Wyoming'
-}
-
-export enum BidStatus {
-  Tentative = 'tentative',
-  Accepted = 'accepted',
-  Declined = 'declined'
-}
-
-type TBid = {
-  sent: boolean
-  status: BidStatus
-  amount: number
-}
-
-export enum ProjectType {
-  Other = 'other',
-  Painting = 'painting',
-  Lights = 'lights'
-}
-
-export enum ExpenseType {
-  None = '',
-  Other = 'other',
-  Materials = 'materials',
-  Labor = 'labor'
-}
-
-export enum PaymentType {
-  None = '',
-  Cash = 'cash',
-  CreditCard = 'credit card',
-  Check = 'check'
-}
-
-export type TClientValidation = {
-  name: boolean,
-  phone: boolean,
-  email: boolean,
-  address: boolean,
-  city: boolean,
-  state: boolean,
-  zip: boolean
 }

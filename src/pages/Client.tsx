@@ -37,6 +37,7 @@ export const Client = () => {
     paid: false,
     bid: { sent: false, status: BidStatus.Tentative, amount: 0 },
     projectType: ProjectType.Other,
+    notes: [],
     imageUrl: "",
   });
   const [update, setUpdate] = useState<boolean>(false);
@@ -50,8 +51,8 @@ export const Client = () => {
   };
 
   useEffect(() => {
-    getDocument("clients", params, mapClientDocument, setClientData);
-    queryDocuments(
+    getDocument<TClient>("clients", params, mapClientDocument, setClientData);
+    queryDocuments<TProject>(
       "projects",
       "clientId",
       params,
@@ -63,12 +64,12 @@ export const Client = () => {
 
   const formSubmit = (e: React.FormEvent, image: any) => {
     e.preventDefault();
-    addDocument(
+    addDocument<TProject>(
       "projects",
       project,
       () => resetProject(setProject, params),
       () =>
-        queryDocuments(
+        queryDocuments<TProject>(
           "projects",
           "clientId",
           params,

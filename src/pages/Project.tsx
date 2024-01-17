@@ -32,7 +32,12 @@ export const Project = () => {
   };
 
   useEffect(() => {
-    getDocument("projects", params, mapProjectDocument, setProjectData);
+    getDocument<TProject>(
+      "projects",
+      params,
+      mapProjectDocument,
+      setProjectData,
+    );
   }, []);
 
   return (
@@ -78,6 +83,7 @@ export const Project = () => {
       ) : (
         <img src={project.imageUrl} alt="project exterior" />
       )}
+      <button onClick={() => console.log(project)}>Project</button>
     </div>
   );
 };
