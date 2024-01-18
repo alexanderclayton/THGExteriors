@@ -1,5 +1,5 @@
 import { Params } from "react-router-dom";
-import { TClient, TClientValidation, TExpense, TProject } from ".";
+import { TClient, TExpense, TProject } from ".";
 import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 
 export interface IClientFormProps {
@@ -59,8 +59,11 @@ export interface INotesProps<T> {
     setState: React.Dispatch<React.SetStateAction<T>>;
 }
 
-export interface IStateDropdownProps {
-    client: TClient;
+export interface IMapProps {
+    model: TClient;
+}
+
+export interface IAutocompleteProps {
     setState: React.Dispatch<React.SetStateAction<TClient>>;
-    setClientValidation: React.Dispatch<React.SetStateAction<TClientValidation>>
+    resetAutocomplete: boolean;
 }

@@ -34,7 +34,8 @@ export const AllClients = () => {
       "clients",
       client,
       () => resetClients(setClient),
-      () => getDocuments("clients", mapClientDocument, setAllClientsDocs),
+      () =>
+        getDocuments<TClient>("clients", mapClientDocument, setAllClientsDocs),
       image,
     );
   };
