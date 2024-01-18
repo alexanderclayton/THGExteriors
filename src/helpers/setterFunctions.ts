@@ -1,3 +1,4 @@
+import { RadarAddress } from "radar-sdk-js/dist/types";
 import { TClient, TProject, BidStatus, ProjectType, TExpense, ExpenseType, PaymentType } from "../types";
 import { Params } from "react-router-dom";
 
@@ -6,10 +7,7 @@ export const resetClients = (setState: React.Dispatch<React.SetStateAction<TClie
       name: "",
       phone: 0,
       email: "",
-      address: "",
-      city: "",
-      state: "",
-      zip: 0,
+      address: {} as RadarAddress,
       notes: [],
       imageUrl: ""
     });

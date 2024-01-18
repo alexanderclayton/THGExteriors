@@ -7,6 +7,7 @@ export interface IClientFormProps {
     setState: React.Dispatch<React.SetStateAction<TClient>>;
     formSubmit: (e: React.FormEvent, image: any) => void;
     client: TClient;
+    autocompleteRef?: React.MutableRefObject<HTMLDivElement | null>
     submit: string;
 }
 
