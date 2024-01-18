@@ -12,8 +12,9 @@ import {
   mapProjectDocument,
 } from "../services";
 import { UpdateClient } from "../components/UpdateClient";
-import { resetProject } from "../helpers/setterFunctions";
+import { resetProject } from "../helpers";
 import { ProjectForm } from "../components/ProjectForm";
+import { RadarAddress } from "radar-sdk-js/dist/types";
 
 export const Client = () => {
   const params = useParams();
@@ -22,10 +23,7 @@ export const Client = () => {
     name: "",
     phone: 0,
     email: "",
-    address: "",
-    city: "",
-    state: "",
-    zip: 0,
+    address: {} as RadarAddress,
     notes: [],
     imageUrl: "",
   });
@@ -86,7 +84,7 @@ export const Client = () => {
         <p>{client.name}</p>
         <p>{client.phone.toString()}</p>
         <p>{client.email}</p>
-        <p>{client.address}</p>
+        <p>{client.address.addressLabel}</p>
         <div>
           <p>projects</p>
           {clientProjects.map((project) => (

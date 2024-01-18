@@ -12,9 +12,6 @@ export const mapClientDocument = (
     phone: doc.data().phone,
     email: doc.data().email,
     address: doc.data().address,
-    city: doc.data().city,
-    state: doc.data().state,
-    zip: doc.data().zip,
     notes: doc.data().notes,
     imageUrl: doc.data().imageUrl,
 });
@@ -47,7 +44,8 @@ export const mapExpenseDocument = (
   paymentType: doc.data().paymentType,
   expenseDate: doc.data().expenseDate.toDate(),
   vendor: doc.data().vendor,
-  description: doc.data().description
+  description: doc.data().description,
+  projectId: doc.data().projectId
 })
 
 //  Applies deleteField() to TClient object  //
@@ -58,9 +56,6 @@ export const deleteClientFields = (deleteField: FieldValue) => ({
     phone: deleteField,
     email: deleteField,
     address: deleteField,
-    city: deleteField,
-    state: deleteField,
-    zip: deleteField,
     imageUrl: deleteField,
 });
 

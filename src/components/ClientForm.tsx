@@ -1,8 +1,9 @@
 //import//
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { handleChange } from "../helpers";
 import { IClientFormProps, TClientValidation } from "../types";
-import { StateDropdown } from "./StateDropdown";
+import { getAutocomplete } from "../radar";
+import "radar-sdk-js/dist/radar.css";
 
 export const ClientForm: React.FC<IClientFormProps> = ({
   legend,
@@ -11,14 +12,13 @@ export const ClientForm: React.FC<IClientFormProps> = ({
   client,
   submit,
 }) => {
+  const autocompleteRef = useRef<HTMLDivElement | null>(null);
+  const [resetAutocomplete, setResetAutocomplete] = useState(false);
   const [clientValidation, setClientValidation] = useState<TClientValidation>({
     name: true,
     phone: true,
     email: true,
     address: true,
-    city: true,
-    state: true,
-    zip: true,
   });
   const [image, setImage] = useState<File | undefined>(undefined);
 
@@ -38,10 +38,15 @@ export const ClientForm: React.FC<IClientFormProps> = ({
     );
     if (isFormValid) {
       formSubmit(e, image);
+      setResetAutocomplete(!resetAutocomplete);
     } else {
       console.error("form invalid");
     }
   };
+
+  useEffect(() => {
+    getAutocomplete(autocompleteRef, "600px", setState);
+  }, [resetAutocomplete]);
 
   return (
     <div>
@@ -82,44 +87,7 @@ export const ClientForm: React.FC<IClientFormProps> = ({
               value={client.email}
             />
           </div>
-          <div>
-            <label htmlFor="address">Address:</label>
-            <input
-              type="text"
-              id="address"
-              name="address"
-              className="border border-black"
-              onChange={(e) => handleChange(e, setState, setClientValidation)}
-              value={client.address}
-            />
-          </div>
-          <div>
-            <label htmlFor="city">City:</label>
-            <input
-              type="text"
-              id="city"
-              name="city"
-              className="border border-black"
-              onChange={(e) => handleChange(e, setState, setClientValidation)}
-              value={client.city}
-            />
-          </div>
-          <StateDropdown
-            client={client}
-            setState={setState}
-            setClientValidation={setClientValidation}
-          />
-          <div>
-            <label htmlFor="zip">Zip:</label>
-            <input
-              type="number"
-              id="zip"
-              name="zip"
-              className="border border-black"
-              onChange={(e) => handleChange(e, setState, setClientValidation)}
-              value={client.zip}
-            />
-          </div>
+          <div id="autocomplete" ref={autocompleteRef} />
           <div>
             <label htmlFor="image">Upload Image:</label>
             <input

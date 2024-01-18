@@ -5,7 +5,8 @@ import { TClient } from "../types";
 import { getDocuments, addDocument } from "../services";
 import { ClientForm } from "../components/ClientForm";
 import { mapClientDocument } from "../services";
-import { resetClients } from "../helpers/setterFunctions";
+import { resetClients } from "../helpers";
+import { RadarAddress } from "radar-sdk-js/dist/types";
 
 export const AllClients = () => {
   const navigate = useNavigate();
@@ -13,10 +14,7 @@ export const AllClients = () => {
     name: "",
     phone: 0,
     email: "",
-    address: "",
-    city: "",
-    state: "",
-    zip: 0,
+    address: {} as RadarAddress,
     notes: [],
     imageUrl: "",
   });
@@ -72,10 +70,7 @@ export const AllClients = () => {
             </p>
             <p>
               <span className="font-bold">address: </span>
-              {client.address}
-              {client.city && `, ${client.city}`}
-              {client.state && `, ${client.state}`}{" "}
-              {client.zip && ` ${client.zip}`}
+              {client.address.addressLabel}
             </p>
           </div>
         ))}

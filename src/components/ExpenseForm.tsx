@@ -1,5 +1,6 @@
 import { ExpenseType, IExpenseFormProps, PaymentType } from "../types";
 import { handleChange } from "../helpers";
+import { ProjectDropdown } from "./ProjectDropdown";
 
 export const ExpenseForm: React.FC<IExpenseFormProps> = ({
   legend,
@@ -86,6 +87,9 @@ export const ExpenseForm: React.FC<IExpenseFormProps> = ({
                   onChange={(e) => handleChange(e, setState)}
                   value={expense.description}
                 />
+              </div>
+              <div>
+                <ProjectDropdown expense={expense} setState={setState} />
               </div>
               <input type="submit" value={submit} />
             </>

@@ -4,7 +4,7 @@ import { ExpenseForm } from "../components/ExpenseForm";
 import { ExpenseType, PaymentType, TExpense } from "../types";
 import { addDocument, getDocuments, mapExpenseDocument } from "../services";
 import { useNavigate } from "react-router-dom";
-import { resetExpense } from "../helpers/setterFunctions";
+import { resetExpense } from "../helpers";
 
 export const AllExpenses = () => {
   const navigate = useNavigate();
@@ -15,6 +15,7 @@ export const AllExpenses = () => {
     expenseDate: new Date(),
     vendor: "",
     description: "",
+    projectId: "",
   });
   const [allExpenses, setAllExpenses] = useState<TExpense[]>([]);
 

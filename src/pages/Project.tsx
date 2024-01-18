@@ -1,12 +1,14 @@
 //import//
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { TProject, BidStatus, ProjectType, TClient } from "../types";
+import { TProject, BidStatus, ProjectType, TClient, TExpense } from "../types";
 import {
   getDocument,
   deleteDocument,
   deleteProjectFields,
   mapProjectDocument,
+  queryDocuments,
+  mapExpenseDocument,
 } from "../services";
 import { UpdateProject } from "../components/UpdateProject";
 import { Notes } from "../components/Notes";
@@ -24,11 +26,15 @@ export const Project = () => {
     notes: [],
     imageUrl: "",
   });
-
+  const [expenses, setExpenses] = useState<TExpense[]>([]);
   const [update, setUpdate] = useState<boolean>(false);
 
   const setProjectData = (data: TProject) => {
     setProject(data);
+  };
+
+  const setExpensesData = (data: TExpense[]) => {
+    setExpenses(data);
   };
 
   useEffect(() => {
@@ -38,6 +44,13 @@ export const Project = () => {
       mapProjectDocument,
       setProjectData,
     );
+    queryDocuments<TExpense>(
+      "expenses",
+      "projectId",
+      params,
+      mapExpenseDocument,
+      setExpensesData,
+    );
   }, []);
 
   return (
@@ -45,6 +58,17 @@ export const Project = () => {
       <div>
         <p>{project.projectDate.toDateString()}</p>
         <p>{project.projectName}</p>
+        <div className="border border-black">
+          <p className="font-bold">Expenses:</p>
+          {expenses.map((expense) => (
+            <div key={expense.id} className="flex border border-black">
+              <p>{expense.expenseDate.toDateString()}</p>
+              <p>${expense.expenseAmount}</p>
+              <p>{expense.vendor}</p>
+              <p>{expense.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
       <button onClick={() => setUpdate(!update)}>Update</button>
       {update && (
@@ -84,6 +108,7 @@ export const Project = () => {
         <img src={project.imageUrl} alt="project exterior" />
       )}
       <button onClick={() => console.log(project)}>Project</button>
+      <button onClick={() => console.log(expenses)}>Expenses</button>
     </div>
   );
 };

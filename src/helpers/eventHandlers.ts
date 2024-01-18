@@ -1,5 +1,5 @@
 import { BidStatus } from "../types";
-import { validateEmail, validatePhone, validateZip } from "./formValidation";
+import { validateEmail, validatePhone } from ".";
 
 //  Adjusts selected date from input field to register correctly  //
 const handleDate = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -39,8 +39,6 @@ export const handleChange = <T, U>(
       isValid = validateEmail(value);
     } else if (name === "phone") {
       isValid = validatePhone(value);
-    } else if (name === "zip") {
-      isValid = validateZip(value)
     }
     setValidation((prevValidation: any) => ({
       ...prevValidation,

@@ -8,7 +8,4 @@ export type TClientValidation = {
     phone: boolean,
     email: boolean,
     address: boolean,
-    city: boolean,
-    state: boolean,
-    zip: boolean
 }
