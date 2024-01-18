@@ -15,6 +15,7 @@ import { UpdateClient } from "../components/UpdateClient";
 import { resetProject } from "../helpers";
 import { ProjectForm } from "../components/ProjectForm";
 import { RadarAddress } from "radar-sdk-js/dist/types";
+import { Map } from "../components/Map";
 
 export const Client = () => {
   const params = useParams();
@@ -43,12 +44,13 @@ export const Client = () => {
   const setClientData = (data: TClient) => {
     setClient(data);
   };
-
+  
   const setClientProjectsDocs = (data: TProject[]) => {
     setClientProjects(data);
   };
 
   useEffect(() => {
+    console.log(client);
     getDocument<TClient>("clients", params, mapClientDocument, setClientData);
     queryDocuments<TProject>(
       "projects",
@@ -57,7 +59,6 @@ export const Client = () => {
       mapProjectDocument,
       setClientProjectsDocs,
     );
-    console.log(clientProjects);
   }, []);
 
   const formSubmit = (e: React.FormEvent, image: any) => {
@@ -85,6 +86,7 @@ export const Client = () => {
         <p>{client.phone.toString()}</p>
         <p>{client.email}</p>
         <p>{client.address.addressLabel}</p>
+        {client.address.latitude && <Map model={client} />}
         <div>
           <p>projects</p>
           {clientProjects.map((project) => (
@@ -136,6 +138,7 @@ export const Client = () => {
       ) : (
         <img src={client.imageUrl} alt="client home exterior" />
       )}
+      <button onClick={() => console.log(client)}>See Client</button>
     </div>
   );
 };

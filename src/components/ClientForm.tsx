@@ -1,8 +1,8 @@
 //import//
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { handleChange } from "../helpers";
 import { IClientFormProps, TClientValidation } from "../types";
-import { getAutocomplete } from "../radar";
+import { Autocomplete } from "./Autocomplete";
 import "radar-sdk-js/dist/radar.css";
 
 export const ClientForm: React.FC<IClientFormProps> = ({
@@ -12,7 +12,6 @@ export const ClientForm: React.FC<IClientFormProps> = ({
   client,
   submit,
 }) => {
-  const autocompleteRef = useRef<HTMLDivElement | null>(null);
   const [resetAutocomplete, setResetAutocomplete] = useState(false);
   const [clientValidation, setClientValidation] = useState<TClientValidation>({
     name: true,
@@ -43,10 +42,6 @@ export const ClientForm: React.FC<IClientFormProps> = ({
       console.error("form invalid");
     }
   };
-
-  useEffect(() => {
-    getAutocomplete(autocompleteRef, "600px", setState);
-  }, [resetAutocomplete]);
 
   return (
     <div>
@@ -87,7 +82,10 @@ export const ClientForm: React.FC<IClientFormProps> = ({
               value={client.email}
             />
           </div>
-          <div id="autocomplete" ref={autocompleteRef} />
+          <Autocomplete
+            setState={setState}
+            resetAutocomplete={resetAutocomplete}
+          />
           <div>
             <label htmlFor="image">Upload Image:</label>
             <input
