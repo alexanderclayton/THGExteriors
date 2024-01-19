@@ -2,8 +2,6 @@ import { DocumentData, FieldValue, QueryDocumentSnapshot } from "firebase/firest
 import { TClient, TExpense, TProject } from "../types";
 
 //  Maps a Firestore document snapshot to a TClient object  //
-//  Passed into crud fuction as an argument  //
-//  Usage: src/pages/AllClients.tsx  //
 export const mapClientDocument = (
     doc: QueryDocumentSnapshot<DocumentData>,
   ): TClient => ({
@@ -17,9 +15,6 @@ export const mapClientDocument = (
 });
 
 //  Maps a Firestore document snapshot to a TProject object  //
-//  Passed into crud function as an argument  //
-//  Usage: src/pages/AllProjects.tsx  //
-//  Usage: src/pages/Client.tsx  //
 export const mapProjectDocument = (
     doc: QueryDocumentSnapshot<DocumentData>,
   ): TProject => ({
@@ -48,9 +43,7 @@ export const mapExpenseDocument = (
   projectId: doc.data().projectId
 })
 
-//  Applies deleteField() to TClient object  //
-//  Passed into deleteDocument() as an argument  //
-//  Usage:  src/pages/Client.tsx  //
+//  Applies deleteField() to TClient object, used to delete subfields prior to deleting document  //
 export const deleteClientFields = (deleteField: FieldValue) => ({
     name: deleteField,
     phone: deleteField,
@@ -59,9 +52,7 @@ export const deleteClientFields = (deleteField: FieldValue) => ({
     imageUrl: deleteField,
 });
 
-//  Applies deleteField() to TProject object  //
-//  Passed into deleteDocument as argument  //
-//  Usage:  src/pages/Project.tsx  //
+//  Applies deleteField() to TProject object, used to delete subfields prior to deleting document  //
 export const deleteProjectFields = (deleteFields: FieldValue) => ({
     clientId: deleteFields,
     projectName: deleteFields,
@@ -72,7 +63,7 @@ export const deleteProjectFields = (deleteFields: FieldValue) => ({
     imageUrl: deleteFields,
 });
 
-//  Applies deleteField() to TExpense object  //
+//  Applies deleteField() to TExpense object, used to delete subfields prior to deleting document  //
 export const deleteExpenseFields = (deleteFields: FieldValue) => ({
   expenseType: deleteFields,
   expenseAmount: deleteFields,

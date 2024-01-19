@@ -2,6 +2,7 @@ import { RadarAddress } from "radar-sdk-js/dist/types";
 import { TClient, TProject, BidStatus, ProjectType, TExpense, ExpenseType, PaymentType } from "../types";
 import { Params } from "react-router-dom";
 
+//  Reset TClient state variable to clear form fields after adding document to Firebase  //
 export const resetClients = (setState: React.Dispatch<React.SetStateAction<TClient>>) => {
     setState({
       name: "",
@@ -13,6 +14,7 @@ export const resetClients = (setState: React.Dispatch<React.SetStateAction<TClie
     });
 };
 
+//  Reset TProject state variable to clear form fields after adding document to Firebase  //
 export const resetProject = (
     setState: React.Dispatch<React.SetStateAction<TProject>>,
     params: Readonly<Params<string>>
@@ -29,6 +31,7 @@ export const resetProject = (
     });
 };
 
+//  Reset TExpense state variable to clear form fields after adding document to Firebase  //
 export const resetExpense = (
   setState: React.Dispatch<React.SetStateAction<TExpense>>
 ) => {
@@ -43,6 +46,7 @@ export const resetExpense = (
   })
 }
 
+//  Set model state variable when retrieving information from Firebase  //
 export const setModelData = <T>(
   setData: React.Dispatch<React.SetStateAction<T>>,
   model: T

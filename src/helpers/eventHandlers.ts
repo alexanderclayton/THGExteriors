@@ -21,6 +21,7 @@ const handleBid = <T>(setState: React.Dispatch<React.SetStateAction<T>>, field: 
   }));
 };
 
+//  Sets image state variable on file upload  //
 export const handleImage = (e: any, setImage: React.Dispatch<React.SetStateAction<File | undefined>>) => {
   const files = e.target.files;
   if (files && files.length > 0) {
@@ -30,9 +31,7 @@ export const handleImage = (e: any, setImage: React.Dispatch<React.SetStateActio
   return undefined;
 };
 
-//  Handles change on form input elements, sets state of TClient | TProject objects accordingly  //
-//  Usage: src/components/ClientForm.tsx  //
-//  Usage: src/components/ProjectForm.tsx  //
+//  Handles change on form input elements, sets state of TClient | TProject | TExpense objects accordingly  //
 export const handleChange = <T, U>(
   e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   setState: React.Dispatch<React.SetStateAction<T>>,
