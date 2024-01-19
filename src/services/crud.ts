@@ -1,6 +1,6 @@
 import { FirebaseError } from "firebase/app";
 import { db, storage } from "../firebase/firebaseConfig";
-import { collection, doc, addDoc, getDoc, getDocs, updateDoc, deleteField, deleteDoc, query, where, QueryDocumentSnapshot, DocumentData, FieldValue, WithFieldValue, arrayUnion, arrayRemove } from "firebase/firestore";
+import { collection, doc, addDoc, getDoc, getDocs, updateDoc, deleteField, deleteDoc, query, where, QueryDocumentSnapshot, DocumentData, FieldValue, WithFieldValue, arrayUnion, arrayRemove, WhereFilterOp } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { NavigateFunction, Params } from "react-router-dom";
 
@@ -84,15 +84,16 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
   //  Usage: src/pages/Client.tsx  //
   export const queryDocuments = async<T>(
     collectionName: string,
-    fieldName: string,
-    params: Readonly<Params<string>>,
+    whereString: string,
+    operator: WhereFilterOp,
+    equalsString: string | string[],
     mapFunction: (doc: QueryDocumentSnapshot<DocumentData>) => T,
     setData: (data: T[]) => void
   ) => {
     try {
       const q = query(
         collection(db, `${collectionName}`),
-        where(`${fieldName}`, "==", params.id)
+        where(whereString, operator, equalsString)
       )
       const querySnapshot = await getDocs(q)
       let docs = querySnapshot.docs.map(mapFunction)

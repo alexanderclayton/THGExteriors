@@ -46,3 +46,25 @@ export const getMap = (
         }
     } else {console.log("no mapref")}
 }
+
+export const getMapWithMarkers = (
+    mapRef: React.MutableRefObject<HTMLDivElement | null>,
+    model: TClient[]
+) => {
+    if (mapRef.current) {
+        mapRef.current.innerHTML = ""
+            const map = Radar.ui.map({
+                container: "map",
+                style: "radar-default-v1",
+                center: [-94.6708, 38.9822],
+                zoom: 10
+            })
+            if (model[0].address.latitude && model[0].address.longitude) {
+            for (let i = 0; i < model.length; i++) {
+                Radar.ui.marker({ text: `${model[i].name} project address`})
+                .setLngLat([model[i].address.longitude, model[i].address.latitude])
+                .addTo(map)
+            }
+        }
+    }
+}

@@ -16,6 +16,7 @@ import { resetProject } from "../helpers";
 import { ProjectForm } from "../components/ProjectForm";
 import { RadarAddress } from "radar-sdk-js/dist/types";
 import { Map } from "../components/Map";
+import { getMap } from "../radar";
 
 export const Client = () => {
   const params = useParams();
@@ -44,18 +45,18 @@ export const Client = () => {
   const setClientData = (data: TClient) => {
     setClient(data);
   };
-  
+
   const setClientProjectsDocs = (data: TProject[]) => {
     setClientProjects(data);
   };
 
   useEffect(() => {
-    console.log(client);
     getDocument<TClient>("clients", params, mapClientDocument, setClientData);
     queryDocuments<TProject>(
       "projects",
       "clientId",
-      params,
+      "==",
+      params.id as string,
       mapProjectDocument,
       setClientProjectsDocs,
     );
@@ -71,7 +72,8 @@ export const Client = () => {
         queryDocuments<TProject>(
           "projects",
           "clientId",
-          params,
+          "==",
+          params.id as string,
           mapProjectDocument,
           setClientProjectsDocs,
         ),
@@ -86,7 +88,9 @@ export const Client = () => {
         <p>{client.phone.toString()}</p>
         <p>{client.email}</p>
         <p>{client.address.addressLabel}</p>
-        {client.address.latitude && <Map model={client} />}
+        {client.address.latitude && (
+          <Map radarFunction={getMap} model={client} />
+        )}
         <div>
           <p>projects</p>
           {clientProjects.map((project) => (

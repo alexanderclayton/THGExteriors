@@ -59,8 +59,9 @@ export interface INotesProps<T> {
     setState: React.Dispatch<React.SetStateAction<T>>;
 }
 
-export interface IMapProps {
-    model: TClient;
+export interface IMapProps<T> {
+    radarFunction: (mapRef: React.MutableRefObject<HTMLDivElement | null>, model: T) => void,
+    model: T
 }
 
 export interface IAutocompleteProps {
