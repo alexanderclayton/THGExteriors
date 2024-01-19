@@ -5,7 +5,6 @@ import { getDocuments, mapClientDocument, queryDocuments } from "../services";
 import { mapProjectDocument } from "../services";
 import { Map } from "../components/Map";
 import { getMapWithMarkers } from "../radar";
-import { setAllProjectClientsDocs, setAllProjectsDocs } from "../helpers";
 
 export const AllProjects = () => {
   const navigate = useNavigate();
@@ -24,7 +23,6 @@ export const AllProjects = () => {
         "in",
         projectClients,
         mapClientDocument,
-        setAllProjectClientsDocs,
         setAllProjectClients,
       );
       console.log("got clients");
@@ -32,12 +30,7 @@ export const AllProjects = () => {
   };
 
   useEffect(() => {
-    getDocuments<TProject>(
-      "projects",
-      mapProjectDocument,
-      setAllProjectsDocs,
-      setAllProjects,
-    );
+    getDocuments<TProject>("projects", mapProjectDocument, setAllProjects);
   }, []);
 
   useEffect(() => {

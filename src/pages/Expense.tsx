@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ExpenseType, PaymentType, TExpense } from "../types";
 import {
   deleteDocument,
@@ -7,8 +7,7 @@ import {
   mapExpenseDocument,
 } from "../services";
 import { useNavigate, useParams } from "react-router-dom";
-import { ExpenseForm } from "../components/ExpenseForm";
-import { setExpenseData } from "../helpers";
+import { UpdateExpense } from "../components/UpdateExpense";
 
 export const Expense = () => {
   const params = useParams();
@@ -26,19 +25,9 @@ export const Expense = () => {
   const [update, setUpdate] = useState<boolean>(false);
 
   useEffect(() => {
-    getDocument<TExpense>(
-      "expenses",
-      params,
-      mapExpenseDocument,
-      setExpenseData,
-      setExpense
-    );
+    getDocument<TExpense>("expenses", params, mapExpenseDocument, setExpense);
   });
 
-  const formSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("update incoming!");
-  };
   return (
     <div className="flex flex-col">
       <p>{expense.expenseDate.toDateString()}</p>
@@ -61,12 +50,12 @@ export const Expense = () => {
       </button>
       <button onClick={() => setUpdate(!update)}>Update</button>
       {update && (
-        <ExpenseForm
-          legend="Update Expense"
-          setState={setExpense}
-          formSubmit={formSubmit}
-          expense={expense}
-          submit="Update!"
+        <UpdateExpense
+          params={params}
+          model={expense}
+          setFunction={setExpense}
+          setUpdate={setUpdate}
+          update={update}
         />
       )}
     </div>

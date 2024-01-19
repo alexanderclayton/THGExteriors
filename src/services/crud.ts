@@ -3,6 +3,7 @@ import { db, storage } from "../firebase/firebaseConfig";
 import { collection, doc, addDoc, getDoc, getDocs, updateDoc, deleteField, deleteDoc, query, where, QueryDocumentSnapshot, DocumentData, FieldValue, WithFieldValue, arrayUnion, arrayRemove, WhereFilterOp } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { NavigateFunction, Params } from "react-router-dom";
+import { setModelData } from "../helpers";
 
 
 //  Add document to Firebase  //
@@ -44,14 +45,13 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
     collectionName: string,
     params: Readonly<Params<string>>,
     mapFunction: (doc: QueryDocumentSnapshot<DocumentData>) => T,
-    setData: (setData: React.Dispatch<React.SetStateAction<T>>, data: T) => void,
     setFunction: React.Dispatch<React.SetStateAction<T>>
     ) => {
     try {
       const docSnap = await getDoc(doc(db, `${collectionName}`, `${params.id}`));
       if (docSnap.exists()) {
         const mappedData = mapFunction(docSnap)
-        setData(setFunction, mappedData);
+        setModelData(setFunction, mappedData);
       }
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
@@ -67,13 +67,12 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
   export const getDocuments = async<T>(
     collectionName: string,
     mapFunction: (doc: QueryDocumentSnapshot<DocumentData>) => T,
-    setData: (setData: React.Dispatch<React.SetStateAction<T[]>>, data: T[]) => void,
     setFunction: React.Dispatch<React.SetStateAction<T[]>>
   ) => {
     try {
       const querySnapshot = await getDocs(collection(db, `${collectionName}`));
       let docs = querySnapshot.docs.map(mapFunction);
-      setData(setFunction, docs);
+      setModelData(setFunction, docs);
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         console.error(error.message);
@@ -90,7 +89,6 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
     operator: WhereFilterOp,
     equalsString: string | string[],
     mapFunction: (doc: QueryDocumentSnapshot<DocumentData>) => T,
-    setData: (setData: React.Dispatch<React.SetStateAction<T[]>>, data: T[]) => void,
     setFunction: React.Dispatch<React.SetStateAction<T[]>>
   ) => {
     try {
@@ -100,7 +98,7 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
       )
       const querySnapshot = await getDocs(q)
       let docs = querySnapshot.docs.map(mapFunction)
-      setData(setFunction, docs)
+      setModelData(setFunction, docs)
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         console.error(error.message)
@@ -117,7 +115,6 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
     params: Readonly<Params<string>>,
     updatedDocument: T,
     mapFunction: (doc: QueryDocumentSnapshot<DocumentData>) => T,
-    setData: (setData: React.Dispatch<React.SetStateAction<T>>, data: T) => void,
     setFunction: React.Dispatch<React.SetStateAction<T>>,
     setUpdate?: React.Dispatch<React.SetStateAction<boolean>>,
     update?: boolean,
@@ -152,7 +149,7 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
         await updateDoc(docRef, updatedDocument);
       }
       console.log(`updated ${collectionName}`);
-      getDocument(collectionName, params, mapFunction, setData, setFunction)
+      getDocument(collectionName, params, mapFunction, setFunction)
       if (setUpdate) {
         setUpdate(!update)
       }

@@ -1,23 +1,22 @@
 import { useState } from "react";
-import { TClient, IUpdateClientProps } from "../types";
+import { TClient, IUpdateModelProps } from "../types";
 import { ClientForm } from "./ClientForm";
 import { mapClientDocument, updateDocument } from "../services";
-import { setClientData } from "../helpers";
 
-export const UpdateClient: React.FC<IUpdateClientProps> = ({
+export const UpdateClient: React.FC<IUpdateModelProps<TClient>> = ({
   params,
-  client,
-  setClient,
+  model,
+  setFunction,
   setUpdate,
   update,
 }) => {
   const [updatedClient, setUpdatedClient] = useState<TClient>({
-    name: client.name,
-    phone: client.phone,
-    email: client.email,
-    address: client.address,
-    notes: client.notes,
-    imageUrl: client.imageUrl,
+    name: model.name,
+    phone: model.phone,
+    email: model.email,
+    address: model.address,
+    notes: model.notes,
+    imageUrl: model.imageUrl,
   });
 
   const formSubmit = (e: React.FormEvent, image: any) => {
@@ -27,8 +26,7 @@ export const UpdateClient: React.FC<IUpdateClientProps> = ({
       params,
       updatedClient,
       mapClientDocument,
-      setClientData,
-      setClient,
+      setFunction,
       setUpdate,
       update,
       image,
@@ -41,7 +39,7 @@ export const UpdateClient: React.FC<IUpdateClientProps> = ({
         legend="Update Client Information"
         setState={setUpdatedClient}
         formSubmit={formSubmit}
-        client={updatedClient}
+        model={updatedClient}
         submit="Update"
       />
     </div>

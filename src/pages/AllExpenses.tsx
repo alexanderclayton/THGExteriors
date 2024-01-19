@@ -4,7 +4,7 @@ import { ExpenseForm } from "../components/ExpenseForm";
 import { ExpenseType, PaymentType, TExpense } from "../types";
 import { addDocument, getDocuments, mapExpenseDocument } from "../services";
 import { useNavigate } from "react-router-dom";
-import { resetExpense, setAllExpensesDocs } from "../helpers";
+import { resetExpense } from "../helpers";
 
 export const AllExpenses = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ export const AllExpenses = () => {
   const [allExpenses, setAllExpenses] = useState<TExpense[]>([]);
 
   useEffect(() => {
-    getDocuments<TExpense>("expenses", mapExpenseDocument, setAllExpensesDocs, setAllExpenses);
+    getDocuments<TExpense>("expenses", mapExpenseDocument, setAllExpenses);
   }, []);
 
   const formSubmit = (e: React.FormEvent) => {
@@ -29,7 +29,7 @@ export const AllExpenses = () => {
       "expenses",
       expense,
       () => resetExpense(setExpense),
-      () => getDocuments("expenses", mapExpenseDocument, setAllExpensesDocs, setAllExpenses),
+      () => getDocuments("expenses", mapExpenseDocument, setAllExpenses),
     );
   };
 
@@ -39,7 +39,7 @@ export const AllExpenses = () => {
         legend="Add Expense"
         setState={setExpense}
         formSubmit={formSubmit}
-        expense={expense}
+        model={expense}
         submit="Add Expense!"
       />
       {allExpenses.map((expense) => (

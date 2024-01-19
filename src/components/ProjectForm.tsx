@@ -1,17 +1,17 @@
 //import//
-import { IProjectFormProps, ProjectType, BidStatus } from "../types";
+import { ProjectType, BidStatus, IFormProps, TProject } from "../types";
 import { handleChange, handleImage } from "../helpers";
 import { useState } from "react";
 
-export const ProjectForm: React.FC<IProjectFormProps> = ({
+export const ProjectForm: React.FC<IFormProps<TProject>> = ({
   legend,
   setState,
   formSubmit,
-  project,
+  model,
   submit,
 }) => {
   const [image, setImage] = useState<File | undefined>(undefined);
-  
+
   return (
     <form onSubmit={(e) => formSubmit(e, image)}>
       <fieldset className="flex flex-col">
@@ -24,7 +24,7 @@ export const ProjectForm: React.FC<IProjectFormProps> = ({
             name="projectName"
             className="border border-black"
             onChange={(e) => handleChange(e, setState)}
-            value={project.projectName}
+            value={model.projectName}
             required
           />
         </div>
@@ -36,7 +36,7 @@ export const ProjectForm: React.FC<IProjectFormProps> = ({
             name="projectDate"
             className="border border-black"
             onChange={(e) => handleChange(e, setState)}
-            value={project.projectDate.toISOString().split("T")[0]}
+            value={model.projectDate.toISOString().split("T")[0]}
           />
         </div>
         <div>
@@ -45,7 +45,7 @@ export const ProjectForm: React.FC<IProjectFormProps> = ({
             id="projectType"
             name="projectType"
             onChange={(e) => handleChange(e, setState)}
-            value={project.projectType}
+            value={model.projectType}
           >
             <option value={ProjectType.Painting}>Painting</option>
             <option value={ProjectType.Lights}>Lights</option>
@@ -63,7 +63,7 @@ export const ProjectForm: React.FC<IProjectFormProps> = ({
             onChange={(e) =>
               handleChange(e, setState, undefined, "bidSent", "sent")
             }
-            checked={project.bid.sent}
+            checked={model.bid.sent}
           />
           <label htmlFor="bidStatus">Status</label>
           <select
@@ -73,7 +73,7 @@ export const ProjectForm: React.FC<IProjectFormProps> = ({
             onChange={(e) =>
               handleChange(e, setState, undefined, "bidStatus", "status")
             }
-            value={project.bid.status}
+            value={model.bid.status}
           >
             <option value={BidStatus.Tentative}>Tentative</option>
             <option value={BidStatus.Accepted}>Accepted</option>
@@ -88,7 +88,7 @@ export const ProjectForm: React.FC<IProjectFormProps> = ({
             onChange={(e) =>
               handleChange(e, setState, undefined, "bidAmount", "amount")
             }
-            value={project.bid.amount.toString()}
+            value={model.bid.amount.toString()}
           />
         </div>
         <div>
@@ -99,7 +99,7 @@ export const ProjectForm: React.FC<IProjectFormProps> = ({
             name="paid"
             className="border border-black"
             onChange={(e) => handleChange(e, setState)}
-            checked={project.paid}
+            checked={model.paid}
           />
         </div>
         <div>
@@ -116,7 +116,7 @@ export const ProjectForm: React.FC<IProjectFormProps> = ({
       <button
         onClick={(e) => {
           e.preventDefault();
-          console.log(project);
+          console.log(model);
         }}
       >
         Check Form

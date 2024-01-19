@@ -1,12 +1,12 @@
-import { ExpenseType, IExpenseFormProps, PaymentType } from "../types";
+import { ExpenseType, IFormProps, PaymentType, TExpense } from "../types";
 import { handleChange } from "../helpers";
 import { ProjectDropdown } from "./ProjectDropdown";
 
-export const ExpenseForm: React.FC<IExpenseFormProps> = ({
+export const ExpenseForm: React.FC<IFormProps<TExpense>> = ({
   legend,
   setState,
   formSubmit,
-  expense,
+  model,
   submit,
 }) => {
   return (
@@ -20,7 +20,7 @@ export const ExpenseForm: React.FC<IExpenseFormProps> = ({
               id="expenseType"
               name="expenseType"
               onChange={(e) => handleChange(e, setState)}
-              value={expense.expenseType}
+              value={model.expenseType}
             >
               <option value={ExpenseType.None}></option>
               <option value={ExpenseType.Materials}>Materials</option>
@@ -28,7 +28,7 @@ export const ExpenseForm: React.FC<IExpenseFormProps> = ({
               <option value={ExpenseType.Other}>Other</option>
             </select>
           </div>
-          {expense.expenseType !== "" && (
+          {model.expenseType !== "" && (
             <>
               <div>
                 <label htmlFor="expenseDate">Date:</label>
@@ -38,7 +38,7 @@ export const ExpenseForm: React.FC<IExpenseFormProps> = ({
                   name="expenseDate"
                   className="border border-black"
                   onChange={(e) => handleChange(e, setState)}
-                  value={expense.expenseDate.toISOString().split("T")[0]}
+                  value={model.expenseDate.toISOString().split("T")[0]}
                 />
               </div>
               <div>
@@ -49,7 +49,7 @@ export const ExpenseForm: React.FC<IExpenseFormProps> = ({
                   name="vendor"
                   className="border border-black"
                   onChange={(e) => handleChange(e, setState)}
-                  value={expense.vendor}
+                  value={model.vendor}
                 />
               </div>
               <div>
@@ -60,7 +60,7 @@ export const ExpenseForm: React.FC<IExpenseFormProps> = ({
                   name="expenseAmount"
                   className="border border-black"
                   onChange={(e) => handleChange(e, setState)}
-                  value={expense.expenseAmount}
+                  value={model.expenseAmount}
                 />
               </div>
               <div>
@@ -69,7 +69,7 @@ export const ExpenseForm: React.FC<IExpenseFormProps> = ({
                   id="paymentType"
                   name="paymentType"
                   onChange={(e) => handleChange(e, setState)}
-                  value={expense.paymentType}
+                  value={model.paymentType}
                 >
                   <option value={PaymentType.None}></option>
                   <option value={PaymentType.Cash}>Cash</option>
@@ -85,18 +85,18 @@ export const ExpenseForm: React.FC<IExpenseFormProps> = ({
                   name="description"
                   className="border border-black"
                   onChange={(e) => handleChange(e, setState)}
-                  value={expense.description}
+                  value={model.description}
                 />
               </div>
               <div>
-                <ProjectDropdown expense={expense} setState={setState} />
+                <ProjectDropdown expense={model} setState={setState} />
               </div>
               <input type="submit" value={submit} />
             </>
           )}
         </fieldset>
       </form>
-      <button onClick={() => console.log(expense)}>Test</button>
+      <button onClick={() => console.log(model)}>Test</button>
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { TExpense, TProject } from "../types";
 import { getDocuments, mapProjectDocument } from "../services";
-import { handleChange, setAllProjectsDocs } from "../helpers";
+import { handleChange } from "../helpers";
 
 interface IProjectDropdownProps {
   expense: TExpense;
@@ -18,7 +18,6 @@ export const ProjectDropdown: React.FC<IProjectDropdownProps> = ({
     getDocuments<TProject>(
       "projects",
       mapProjectDocument,
-      setAllProjectsDocs,
       setDropdownProjects,
     );
   }, []);

@@ -1,15 +1,15 @@
 //import//
 import { useState } from "react";
 import { handleChange, handleImage } from "../helpers";
-import { IClientFormProps, TClientValidation } from "../types";
+import { IFormProps, TClient, TClientValidation } from "../types";
 import { Autocomplete } from "./Autocomplete";
 import "radar-sdk-js/dist/radar.css";
 
-export const ClientForm: React.FC<IClientFormProps> = ({
+export const ClientForm: React.FC<IFormProps<TClient>> = ({
   legend,
   setState,
   formSubmit,
-  client,
+  model,
   submit,
 }) => {
   const [resetAutocomplete, setResetAutocomplete] = useState(false);
@@ -47,7 +47,7 @@ export const ClientForm: React.FC<IClientFormProps> = ({
               name="name"
               className="border border-black"
               onChange={(e) => handleChange(e, setState, setClientValidation)}
-              value={client.name}
+              value={model.name}
               required
             />
           </div>
@@ -59,7 +59,7 @@ export const ClientForm: React.FC<IClientFormProps> = ({
               name="phone"
               className="border border-black"
               onChange={(e) => handleChange(e, setState, setClientValidation)}
-              value={client.phone.toString()}
+              value={model.phone.toString()}
             />
           </div>
           <div>
@@ -70,7 +70,7 @@ export const ClientForm: React.FC<IClientFormProps> = ({
               name="email"
               className="border border-black"
               onChange={(e) => handleChange(e, setState, setClientValidation)}
-              value={client.email}
+              value={model.email}
             />
           </div>
           <Autocomplete
@@ -90,7 +90,7 @@ export const ClientForm: React.FC<IClientFormProps> = ({
         <input type="submit" value={submit} />
       </form>
       <button onClick={() => console.log(clientValidation)}>Test</button>
-      <button onClick={() => console.log(client)}>Client</button>
+      <button onClick={() => console.log(model)}>Client</button>
     </div>
   );
 };
