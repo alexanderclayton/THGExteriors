@@ -1,24 +1,23 @@
 import { useState } from "react";
-import { TExpense, IUpdateExpenseProps } from "../types";
+import { TExpense, IUpdateModelProps } from "../types";
 import { ExpenseForm } from "./ExpenseForm";
 import { mapExpenseDocument, updateDocument } from "../services";
-import { setExpenseData } from "../helpers";
 
-export const UpdateExpense: React.FC<IUpdateExpenseProps> = ({
+export const UpdateExpense: React.FC<IUpdateModelProps<TExpense>> = ({
   params,
-  expense,
-  setExpense,
+  model,
+  setFunction,
   setUpdate,
   update,
 }) => {
   const [updatedExpense, setUpdatedExpense] = useState<TExpense>({
-    expenseType: expense.expenseType,
-    expenseAmount: expense.expenseAmount,
-    paymentType: expense.paymentType,
-    expenseDate: expense.expenseDate,
-    vendor: expense.vendor,
-    description: expense.description,
-    projectId: expense.projectId,
+    expenseType: model.expenseType,
+    expenseAmount: model.expenseAmount,
+    paymentType: model.paymentType,
+    expenseDate: model.expenseDate,
+    vendor: model.vendor,
+    description: model.description,
+    projectId: model.projectId,
   });
 
   const formSubmit = (e: React.FormEvent) => {
@@ -28,8 +27,7 @@ export const UpdateExpense: React.FC<IUpdateExpenseProps> = ({
       params,
       updatedExpense,
       mapExpenseDocument,
-      setExpenseData,
-      setExpense,
+      setFunction,
       setUpdate,
       update,
     );
@@ -39,7 +37,7 @@ export const UpdateExpense: React.FC<IUpdateExpenseProps> = ({
       legend="Update Expense"
       setState={setUpdatedExpense}
       formSubmit={formSubmit}
-      expense={updatedExpense}
+      model={updatedExpense}
       submit="update!"
     />
   );

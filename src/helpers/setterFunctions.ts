@@ -43,65 +43,9 @@ export const resetExpense = (
   })
 }
 
-export const setClientData = (
-  setData: React.Dispatch<React.SetStateAction<TClient>>,
-  data: TClient,
+export const setModelData = <T>(
+  setData: React.Dispatch<React.SetStateAction<T>>,
+  model: T
 ) => {
-  setData(data);
-};
-
-export const setProjectData = (
-  setData: React.Dispatch<React.SetStateAction<TProject>>,
-  data: TProject,
-) => {
-  setData(data);
-};
-
-export const setExpensesData = (
-  setData: React.Dispatch<React.SetStateAction<TExpense[]>>,
-  data: TExpense[],
-) => {
-  setData(data);
-};
-
-export const setExpenseData = (
-  setData: React.Dispatch<React.SetStateAction<TExpense>>,
-  data: TExpense,
-) => {
-  setData(data);
-};
-
-export const setAllClientsDocs = (
-  setData: React.Dispatch<React.SetStateAction<TClient[]>>,
-  data: TClient[],
-) => {
-  setData(data);
-};
-
-export const setAllProjectsDocs = (
-  setData: React.Dispatch<React.SetStateAction<TProject[]>>,
-  data: TProject[],
-) => {
-  setData(data);
-};
-
-export const setAllExpensesDocs = (
-  setData: React.Dispatch<React.SetStateAction<TExpense[]>>,
-  data: TExpense[],
-) => {
-  setData(data);
-};
-
-export const setClientProjectsDocs = (
-  setData: React.Dispatch<React.SetStateAction<TProject[]>>,
-  data: TProject[],
-) => {
-  setData(data);
-};
-
-export const setAllProjectClientsDocs = (
-  setState: React.Dispatch<React.SetStateAction<TClient[]>>,
-  data: TClient[],
-) => {
-  setState(data);
-};
+  setData(model)
+}

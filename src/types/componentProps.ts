@@ -1,52 +1,20 @@
 import { Params } from "react-router-dom";
-import { TClient, TExpense, TProject } from ".";
+import { TClient } from ".";
 import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 
-export interface IClientFormProps {
+export interface IFormProps<T> {
     legend: string;
-    setState: React.Dispatch<React.SetStateAction<TClient>>;
-    formSubmit: (e: React.FormEvent, image: any) => void;
-    client: TClient;
+    setState: React.Dispatch<React.SetStateAction<T>>;
+    formSubmit: (e: React.FormEvent, image?: any) => void;
+    model: T;
     autocompleteRef?: React.MutableRefObject<HTMLDivElement | null>
-    submit: string;
+    submit: string; 
 }
 
-export interface IProjectFormProps {
-    legend: string;
-    setState: React.Dispatch<React.SetStateAction<TProject>>;
-    formSubmit: (e: React.FormEvent, image: any) => void;
-    project: TProject;
-    submit: string;
-  }
-
-export interface IExpenseFormProps {
-    legend: string;
-    setState: React.Dispatch<React.SetStateAction<TExpense>>;
-    formSubmit: (e: React.FormEvent) => void;
-    expense: TExpense;
-    submit: string;
-}
-
-export interface IUpdateClientProps {
+export interface IUpdateModelProps<T> {
     params: Readonly<Params<string>>;
-    client: TClient;
-    setClient: React.Dispatch<React.SetStateAction<TClient>>;
-    setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
-    update: boolean;
-}
-
-export interface IUpdateProjectProps {
-    params: Readonly<Params<string>>;
-    project: TProject;
-    setProject: React.Dispatch<React.SetStateAction<TProject>>;
-    setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
-    update: boolean;
-}
-
-export interface IUpdateExpenseProps {
-    params: Readonly<Params<string>>;
-    expense: TExpense;
-    setExpense: React.Dispatch<React.SetStateAction<TExpense>>;
+    model: T;
+    setFunction: React.Dispatch<React.SetStateAction<T>>;
     setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
     update: boolean;
 }
@@ -56,7 +24,6 @@ export interface INotesProps<T> {
     collectionName: string;
     params: Readonly<Params<string>>;
     mapFunction: (doc: QueryDocumentSnapshot<DocumentData>) => T;
-    setData: (setData: React.Dispatch<React.SetStateAction<T>>, data: T) => void,
     setFunction: React.Dispatch<React.SetStateAction<T>>
 }
 

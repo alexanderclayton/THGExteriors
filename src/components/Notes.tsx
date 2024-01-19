@@ -7,7 +7,6 @@ export const Notes: React.FC<INotesProps<TClient | TProject>> = ({
   collectionName,
   params,
   mapFunction,
-  setData,
   setFunction,
 }) => {
   const [note, setNote] = useState("");
@@ -26,7 +25,6 @@ export const Notes: React.FC<INotesProps<TClient | TProject>> = ({
                       params,
                       model,
                       mapFunction,
-                      setData,
                       setFunction,
                       undefined,
                       undefined,
@@ -60,7 +58,6 @@ export const Notes: React.FC<INotesProps<TClient | TProject>> = ({
               params,
               model,
               mapFunction,
-              setData,
               setFunction,
               undefined,
               undefined,

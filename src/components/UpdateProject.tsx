@@ -1,25 +1,24 @@
 import { useState } from "react";
-import { TProject, IUpdateProjectProps } from "../types";
+import { TProject, IUpdateModelProps } from "../types";
 import { mapProjectDocument, updateDocument } from "../services";
 import { ProjectForm } from "./ProjectForm";
-import { setProjectData } from "../helpers";
 
-export const UpdateProject: React.FC<IUpdateProjectProps> = ({
+export const UpdateProject: React.FC<IUpdateModelProps<TProject>> = ({
   params,
-  project,
-  setProject,
+  model,
+  setFunction,
   setUpdate,
   update,
 }) => {
   const [updatedProject, setUpdatedProject] = useState<TProject>({
-    clientId: project.clientId,
-    projectName: project.projectName,
-    projectDate: project.projectDate,
-    paid: project.paid,
-    bid: project.bid,
-    projectType: project.projectType,
-    notes: project.notes,
-    imageUrl: project.imageUrl,
+    clientId: model.clientId,
+    projectName: model.projectName,
+    projectDate: model.projectDate,
+    paid: model.paid,
+    bid: model.bid,
+    projectType: model.projectType,
+    notes: model.notes,
+    imageUrl: model.imageUrl,
   });
 
   const formSubmit = (e: React.FormEvent, image: any) => {
@@ -29,8 +28,7 @@ export const UpdateProject: React.FC<IUpdateProjectProps> = ({
       params,
       updatedProject,
       mapProjectDocument,
-      setProjectData,
-      setProject,
+      setFunction,
       setUpdate,
       update,
       image,
@@ -42,7 +40,7 @@ export const UpdateProject: React.FC<IUpdateProjectProps> = ({
       legend="Update Project"
       setState={setUpdatedProject}
       formSubmit={formSubmit}
-      project={updatedProject}
+      model={updatedProject}
       submit="update!"
     />
   );
