@@ -7,8 +7,6 @@ import { setModelData } from "../helpers";
 
 
 //  Add document to Firebase  //
-//  Usage: src/pages/AllClients.tsx  //
-//  Usage: src/pages/Client.tsx  //
 export const addDocument = async<T extends WithFieldValue<DocumentData>>( 
     collectionName: string,
     document: T,
@@ -39,8 +37,6 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
   };
 
   //  Get individual document from Firebase  //
-  //  Usage: src/pages/Client.tsx //
-  //  Usage: src/pages/Project.tsx  //
   export const getDocument = async<T>(
     collectionName: string,
     params: Readonly<Params<string>>,
@@ -61,9 +57,7 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
     }
   };
 
-  //  Get all documents from the "clients" collection in Firebase  //
-  //  Usage: src/pages/AllClients.tsx //
-  //  Usage: src/pages/AllProjects.tsx  //
+  //  Get all documents from specified collection in Firebase  //
   export const getDocuments = async<T>(
     collectionName: string,
     mapFunction: (doc: QueryDocumentSnapshot<DocumentData>) => T,
@@ -82,7 +76,6 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
   };
 
   //  Get specific documents from firebase matching query criteria  //
-  //  Usage: src/pages/Client.tsx  //
   export const queryDocuments = async<T>(
     collectionName: string,
     whereString: string,
@@ -107,9 +100,7 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
     }
   }
 
-  //  Update document in the "clients" collection  //
-  //  Usage: src/components/UpdateClient.tsx  //
-  //  Usage: src/components/UpdateProject.tsx  //
+  //  Update document in specified collection  //
   export const updateDocument = async<T extends WithFieldValue<DocumentData>>(
     collectionName: string,
     params: Readonly<Params<string>>,
@@ -161,9 +152,7 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
     } 
   };
 
-  //  Delete document and subcollections from "clients" collection  //
-  //  Usage: src/pages/Client.tsx  //
-  //  Usage: src/pages/Project.tsx  //
+  //  Delete document and subcollections from specified collection  //
   export const deleteDocument = async (
     collectionName: string,
     params: Readonly<Params<string>>,
@@ -185,6 +174,7 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
     }
   };
 
+  //  Add image to Firebase Storage, return image URL  //
   export const addImageToStorage = async (image: File | null) => {
     if (image == null) return;
     try {
