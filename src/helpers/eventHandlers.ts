@@ -21,6 +21,15 @@ const handleBid = <T>(setState: React.Dispatch<React.SetStateAction<T>>, field: 
   }));
 };
 
+export const handleImage = (e: any, setImage: React.Dispatch<React.SetStateAction<File | undefined>>) => {
+  const files = e.target.files;
+  if (files && files.length > 0) {
+    setImage(files[0]);
+    return files[0];
+  }
+  return undefined;
+};
+
 //  Handles change on form input elements, sets state of TClient | TProject objects accordingly  //
 //  Usage: src/components/ClientForm.tsx  //
 //  Usage: src/components/ProjectForm.tsx  //

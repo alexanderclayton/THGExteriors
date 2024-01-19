@@ -1,6 +1,6 @@
 //import//
 import { IProjectFormProps, ProjectType, BidStatus } from "../types";
-import { handleChange } from "../helpers";
+import { handleChange, handleImage } from "../helpers";
 import { useState } from "react";
 
 export const ProjectForm: React.FC<IProjectFormProps> = ({
@@ -11,16 +11,7 @@ export const ProjectForm: React.FC<IProjectFormProps> = ({
   submit,
 }) => {
   const [image, setImage] = useState<File | undefined>(undefined);
-
-  const handleImage = (e: any) => {
-    const files = e.target.files;
-    if (files && files.length > 0) {
-      setImage(files[0]);
-      return files[0];
-    }
-    return undefined;
-  };
-
+  
   return (
     <form onSubmit={(e) => formSubmit(e, image)}>
       <fieldset className="flex flex-col">
@@ -117,7 +108,7 @@ export const ProjectForm: React.FC<IProjectFormProps> = ({
             type="file"
             id="image"
             className="border border-black"
-            onChange={handleImage}
+            onChange={(e) => handleImage(e, setImage)}
           />
         </div>
       </fieldset>
