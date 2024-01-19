@@ -44,10 +44,10 @@ export interface IUpdateProjectProps {
 }
 
 export interface IUpdateExpenseProps {
-    params: any;
+    params: Readonly<Params<string>>;
     expense: TExpense;
-    setExpense: any;
-    setUpdate: any;
+    setExpense: React.Dispatch<React.SetStateAction<TExpense>>;
+    setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
     update: boolean;
 }
 
@@ -56,7 +56,8 @@ export interface INotesProps<T> {
     collectionName: string;
     params: Readonly<Params<string>>;
     mapFunction: (doc: QueryDocumentSnapshot<DocumentData>) => T;
-    setState: React.Dispatch<React.SetStateAction<T>>;
+    setData: (setData: React.Dispatch<React.SetStateAction<T>>, data: T) => void,
+    setFunction: React.Dispatch<React.SetStateAction<T>>
 }
 
 export interface IMapProps<T> {

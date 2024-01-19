@@ -7,7 +7,8 @@ export const Notes: React.FC<INotesProps<TClient | TProject>> = ({
   collectionName,
   params,
   mapFunction,
-  setState,
+  setData,
+  setFunction,
 }) => {
   const [note, setNote] = useState("");
 
@@ -25,7 +26,8 @@ export const Notes: React.FC<INotesProps<TClient | TProject>> = ({
                       params,
                       model,
                       mapFunction,
-                      setState,
+                      setData,
+                      setFunction,
                       undefined,
                       undefined,
                       undefined,
@@ -53,12 +55,13 @@ export const Notes: React.FC<INotesProps<TClient | TProject>> = ({
         />
         <button
           onClick={() =>
-            updateDocument(
+            updateDocument<TClient | TProject>(
               collectionName,
               params,
               model,
               mapFunction,
-              setState,
+              setData,
+              setFunction,
               undefined,
               undefined,
               undefined,

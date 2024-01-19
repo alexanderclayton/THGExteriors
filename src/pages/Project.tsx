@@ -12,6 +12,7 @@ import {
 } from "../services";
 import { UpdateProject } from "../components/UpdateProject";
 import { Notes } from "../components/Notes";
+import { setExpensesData, setProjectData } from "../helpers";
 
 export const Project = () => {
   const params = useParams();
@@ -29,20 +30,13 @@ export const Project = () => {
   const [expenses, setExpenses] = useState<TExpense[]>([]);
   const [update, setUpdate] = useState<boolean>(false);
 
-  const setProjectData = (data: TProject) => {
-    setProject(data);
-  };
-
-  const setExpensesData = (data: TExpense[]) => {
-    setExpenses(data);
-  };
-
   useEffect(() => {
     getDocument<TProject>(
       "projects",
       params,
       mapProjectDocument,
       setProjectData,
+      setProject,
     );
     queryDocuments<TExpense>(
       "expenses",
@@ -51,6 +45,7 @@ export const Project = () => {
       params.id as string,
       mapExpenseDocument,
       setExpensesData,
+      setExpenses,
     );
   }, []);
 
@@ -99,7 +94,8 @@ export const Project = () => {
         collectionName="projects"
         params={params}
         mapFunction={mapProjectDocument}
-        setState={
+        setData={setProjectData as any}
+        setFunction={
           setProject as React.Dispatch<React.SetStateAction<TClient | TProject>>
         }
       />

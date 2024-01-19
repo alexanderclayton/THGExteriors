@@ -8,6 +8,7 @@ import {
 } from "../services";
 import { useNavigate, useParams } from "react-router-dom";
 import { ExpenseForm } from "../components/ExpenseForm";
+import { setExpenseData } from "../helpers";
 
 export const Expense = () => {
   const params = useParams();
@@ -19,14 +20,10 @@ export const Expense = () => {
     expenseDate: new Date(),
     vendor: "",
     description: "",
-    projectId: ""
+    projectId: "",
   });
 
   const [update, setUpdate] = useState<boolean>(false);
-
-  const setExpenseData = (data: TExpense) => {
-    setExpense(data);
-  };
 
   useEffect(() => {
     getDocument<TExpense>(
@@ -34,6 +31,7 @@ export const Expense = () => {
       params,
       mapExpenseDocument,
       setExpenseData,
+      setExpense
     );
   });
 

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { TExpense, IUpdateExpenseProps } from "../types";
 import { ExpenseForm } from "./ExpenseForm";
-import { IUpdateExpenseProps, TExpense } from "../types";
 import { mapExpenseDocument, updateDocument } from "../services";
+import { setExpenseData } from "../helpers";
 
 export const UpdateExpense: React.FC<IUpdateExpenseProps> = ({
   params,
@@ -27,6 +28,7 @@ export const UpdateExpense: React.FC<IUpdateExpenseProps> = ({
       params,
       updatedExpense,
       mapExpenseDocument,
+      setExpenseData,
       setExpense,
       setUpdate,
       update,

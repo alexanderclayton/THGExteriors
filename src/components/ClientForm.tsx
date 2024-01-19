@@ -1,6 +1,6 @@
 //import//
 import { useState } from "react";
-import { handleChange } from "../helpers";
+import { handleChange, handleImage } from "../helpers";
 import { IClientFormProps, TClientValidation } from "../types";
 import { Autocomplete } from "./Autocomplete";
 import "radar-sdk-js/dist/radar.css";
@@ -20,15 +20,6 @@ export const ClientForm: React.FC<IClientFormProps> = ({
     address: true,
   });
   const [image, setImage] = useState<File | undefined>(undefined);
-
-  const handleImage = (e: any) => {
-    const files = e.target.files;
-    if (files && files.length > 0) {
-      setImage(files[0]);
-      return files[0];
-    }
-    return undefined;
-  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -92,7 +83,7 @@ export const ClientForm: React.FC<IClientFormProps> = ({
               type="file"
               id="image"
               className="border border-black"
-              onChange={handleImage}
+              onChange={(e) => handleImage(e, setImage)}
             />
           </div>
         </fieldset>

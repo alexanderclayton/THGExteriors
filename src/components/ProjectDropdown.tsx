@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { TExpense, TProject } from "../types";
 import { getDocuments, mapProjectDocument } from "../services";
-import { handleChange } from "../helpers";
+import { handleChange, setAllProjectsDocs } from "../helpers";
 
 interface IProjectDropdownProps {
   expense: TExpense;
@@ -12,10 +12,15 @@ export const ProjectDropdown: React.FC<IProjectDropdownProps> = ({
   expense,
   setState,
 }) => {
-  const [projects, setProjects] = useState<TProject[]>([]);
+  const [dropdownProjects, setDropdownProjects] = useState<TProject[]>([]);
 
   useEffect(() => {
-    getDocuments("projects", mapProjectDocument, setProjects);
+    getDocuments<TProject>(
+      "projects",
+      mapProjectDocument,
+      setAllProjectsDocs,
+      setDropdownProjects,
+    );
   }, []);
 
   return (
@@ -28,7 +33,7 @@ export const ProjectDropdown: React.FC<IProjectDropdownProps> = ({
         value={expense.projectId}
       >
         <option value=""></option>
-        {projects.map((project) => (
+        {dropdownProjects.map((project) => (
           <option key={project.id} value={project.id}>
             {project.projectName}
           </option>

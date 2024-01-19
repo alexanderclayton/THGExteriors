@@ -12,7 +12,7 @@ import {
   mapProjectDocument,
 } from "../services";
 import { UpdateClient } from "../components/UpdateClient";
-import { resetProject } from "../helpers";
+import { resetProject, setClientData, setClientProjectsDocs } from "../helpers";
 import { ProjectForm } from "../components/ProjectForm";
 import { RadarAddress } from "radar-sdk-js/dist/types";
 import { Map } from "../components/Map";
@@ -42,16 +42,14 @@ export const Client = () => {
   });
   const [update, setUpdate] = useState<boolean>(false);
 
-  const setClientData = (data: TClient) => {
-    setClient(data);
-  };
-
-  const setClientProjectsDocs = (data: TProject[]) => {
-    setClientProjects(data);
-  };
-
   useEffect(() => {
-    getDocument<TClient>("clients", params, mapClientDocument, setClientData);
+    getDocument<TClient>(
+      "clients",
+      params,
+      mapClientDocument,
+      setClientData,
+      setClient,
+    );
     queryDocuments<TProject>(
       "projects",
       "clientId",
@@ -59,6 +57,7 @@ export const Client = () => {
       params.id as string,
       mapProjectDocument,
       setClientProjectsDocs,
+      setClientProjects
     );
   }, []);
 
@@ -76,6 +75,7 @@ export const Client = () => {
           params.id as string,
           mapProjectDocument,
           setClientProjectsDocs,
+          setClientProjects
         ),
       image,
     );

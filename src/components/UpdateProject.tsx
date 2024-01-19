@@ -2,6 +2,7 @@ import { useState } from "react";
 import { TProject, IUpdateProjectProps } from "../types";
 import { mapProjectDocument, updateDocument } from "../services";
 import { ProjectForm } from "./ProjectForm";
+import { setProjectData } from "../helpers";
 
 export const UpdateProject: React.FC<IUpdateProjectProps> = ({
   params,
@@ -28,6 +29,7 @@ export const UpdateProject: React.FC<IUpdateProjectProps> = ({
       params,
       updatedProject,
       mapProjectDocument,
+      setProjectData,
       setProject,
       setUpdate,
       update,

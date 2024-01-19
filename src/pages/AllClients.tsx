@@ -5,7 +5,7 @@ import { TClient } from "../types";
 import { getDocuments, addDocument } from "../services";
 import { ClientForm } from "../components/ClientForm";
 import { mapClientDocument } from "../services";
-import { resetClients } from "../helpers";
+import { resetClients, setAllClientsDocs } from "../helpers";
 import { RadarAddress } from "radar-sdk-js/dist/types";
 
 export const AllClients = () => {
@@ -19,13 +19,14 @@ export const AllClients = () => {
     imageUrl: "",
   });
   const [allClients, setAllClients] = useState<TClient[]>([]);
-
-  const setAllClientsDocs = (data: TClient[]) => {
-    setAllClients(data);
-  };
-
+  
   useEffect(() => {
-    getDocuments<TClient>("clients", mapClientDocument, setAllClientsDocs);
+    getDocuments<TClient>(
+      "clients",
+      mapClientDocument,
+      setAllClientsDocs,
+      setAllClients,
+    );
   }, []);
 
   const formSubmit = (e: React.FormEvent, image: any) => {
@@ -35,7 +36,12 @@ export const AllClients = () => {
       client,
       () => resetClients(setClient),
       () =>
-        getDocuments<TClient>("clients", mapClientDocument, setAllClientsDocs),
+        getDocuments<TClient>(
+          "clients",
+          mapClientDocument,
+          setAllClientsDocs,
+          setAllClients,
+        ),
       image,
     );
   };
