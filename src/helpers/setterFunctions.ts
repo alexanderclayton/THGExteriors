@@ -22,7 +22,8 @@ export const resetProject = (
     setState({
       clientId: params.id as string,
       projectName: "",
-      projectDate: new Date(),
+      projectStartDate: new Date(),
+      projectEndDate: new Date(),
       paid: false,
       bid: { sent: false, status: BidStatus.Tentative, amount: 0},
       projectType: ProjectType.Other,

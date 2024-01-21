@@ -19,7 +19,8 @@ export const Project = () => {
   const [project, setProject] = useState<TProject>({
     clientId: "",
     projectName: "",
-    projectDate: new Date(),
+    projectStartDate: new Date(),
+    projectEndDate: new Date(),
     paid: false,
     bid: { sent: false, status: BidStatus.Tentative, amount: 0 },
     projectType: ProjectType.Other,
@@ -44,7 +45,8 @@ export const Project = () => {
   return (
     <div>
       <div>
-        <p>{project.projectDate.toDateString()}</p>
+        <p>{project.projectStartDate.toDateString()}</p>
+        <p>{project.projectEndDate.toDateString()}</p>
         <p>{project.projectName}</p>
         <div className="border border-black">
           <p className="font-bold">Expenses:</p>

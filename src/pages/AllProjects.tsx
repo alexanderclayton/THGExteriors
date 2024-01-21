@@ -52,8 +52,12 @@ export const AllProjects = () => {
               {project.projectName}
             </p>
             <p>
-              <span className="font-bold">Project Date: </span>{" "}
-              {project.projectDate.toDateString()}
+              <span className="font-bold">Project Start Date: </span>{" "}
+              {project.projectStartDate.toDateString()}
+            </p>
+            <p>
+              <span className="font-bold">Project End Date: </span>{" "}
+              {project.projectEndDate.toDateString()}
             </p>
           </div>
         ))}

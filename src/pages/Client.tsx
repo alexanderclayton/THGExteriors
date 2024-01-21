@@ -33,7 +33,8 @@ export const Client = () => {
   const [project, setProject] = useState<TProject>({
     clientId: params.id as string,
     projectName: "",
-    projectDate: new Date(),
+    projectStartDate: new Date(),
+    projectEndDate: new Date(),
     paid: false,
     bid: { sent: false, status: BidStatus.Tentative, amount: 0 },
     projectType: ProjectType.Other,
@@ -92,7 +93,8 @@ export const Client = () => {
               onClick={() => navigate(`/project/${project.id}`)}
             >
               <p>{project.projectName}</p>
-              <p>{project.projectDate.toDateString()}</p>
+              <p>{project.projectStartDate.toDateString()}</p>
+              <p>{project.projectEndDate.toDateString()}</p>
               <p>{project.paid}</p>
               <p>{project.id}</p>
             </div>
