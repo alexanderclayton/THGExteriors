@@ -14,7 +14,8 @@ export type TProject = {
   id?: string
   clientId: string
   projectName: string
-  projectDate: Date
+  projectStartDate: Date
+  projectEndDate: Date
   paid: boolean
   bid: TBid
   projectType: ProjectType

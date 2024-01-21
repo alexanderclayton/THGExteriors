@@ -29,14 +29,25 @@ export const ProjectForm: React.FC<IFormProps<TProject>> = ({
           />
         </div>
         <div>
-          <label htmlFor="projectDate">Project Date:</label>
+          <label htmlFor="projectStartDate">Project Start Date:</label>
           <input
             type="date"
-            id="projectDate"
-            name="projectDate"
+            id="projectStartDate"
+            name="projectStartDate"
             className="border border-black"
             onChange={(e) => handleChange(e, setState)}
-            value={model.projectDate.toISOString().split("T")[0]}
+            value={model.projectStartDate.toISOString().split("T")[0]}
+          />
+        </div>
+        <div>
+          <label htmlFor="projectEndDate">Project End Date:</label>
+          <input
+            type="date"
+            id="projectEndDate"
+            name="projectEndDate"
+            className="border border-black"
+            onChange={(e) => handleChange(e, setState)}
+            value={model.projectEndDate.toISOString().split("T")[0]}
           />
         </div>
         <div>

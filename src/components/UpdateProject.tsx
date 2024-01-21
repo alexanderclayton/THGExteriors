@@ -13,7 +13,8 @@ export const UpdateProject: React.FC<IUpdateModelProps<TProject>> = ({
   const [updatedProject, setUpdatedProject] = useState<TProject>({
     clientId: model.clientId,
     projectName: model.projectName,
-    projectDate: model.projectDate,
+    projectStartDate: model.projectStartDate,
+    projectEndDate: model.projectStartDate,
     paid: model.paid,
     bid: model.bid,
     projectType: model.projectType,
