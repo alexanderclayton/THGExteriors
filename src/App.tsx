@@ -14,6 +14,7 @@ import { Signin } from "./pages/Signin";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { AllExpenses } from "./pages/AllExpenses";
 import { Expense } from "./pages/Expense";
+import { Dashboard } from "./pages/Dashboard";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/signin" element={<Signin />} />
             {/* User Authenticated Routes */}
             <Route element={<ProtectedRoute />}>
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/allclients" element={<AllClients />} />
               <Route path="/client/:id" element={<Client />} />
               <Route path="/allprojects" element={<AllProjects />} />
