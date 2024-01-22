@@ -70,7 +70,7 @@ export const Calendar: React.FC<ICalendarProps> = ({ header, model }) => {
             ))}
           </tr>
         </thead>
-        <tbody>{renderDays(currentDay, model, navigate)}</tbody>
+        <tbody className="">{renderDays(currentDay, model, navigate)}</tbody>
       </table>
       <button onClick={() => console.log(model[0].projectStartDate)}>
         Start
