@@ -1,5 +1,5 @@
 import { NavigateFunction } from "react-router-dom";
-import { TProject } from "../types";
+import { ProjectType, TProject } from "../types";
 import { DateMethods } from "./calendarTypes";
 
 //  Gets details about current month  //
@@ -69,23 +69,39 @@ export const renderDays = (
         dayCounter++;
       }
 
-      const { project, projectDate } = isProjectDate(cellDate, model);
+      const { project } = isProjectDate(cellDate, model);
+      const cellStyle = {
+        width: "calc(100% / 7)", // Each cell takes 1/7 of the container's width
+        height: "80px", // Each cell takes 1/6 of the container's height
+      };
 
       week.push(
         <td
           key={`${cellDate.getTime()}`}
-          className={`border border-gray-300 p-2 ${
+          className={`relative border border-gray-300 p-2 ${
             i === 0 && j < startingWeekday
               ? "text-red-600"
               : dayCounter <= totalDaysInMonth + 1
               ? ""
               : "text-red-600"
-          } ${projectDate && "cursor-pointer bg-blue-400"}`}
-          onClick={() => {
-            projectDate && navigate(`/project/${project?.id}`);
-          }}
+          }`}
+          style={cellStyle}
         >
-          {dayValue}
+          <p className="absolute left-0 top-0">{dayValue}</p>
+          {project && (
+            <div
+              className={`h-[40%] w-full cursor-pointer rounded-sm p-1 text-xs text-white ${
+                project.projectType === ProjectType.Other
+                  ? "bg-red-500"
+                  : project.projectType === ProjectType.Lights
+                  ? "bg-blue-500"
+                  : "bg-green-500"
+              }`}
+              onClick={() => navigate(`/project/${project.id}`)}
+            >
+              {project.projectName}
+            </div>
+          )}
         </td>,
       );
     }
@@ -101,7 +117,7 @@ const isProjectDate = (cellDate: Date, model: TProject[]) => {
       cellDate >= project.projectStartDate &&
       cellDate <= project.projectEndDate,
   );
-  return { project: projectObject, projectDate: !!projectObject };
+  return { project: projectObject };
 };
 
 //  Sets displayed Calendar month forward or backward  //
