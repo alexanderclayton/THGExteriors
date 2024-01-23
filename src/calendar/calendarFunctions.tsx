@@ -1,5 +1,4 @@
-import { NavigateFunction } from "react-router-dom";
-import { ProjectType, TProject } from "../types";
+import { TProject } from "../types";
 import { DateMethods } from "./calendarTypes";
 
 //  Gets details about current month  //
@@ -29,7 +28,8 @@ const getMonthDetails = (currentDay: Date) => {
 export const renderDays = (
   currentDay: Date,
   model: any,
-  navigate: NavigateFunction,
+  // navigate: NavigateFunction,
+  setProjectArray: React.Dispatch<React.SetStateAction<TProject[]>>,
 ) => {
   const days = [];
   const { startingWeekday, totalDaysInMonth, totalDaysInPrevMonth } =
@@ -69,7 +69,7 @@ export const renderDays = (
         dayCounter++;
       }
 
-      const { project } = isProjectDate(cellDate, model);
+      const { projects } = isProjectDate(cellDate, model);
       const cellStyle = {
         width: "calc(100% / 7)", // Each cell takes 1/7 of the container's width
         height: "80px", // Each cell takes 1/6 of the container's height
@@ -84,24 +84,11 @@ export const renderDays = (
               : dayCounter <= totalDaysInMonth + 1
               ? ""
               : "text-red-600"
-          }`}
+          } ${projects[0] && "cursor-pointer bg-blue-200"}`}
           style={cellStyle}
+          onClick={projects[0] && (() => setProjectArray(projects))}
         >
           <p className="absolute left-0 top-0">{dayValue}</p>
-          {project && (
-            <div
-              className={`h-[40%] w-full cursor-pointer rounded-sm p-1 text-xs text-white ${
-                project.projectType === ProjectType.Other
-                  ? "bg-red-500"
-                  : project.projectType === ProjectType.Lights
-                  ? "bg-blue-500"
-                  : "bg-green-500"
-              }`}
-              onClick={() => navigate(`/project/${project.id}`)}
-            >
-              {project.projectName}
-            </div>
-          )}
         </td>,
       );
     }
@@ -112,12 +99,12 @@ export const renderDays = (
 
 //  Checks if date rendered in Calendar coincides with a project date  //
 const isProjectDate = (cellDate: Date, model: TProject[]) => {
-  const projectObject = model.find(
+  const projectObject = model.filter(
     (project: any) =>
       cellDate >= project.projectStartDate &&
       cellDate <= project.projectEndDate,
   );
-  return { project: projectObject };
+  return { projects: projectObject };
 };
 
 //  Sets displayed Calendar month forward or backward  //
