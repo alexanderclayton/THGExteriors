@@ -1,7 +1,7 @@
 //import//
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { TClient, TProject, BidStatus, ProjectType } from "../types";
+import { TClient, TProject, BidStatus, ProjectType, ProjectStatus } from "../types";
 import {
   getDocument,
   addDocument,
@@ -38,6 +38,7 @@ export const Client = () => {
     paid: false,
     bid: { sent: false, status: BidStatus.Tentative, amount: 0 },
     projectType: ProjectType.Other,
+    projectStatus: ProjectStatus.Upcoming,
     notes: [],
     imageUrl: "",
   });

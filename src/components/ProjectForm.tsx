@@ -1,5 +1,11 @@
 //import//
-import { ProjectType, BidStatus, IFormProps, TProject } from "../types";
+import {
+  ProjectType,
+  BidStatus,
+  IFormProps,
+  TProject,
+  ProjectStatus,
+} from "../types";
 import { handleChange, handleImage } from "../helpers";
 import { useState } from "react";
 
@@ -101,6 +107,20 @@ export const ProjectForm: React.FC<IFormProps<TProject>> = ({
             }
             value={model.bid.amount.toString()}
           />
+        </div>
+        <div>
+          <label htmlFor="projectStatus">Project Status:</label>
+          <select
+            name="projectStatus"
+            id="projectStatus"
+            className="border border-black"
+            onChange={(e) => handleChange(e, setState)}
+            value={model.projectStatus}
+          >
+            <option value={ProjectStatus.Upcoming}>Upcoming</option>
+            <option value={ProjectStatus.Current}>Current</option>
+            <option value={ProjectStatus.Complete}>Complete</option>
+          </select>
         </div>
         <div>
           <label htmlFor="paid">Paid</label>
