@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   changeMonth,
   handleTimeChange,
   renderDays,
 } from "../calendar/calendarFunctions";
 import { months, weekdays } from "../calendar/calendarTypes";
-import { useNavigate } from "react-router-dom";
+import { CalendarModal } from "./CalendarModal";
+import { TProject } from "../types";
 
 interface ICalendarProps {
   header: string;
@@ -14,7 +15,13 @@ interface ICalendarProps {
 
 export const Calendar: React.FC<ICalendarProps> = ({ header, model }) => {
   const [currentDay, setCurrentDay] = useState<Date>(new Date());
-  const navigate = useNavigate();
+  const [projectArray, setProjectArray] = useState<TProject[]>([]);
+  const [modal, setmodal] = useState(true);
+
+  useEffect(() => {
+    setmodal(!modal);
+  }, [projectArray]);
+
   return (
     <div className="text-center">
       <h1 className="mb-4 text-2xl font-bold">{header}</h1>
@@ -70,12 +77,13 @@ export const Calendar: React.FC<ICalendarProps> = ({ header, model }) => {
             ))}
           </tr>
         </thead>
-        <tbody className="">{renderDays(currentDay, model, navigate)}</tbody>
+        <tbody className="">
+          {renderDays(currentDay, model, setProjectArray)}
+        </tbody>
       </table>
-      <button onClick={() => console.log(model[0].projectStartDate)}>
-        Start
-      </button>
-      <button onClick={() => console.log(model[0].projectEndDate)}>End</button>
+      {modal && <CalendarModal model={projectArray} />}
+      <button onClick={() => console.log(currentDay)}>Start</button>
+      <button onClick={() => console.log(projectArray)}>End</button>
     </div>
   );
 };
