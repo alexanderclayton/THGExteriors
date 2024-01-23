@@ -1,15 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { TClient, TProject } from "../types";
+import { TClient, TExpense, TProject } from "../types";
 import { getDocuments, mapClientDocument, queryDocuments } from "../services";
 import { mapProjectDocument } from "../services";
 import { Map } from "../components/Map";
 import { getMapWithMarkers } from "../radar";
+import { SearchFilter } from "../components/SearchFilter";
 
 export const AllProjects = () => {
   const navigate = useNavigate();
   const [allProjects, setAllProjects] = useState<TProject[]>([]);
   const [allProjectClients, setAllProjectClients] = useState<TClient[]>([]);
+  const [filteredProjects, setFilteredProjects] = useState<TProject[]>([]);
+  // const [filteredProjectClients, setFilteredProjectClients] = useState<
+  //   string[]
+  // >([]);
   let projectClients: string[] = [];
 
   const setProjectClients = () => {
@@ -41,7 +46,18 @@ export const AllProjects = () => {
     <div className="flex">
       <div>
         <p>Projects</p>
-        {allProjects.map((project) => (
+        {allProjects[0] && (
+          <SearchFilter
+            model={allProjects}
+            setFilteredModel={
+              setFilteredProjects as React.Dispatch<
+                React.SetStateAction<TClient[] | TProject[] | TExpense[]>
+              >
+            }
+            filterProperty="projectName"
+          />
+        )}
+        {filteredProjects.map((project) => (
           <div
             key={project.id}
             className="border border-black hover:cursor-pointer"
