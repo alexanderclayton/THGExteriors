@@ -21,7 +21,7 @@ export type TProject = {
   projectType: ProjectType
   // installed: boolean //**for project type lights */
   // teardown: boolean //**for project type lights */
-  // expenses: number[]  //**Array of numbers to calculate costs */
+  projectStatus: ProjectStatus
   imageUrl?: string
   notes?: string[] //**Array of strings to track notes */
 };
@@ -54,6 +54,12 @@ export enum ProjectType {
   Other = 'other',
   Painting = 'painting',
   Lights = 'lights'
+}
+
+export enum ProjectStatus {
+  Upcoming = 'upcoming',
+  Current = 'current',
+  Complete = 'complete'
 }
 
 export enum ExpenseType {

@@ -18,6 +18,7 @@ export const UpdateProject: React.FC<IUpdateModelProps<TProject>> = ({
     paid: model.paid,
     bid: model.bid,
     projectType: model.projectType,
+    projectStatus: model.projectStatus,
     notes: model.notes,
     imageUrl: model.imageUrl,
   });

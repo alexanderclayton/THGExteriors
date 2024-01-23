@@ -1,7 +1,14 @@
 //import//
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { TProject, BidStatus, ProjectType, TClient, TExpense } from "../types";
+import {
+  TProject,
+  BidStatus,
+  ProjectType,
+  TClient,
+  TExpense,
+  ProjectStatus,
+} from "../types";
 import {
   getDocument,
   deleteDocument,
@@ -24,6 +31,7 @@ export const Project = () => {
     paid: false,
     bid: { sent: false, status: BidStatus.Tentative, amount: 0 },
     projectType: ProjectType.Other,
+    projectStatus: ProjectStatus.Upcoming,
     notes: [],
     imageUrl: "",
   });
@@ -48,6 +56,7 @@ export const Project = () => {
         <p>{project.projectStartDate.toDateString()}</p>
         <p>{project.projectEndDate.toDateString()}</p>
         <p>{project.projectName}</p>
+        <p>{project.projectStatus}</p>
         <div className="border border-black">
           <p className="font-bold">Expenses:</p>
           {expenses.map((expense) => (

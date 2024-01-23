@@ -26,6 +26,7 @@ export const mapProjectDocument = (
     paid: doc.data().paid,
     bid: doc.data().bid,
     projectType: doc.data().projectType,
+    projectStatus: doc.data().projectStatus,
     notes: doc.data().notes,
     imageUrl: doc.data().imageUrl,
 });

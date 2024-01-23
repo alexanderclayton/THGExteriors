@@ -1,5 +1,5 @@
 import { RadarAddress } from "radar-sdk-js/dist/types";
-import { TClient, TProject, BidStatus, ProjectType, TExpense, ExpenseType, PaymentType } from "../types";
+import { TClient, TProject, BidStatus, ProjectType, TExpense, ExpenseType, PaymentType, ProjectStatus } from "../types";
 import { Params } from "react-router-dom";
 
 //  Reset TClient state variable to clear form fields after adding document to Firebase  //
@@ -27,6 +27,7 @@ export const resetProject = (
       paid: false,
       bid: { sent: false, status: BidStatus.Tentative, amount: 0},
       projectType: ProjectType.Other,
+      projectStatus: ProjectStatus.Upcoming,
       notes: [],
       imageUrl: ""
     });

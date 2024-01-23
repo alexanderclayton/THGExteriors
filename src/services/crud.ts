@@ -136,7 +136,6 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
           console.log("added note")
         }
       } else {
-        console.log("document deleted")
         await updateDoc(docRef, updatedDocument);
       }
       console.log(`updated ${collectionName}`);
