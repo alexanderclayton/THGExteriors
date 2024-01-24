@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { TClient, TExpense, TProject } from "../types";
-import { getDocuments, mapClientDocument, queryDocuments } from "../services";
+import { getDocuments } from "../services";
 import { mapProjectDocument } from "../services";
 import { Map } from "../components/Map";
 import { getMapWithMarkers } from "../radar";
 import { SearchFilter } from "../components/SearchFilter";
+import { setFilteredProjectClientsArray, setProjectClients } from "../helpers";
 
 export const AllProjects = () => {
   const navigate = useNavigate();
@@ -15,37 +16,6 @@ export const AllProjects = () => {
   const [filteredProjectClients, setFilteredProjectClients] = useState<
     TClient[]
   >([]);
-  let projectClients: string[] = [];
-
-  const setProjectClients = () => {
-    projectClients = [];
-    for (let i = 0; i < allProjects.length; i++) {
-      projectClients.push(allProjects[i].clientId);
-    }
-    if (projectClients.length > 0) {
-      queryDocuments<TClient>(
-        "clients",
-        "__name__",
-        "in",
-        projectClients,
-        mapClientDocument,
-        setAllProjectClients,
-      );
-    }
-  };
-
-  const setFilteredProjectClientsArray = () => {
-    projectClients = [];
-    for (let i = 0; i < filteredProjects.length; i++) {
-      projectClients.push(filteredProjects[i].clientId);
-    }
-    if (projectClients.length > 0) {
-      const filteredArray = allProjectClients.filter((client) =>
-        projectClients.includes(client.id as string),
-      );
-      setFilteredProjectClients(filteredArray);
-    }
-  };
 
   useEffect(() => {
     getDocuments<TProject>("projects", mapProjectDocument, setAllProjects);
@@ -53,14 +23,19 @@ export const AllProjects = () => {
 
   useEffect(() => {
     if (allProjects.length > 0) {
-      setProjectClients();
+      setProjectClients(allProjects, setAllProjectClients);
       setFilteredProjects(allProjects);
     }
   }, [allProjects]);
 
   useEffect(() => {
     if (allProjectClients.length > 0) {
-      setFilteredProjectClientsArray();
+      setFilteredProjectClientsArray(
+        filteredProjects,
+        allProjectClients,
+        filteredProjectClients,
+        setFilteredProjectClients,
+      );
     }
   }, [allProjectClients, filteredProjects]);
 
