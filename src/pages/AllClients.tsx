@@ -1,12 +1,13 @@
 //import//
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { TClient } from "../types";
+import { TClient, TExpense, TProject } from "../types";
 import { getDocuments, addDocument } from "../services";
 import { ClientForm } from "../components/ClientForm";
 import { mapClientDocument } from "../services";
 import { resetClients } from "../helpers";
 import { RadarAddress } from "radar-sdk-js/dist/types";
+import { SearchFilter } from "../components/SearchFilter";
 
 export const AllClients = () => {
   const navigate = useNavigate();
@@ -19,10 +20,17 @@ export const AllClients = () => {
     imageUrl: "",
   });
   const [allClients, setAllClients] = useState<TClient[]>([]);
+  const [filteredClients, setFilteredClients] = useState<TClient[]>([]);
 
   useEffect(() => {
     getDocuments<TClient>("clients", mapClientDocument, setAllClients);
   }, []);
+
+  useEffect(() => {
+    if (allClients.length > 0) {
+      setFilteredClients(allClients);
+    }
+  }, [allClients]);
 
   const formSubmit = (e: React.FormEvent, image: any) => {
     e.preventDefault();
@@ -45,8 +53,17 @@ export const AllClients = () => {
         submit="Add Client"
       />
       <button onClick={() => console.log(allClients)}>All Clients</button>
+      <SearchFilter
+        model={allClients}
+        setFilteredModel={
+          setFilteredClients as React.Dispatch<
+            React.SetStateAction<TClient[] | TProject[] | TExpense[]>
+          >
+        }
+        filterProperty="name"
+      />
       <div>
-        {allClients.map((client) => (
+        {filteredClients.map((client) => (
           <div
             key={client.id}
             className="border border-black hover:cursor-pointer"
