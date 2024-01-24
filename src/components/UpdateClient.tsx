@@ -3,13 +3,13 @@ import { TClient, IUpdateModelProps } from "../types";
 import { ClientForm } from "./ClientForm";
 import { mapClientDocument, updateDocument } from "../services";
 
-export const UpdateClient: React.FC<IUpdateModelProps<TClient>> = ({
+export const UpdateClient = ({
   params,
   model,
   setFunction,
   setUpdate,
   update,
-}) => {
+}: IUpdateModelProps<TClient>) => {
   const [updatedClient, setUpdatedClient] = useState<TClient>({
     name: model.name,
     phone: model.phone,
@@ -19,7 +19,7 @@ export const UpdateClient: React.FC<IUpdateModelProps<TClient>> = ({
     imageUrl: model.imageUrl,
   });
 
-  const formSubmit = (e: React.FormEvent, image: any) => {
+  const formSubmit = (e: React.FormEvent, image: File | undefined) => {
     e.preventDefault();
     updateDocument<TClient>(
       "clients",

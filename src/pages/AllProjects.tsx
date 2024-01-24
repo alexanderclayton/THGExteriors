@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { TClient, TExpense, TProject } from "../types";
+import { TClient, TProject } from "../types";
 import { getDocuments } from "../services";
 import { mapProjectDocument } from "../services";
 import { Map } from "../components/Map";
@@ -46,11 +46,7 @@ export const AllProjects = () => {
         {allProjects[0] && (
           <SearchFilter
             model={allProjects}
-            setFilteredModel={
-              setFilteredProjects as React.Dispatch<
-                React.SetStateAction<TClient[] | TProject[] | TExpense[]>
-              >
-            }
+            setFilteredModel={setFilteredProjects}
             filterProperty="projectName"
           />
         )}

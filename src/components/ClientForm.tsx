@@ -5,13 +5,13 @@ import { IFormProps, TClient, TClientValidation } from "../types";
 import { Autocomplete } from "./Autocomplete";
 import "radar-sdk-js/dist/radar.css";
 
-export const ClientForm: React.FC<IFormProps<TClient>> = ({
+export const ClientForm = ({
   legend,
   setState,
   formSubmit,
   model,
   submit,
-}) => {
+}: IFormProps<TClient>) => {
   const [resetAutocomplete, setResetAutocomplete] = useState(false);
   const [clientValidation, setClientValidation] = useState<TClientValidation>({
     name: true,

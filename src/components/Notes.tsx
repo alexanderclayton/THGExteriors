@@ -1,20 +1,20 @@
-import { useState } from "react";
+import React from "react";
 import { updateDocument } from "../services";
-import { INotesProps, TClient, TProject } from "../types";
+import { INotesProps, TModels } from "../types";
 
-export const Notes: React.FC<INotesProps<TClient | TProject>> = ({
+export const Notes = <T extends TModels>({
   model,
   collectionName,
   params,
   mapFunction,
   setFunction,
-}) => {
-  const [note, setNote] = useState("");
+}: INotesProps<T>) => {
+  const [note, setNote] = React.useState("");
 
   return (
     <>
       <div>
-        {model.notes !== undefined
+        {"notes" in model && model.notes !== undefined
           ? model.notes.map((data, index: number) => (
               <div key={index} className="flex">
                 <p>{data}</p>
@@ -53,7 +53,7 @@ export const Notes: React.FC<INotesProps<TClient | TProject>> = ({
         />
         <button
           onClick={() =>
-            updateDocument<TClient | TProject>(
+            updateDocument(
               collectionName,
               params,
               model,

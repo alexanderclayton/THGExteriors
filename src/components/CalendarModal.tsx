@@ -1,12 +1,8 @@
 //import//
 import { useNavigate } from "react-router-dom";
-import { TProject } from "../types";
+import { ICalendarModalProps } from "../types";
 
-interface ICalendarModalProps {
-  model: TProject[];
-}
-
-export const CalendarModal: React.FC<ICalendarModalProps> = ({ model }) => {
+export const CalendarModal = ({ model }: ICalendarModalProps) => {
   const navigate = useNavigate();
   return (
     <div>

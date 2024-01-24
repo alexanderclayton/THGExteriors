@@ -27,8 +27,7 @@ const getMonthDetails = (currentDay: Date) => {
 //  Renders Calendar cells  //
 export const renderDays = (
   currentDay: Date,
-  model: any,
-  // navigate: NavigateFunction,
+  model: TProject[],
   setProjectArray: React.Dispatch<React.SetStateAction<TProject[]>>,
 ) => {
   const days = [];
@@ -100,7 +99,7 @@ export const renderDays = (
 //  Checks if date rendered in Calendar coincides with a project date  //
 const isProjectDate = (cellDate: Date, model: TProject[]) => {
   const projectObject = model.filter(
-    (project: any) =>
+    (project) =>
       cellDate >= project.projectStartDate &&
       cellDate <= project.projectEndDate,
   );

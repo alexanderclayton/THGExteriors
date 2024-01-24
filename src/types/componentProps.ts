@@ -1,11 +1,11 @@
 import { Params } from "react-router-dom";
-import { TClient } from ".";
+import { TClient, TExpense, TProject } from ".";
 import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 
 export interface IFormProps<T> {
     legend: string;
     setState: React.Dispatch<React.SetStateAction<T>>;
-    formSubmit: (e: React.FormEvent, image?: any) => void;
+    formSubmit: (e: React.FormEvent, image?: File | undefined) => void;
     model: T;
     autocompleteRef?: React.MutableRefObject<HTMLDivElement | null>
     submit: string; 
@@ -35,4 +35,24 @@ export interface IMapProps<T> {
 export interface IAutocompleteProps {
     setState: React.Dispatch<React.SetStateAction<TClient>>;
     resetAutocomplete: boolean;
+}
+
+export interface ISearchFilterProps<T> {
+    model: T[];
+    setFilteredModel: React.Dispatch<React.SetStateAction<T[]>>;
+    filterProperty: keyof T;
+}
+
+export interface ICalendarProps {
+    header: string;
+    model: TProject[];
+}
+
+export interface ICalendarModalProps {
+    model: TProject[];
+}
+
+export interface IProjectDropdownProps {
+    expense: TExpense;
+    setState: React.Dispatch<React.SetStateAction<TExpense>>;
 }

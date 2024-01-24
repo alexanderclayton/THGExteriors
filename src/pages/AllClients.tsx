@@ -1,7 +1,7 @@
 //import//
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { TClient, TExpense, TProject } from "../types";
+import { TClient } from "../types";
 import { getDocuments, addDocument } from "../services";
 import { ClientForm } from "../components/ClientForm";
 import { mapClientDocument } from "../services";
@@ -32,7 +32,7 @@ export const AllClients = () => {
     }
   }, [allClients]);
 
-  const formSubmit = (e: React.FormEvent, image: any) => {
+  const formSubmit = (e: React.FormEvent, image: File | undefined) => {
     e.preventDefault();
     addDocument<TClient>(
       "clients",
@@ -55,11 +55,7 @@ export const AllClients = () => {
       <button onClick={() => console.log(allClients)}>All Clients</button>
       <SearchFilter
         model={allClients}
-        setFilteredModel={
-          setFilteredClients as React.Dispatch<
-            React.SetStateAction<TClient[] | TProject[] | TExpense[]>
-          >
-        }
+        setFilteredModel={setFilteredClients}
         filterProperty="name"
       />
       <div>

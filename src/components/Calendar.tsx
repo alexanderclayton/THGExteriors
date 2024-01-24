@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   changeMonth,
   handleTimeChange,
@@ -6,14 +6,9 @@ import {
 } from "../calendar/calendarFunctions";
 import { months, weekdays } from "../calendar/calendarTypes";
 import { CalendarModal } from "./CalendarModal";
-import { TProject } from "../types";
+import { ICalendarProps, TProject } from "../types";
 
-interface ICalendarProps {
-  header: string;
-  model: any;
-}
-
-export const Calendar: React.FC<ICalendarProps> = ({ header, model }) => {
+export const Calendar = ({ header, model }: ICalendarProps) => {
   const [currentDay, setCurrentDay] = useState<Date>(new Date());
   const [projectArray, setProjectArray] = useState<TProject[]>([]);
   const [modal, setmodal] = useState(true);

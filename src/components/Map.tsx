@@ -1,7 +1,10 @@
 import { useEffect, useRef } from "react";
-import { IMapProps } from "../types";
+import { IMapProps, TModels } from "../types";
 
-export const Map: React.FC<IMapProps<any>> = ({ radarFunction, model }) => {
+export const Map = <T extends TModels | TModels[]>({
+  radarFunction,
+  model,
+}: IMapProps<T>) => {
   const mapRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     radarFunction(mapRef, model);

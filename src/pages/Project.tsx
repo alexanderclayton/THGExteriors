@@ -5,7 +5,6 @@ import {
   TProject,
   BidStatus,
   ProjectType,
-  TClient,
   TExpense,
   ProjectStatus,
 } from "../types";
@@ -97,9 +96,7 @@ export const Project = () => {
         collectionName="projects"
         params={params}
         mapFunction={mapProjectDocument}
-        setFunction={
-          setProject as React.Dispatch<React.SetStateAction<TClient | TProject>>
-        }
+        setFunction={setProject}
       />
       {project.imageUrl === undefined ? (
         <p>No Project Image</p>

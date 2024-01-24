@@ -1,7 +1,13 @@
 //import//
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { TClient, TProject, BidStatus, ProjectType, ProjectStatus } from "../types";
+import {
+  TClient,
+  TProject,
+  BidStatus,
+  ProjectType,
+  ProjectStatus,
+} from "../types";
 import {
   getDocument,
   addDocument,
@@ -56,7 +62,7 @@ export const Client = () => {
     );
   }, []);
 
-  const formSubmit = (e: React.FormEvent, image: any) => {
+  const formSubmit = (e: React.FormEvent, image: File | undefined) => {
     e.preventDefault();
     addDocument<TProject>(
       "projects",

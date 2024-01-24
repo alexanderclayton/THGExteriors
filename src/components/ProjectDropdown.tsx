@@ -1,25 +1,16 @@
 import { useEffect, useState } from "react";
-import { TExpense, TProject } from "../types";
+import { IProjectDropdownProps, TProject } from "../types";
 import { getDocuments, mapProjectDocument } from "../services";
 import { handleChange } from "../helpers";
 
-interface IProjectDropdownProps {
-  expense: TExpense;
-  setState: React.Dispatch<React.SetStateAction<TExpense>>;
-}
-
-export const ProjectDropdown: React.FC<IProjectDropdownProps> = ({
+export const ProjectDropdown = ({
   expense,
   setState,
-}) => {
+}: IProjectDropdownProps) => {
   const [dropdownProjects, setDropdownProjects] = useState<TProject[]>([]);
 
   useEffect(() => {
-    getDocuments<TProject>(
-      "projects",
-      mapProjectDocument,
-      setDropdownProjects,
-    );
+    getDocuments<TProject>("projects", mapProjectDocument, setDropdownProjects);
   }, []);
 
   return (

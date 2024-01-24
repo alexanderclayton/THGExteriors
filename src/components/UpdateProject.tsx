@@ -3,13 +3,13 @@ import { TProject, IUpdateModelProps } from "../types";
 import { mapProjectDocument, updateDocument } from "../services";
 import { ProjectForm } from "./ProjectForm";
 
-export const UpdateProject: React.FC<IUpdateModelProps<TProject>> = ({
+export const UpdateProject = ({
   params,
   model,
   setFunction,
   setUpdate,
   update,
-}) => {
+}: IUpdateModelProps<TProject>) => {
   const [updatedProject, setUpdatedProject] = useState<TProject>({
     clientId: model.clientId,
     projectName: model.projectName,
@@ -23,7 +23,7 @@ export const UpdateProject: React.FC<IUpdateModelProps<TProject>> = ({
     imageUrl: model.imageUrl,
   });
 
-  const formSubmit = (e: React.FormEvent, image: any) => {
+  const formSubmit = (e: React.FormEvent, image: File | undefined) => {
     e.preventDefault();
     updateDocument<TProject>(
       "projects",

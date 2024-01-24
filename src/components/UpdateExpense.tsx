@@ -3,13 +3,13 @@ import { TExpense, IUpdateModelProps } from "../types";
 import { ExpenseForm } from "./ExpenseForm";
 import { mapExpenseDocument, updateDocument } from "../services";
 
-export const UpdateExpense: React.FC<IUpdateModelProps<TExpense>> = ({
+export const UpdateExpense = ({
   params,
   model,
   setFunction,
   setUpdate,
   update,
-}) => {
+}: IUpdateModelProps<TExpense>) => {
   const [updatedExpense, setUpdatedExpense] = useState<TExpense>({
     expenseType: model.expenseType,
     expenseAmount: model.expenseAmount,
