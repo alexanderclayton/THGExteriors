@@ -12,12 +12,13 @@ export const AllProjects = () => {
   const [allProjects, setAllProjects] = useState<TProject[]>([]);
   const [allProjectClients, setAllProjectClients] = useState<TClient[]>([]);
   const [filteredProjects, setFilteredProjects] = useState<TProject[]>([]);
-  // const [filteredProjectClients, setFilteredProjectClients] = useState<
-  //   string[]
-  // >([]);
+  const [filteredProjectClients, setFilteredProjectClients] = useState<
+    TClient[]
+  >([]);
   let projectClients: string[] = [];
 
   const setProjectClients = () => {
+    projectClients = [];
     for (let i = 0; i < allProjects.length; i++) {
       projectClients.push(allProjects[i].clientId);
     }
@@ -30,7 +31,19 @@ export const AllProjects = () => {
         mapClientDocument,
         setAllProjectClients,
       );
-      console.log("got clients");
+    }
+  };
+
+  const setFilteredProjectClientsArray = () => {
+    projectClients = [];
+    for (let i = 0; i < filteredProjects.length; i++) {
+      projectClients.push(filteredProjects[i].clientId);
+    }
+    if (projectClients.length > 0) {
+      const filteredArray = allProjectClients.filter((client) =>
+        projectClients.includes(client.id as string),
+      );
+      setFilteredProjectClients(filteredArray);
     }
   };
 
@@ -39,8 +52,17 @@ export const AllProjects = () => {
   }, []);
 
   useEffect(() => {
-    setProjectClients();
+    if (allProjects.length > 0) {
+      setProjectClients();
+      setFilteredProjects(allProjects);
+    }
   }, [allProjects]);
+
+  useEffect(() => {
+    if (allProjectClients.length > 0) {
+      setFilteredProjectClientsArray();
+    }
+  }, [allProjectClients, filteredProjects]);
 
   return (
     <div className="flex">
@@ -78,8 +100,8 @@ export const AllProjects = () => {
           </div>
         ))}
       </div>
-      {allProjectClients[0] && (
-        <Map radarFunction={getMapWithMarkers} model={allProjectClients} />
+      {filteredProjectClients.length > 0 && (
+        <Map radarFunction={getMapWithMarkers} model={filteredProjectClients} />
       )}
     </div>
   );
