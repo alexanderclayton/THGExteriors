@@ -5,6 +5,6 @@ export const Map: React.FC<IMapProps<any>> = ({ radarFunction, model }) => {
   const mapRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     radarFunction(mapRef, model);
-  }, []);
+  }, [model]);
   return <div id="map" ref={mapRef} className="h-96 w-96" />;
 };
