@@ -9,13 +9,13 @@ import {
 import { handleChange, handleImage } from "../helpers";
 import { useState } from "react";
 
-export const ProjectForm: React.FC<IFormProps<TProject>> = ({
+export const ProjectForm = ({
   legend,
   setState,
   formSubmit,
   model,
   submit,
-}) => {
+}: IFormProps<TProject>) => {
   const [image, setImage] = useState<File | undefined>(undefined);
 
   return (

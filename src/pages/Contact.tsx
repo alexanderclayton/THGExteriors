@@ -1,31 +1,47 @@
 //import//
-import { useRef } from 'react'
-import emailjs from '@emailjs/browser'
+import { useRef } from "react";
+import emailjs from "@emailjs/browser";
 
 export const Contact = () => {
-  const form: any = useRef()
+  const form = useRef<HTMLFormElement | null>(null);
 
-  const sendEmail = (e: any) => {
-    e.preventDefault()
+  const sendEmail = (e: React.FormEvent) => {
+    e.preventDefault();
 
-    emailjs.sendForm('service_41ujjab', 'template_965u3gf', form.current as any, 'kJthuFNYVpXF8bJnA')
-      .then((result) => {
-          console.log(result.text);
-      }, (error) => {
-          console.log(error.text);
-      });
-  }
+    if (form.current !== null) {
+      emailjs
+        .sendForm(
+          "service_41ujjab",
+          "template_965u3gf",
+          form.current,
+          "kJthuFNYVpXF8bJnA",
+        )
+        .then(
+          (result) => {
+            console.log(result.text);
+          },
+          (error) => {
+            console.log(error.text);
+          },
+        );
+    }
+  };
+
   return (
-    <div className='flex justify-center'>
-      <form ref={form} onSubmit={sendEmail} className='flex flex-col w-[60%]'>
-      <label className='font-bold'>Name:</label>
-      <input type="text" name="user_name" className='border w-[50%]'/>
-      <label className='font-bold'>Email:</label>
-      <input type="email" name="user_email" className='border w-[50%]'/>
-      <label className='font-bold'>Message:</label>
-      <textarea name="message" className='border'/>
-      <input type="submit" value="Send" className='bg-green-300 w-[25%] mt-4 py-3 border-slate-300 border rounded-lg hover:cursor-pointer'/>
-    </form>
+    <div className="flex justify-center">
+      <form ref={form} onSubmit={sendEmail} className="flex w-[60%] flex-col">
+        <label className="font-bold">Name:</label>
+        <input type="text" name="user_name" className="w-[50%] border" />
+        <label className="font-bold">Email:</label>
+        <input type="email" name="user_email" className="w-[50%] border" />
+        <label className="font-bold">Message:</label>
+        <textarea name="message" className="border" />
+        <input
+          type="submit"
+          value="Send"
+          className="mt-4 w-[25%] rounded-lg border border-slate-300 bg-green-300 py-3 hover:cursor-pointer"
+        />
+      </form>
     </div>
-  )
-}
+  );
+};

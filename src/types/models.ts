@@ -38,7 +38,10 @@ export type TExpense = {
   projectId?: string
 }
 
-type TBid = {
+export type TModels = TClient | TProject | TExpense;
+
+
+export type TBid = {
   sent: boolean
   status: BidStatus
   amount: number

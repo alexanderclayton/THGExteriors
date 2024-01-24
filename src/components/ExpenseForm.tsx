@@ -2,13 +2,13 @@ import { ExpenseType, IFormProps, PaymentType, TExpense } from "../types";
 import { handleChange } from "../helpers";
 import { ProjectDropdown } from "./ProjectDropdown";
 
-export const ExpenseForm: React.FC<IFormProps<TExpense>> = ({
+export const ExpenseForm = ({
   legend,
   setState,
   formSubmit,
   model,
   submit,
-}) => {
+}: IFormProps<TExpense>) => {
   return (
     <>
       <form onSubmit={(e) => formSubmit(e)}>
