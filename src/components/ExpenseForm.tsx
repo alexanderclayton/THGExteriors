@@ -1,17 +1,30 @@
 import { ExpenseType, IFormProps, PaymentType, TExpense } from "../types";
-import { handleChange } from "../helpers";
+import { formSubmit, handleChange, resetExpense } from "../helpers";
 import { ProjectDropdown } from "./ProjectDropdown";
+import { mapExpenseDocument } from "../services";
 
 export const ExpenseForm = ({
   legend,
-  setState,
-  formSubmit,
   model,
+  setState,
+  setAllState,
   submit,
 }: IFormProps<TExpense>) => {
   return (
     <>
-      <form onSubmit={(e) => formSubmit(e)}>
+      <form
+        onSubmit={(e) =>
+          formSubmit(
+            e,
+            "expenses",
+            model,
+            resetExpense,
+            setState,
+            mapExpenseDocument,
+            setAllState,
+          )
+        }
+      >
         <fieldset>
           <legend>{legend}</legend>
           <div>

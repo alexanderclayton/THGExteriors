@@ -1,5 +1,8 @@
-import { BidStatus, TProject } from "../types";
+import { BidStatus, TModels, TProject } from "../types";
 import { validateEmail, validatePhone } from ".";
+import { addDocument, getDocuments, queryDocuments } from "../services";
+import { Params } from "react-router-dom";
+import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 
 //  Adjusts selected date from input field to register correctly  //
 const handleDate = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -90,4 +93,28 @@ export const handleSearchFilterChange = <T>(
 };
 
 
+/// Form Submits ///
+export const formSubmit = <T extends TModels>(
+  e: React.FormEvent, 
+  collection: string, 
+  model: T, 
+  resetFunction: (setState: React.Dispatch<React.SetStateAction<T>>, params?: Readonly<Params<string>>) => void,
+  setFunction: React.Dispatch<React.SetStateAction<T>>,
+  mapFunction: (doc: QueryDocumentSnapshot<DocumentData>) => T,
+  setAllFunction: React.Dispatch<React.SetStateAction<T[]>>,
+  image?: File | undefined,
+  params?: Readonly<Params<string>>,
+  ) => {
+  e.preventDefault()
+
+    const addDocumentCallBack = () => {
+      resetFunction(setFunction, params)
+      if (params !== undefined) {
+        queryDocuments<T>(collection, "clientId", "==", params.id as string, mapFunction, setAllFunction)
+      } else {
+        getDocuments<T>(collection, mapFunction, setAllFunction)
+      }
+    }
+    addDocument<T>(collection, model, addDocumentCallBack, undefined, image)
+}
 

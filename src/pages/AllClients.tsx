@@ -1,11 +1,10 @@
 //import//
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { TClient } from "../types";
-import { getDocuments, addDocument } from "../services";
+import { getDocuments } from "../services";
 import { ClientForm } from "../components/ClientForm";
 import { mapClientDocument } from "../services";
-import { resetClients } from "../helpers";
 import { RadarAddress } from "radar-sdk-js/dist/types";
 import { SearchFilter } from "../components/SearchFilter";
 
@@ -32,24 +31,13 @@ export const AllClients = () => {
     }
   }, [allClients]);
 
-  const formSubmit = (e: React.FormEvent, image: File | undefined) => {
-    e.preventDefault();
-    addDocument<TClient>(
-      "clients",
-      client,
-      () => resetClients(setClient),
-      () => getDocuments<TClient>("clients", mapClientDocument, setAllClients),
-      image,
-    );
-  };
-
   return (
     <div>
       <ClientForm
         legend="Add New Client"
-        setState={setClient}
-        formSubmit={formSubmit}
         model={client}
+        setState={setClient}
+        setAllState={setAllClients}
         submit="Add Client"
       />
       <button onClick={() => console.log(allClients)}>All Clients</button>

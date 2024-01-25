@@ -4,11 +4,12 @@ import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 
 export interface IFormProps<T> {
     legend: string;
-    setState: React.Dispatch<React.SetStateAction<T>>;
-    formSubmit: (e: React.FormEvent, image?: File | undefined) => void;
     model: T;
-    autocompleteRef?: React.MutableRefObject<HTMLDivElement | null>
+    setState: React.Dispatch<React.SetStateAction<T>>;
+    setAllState: React.Dispatch<React.SetStateAction<T[]>>
     submit: string; 
+    autocompleteRef?: React.MutableRefObject<HTMLDivElement | null>
+    params?: Readonly<Params<string>>
 }
 
 export interface IUpdateModelProps<T> {
