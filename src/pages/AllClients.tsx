@@ -72,9 +72,7 @@ export const AllClients = () => {
             </p>
           </div>
         ))}
-        <button onClick={() => console.log("hello world")}>
-          Test
-        </button>
+        <button onClick={() => console.log(client)}>Test</button>
       </div>
     </div>
   );

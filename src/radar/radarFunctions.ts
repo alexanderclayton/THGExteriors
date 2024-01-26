@@ -17,7 +17,7 @@ export const getAutocomplete = <T>(
         onSelection: (result) => {
             setState((prevState) => ({
                 ...prevState,
-                address: result
+                clientAddress: result
             }))
 
         }
