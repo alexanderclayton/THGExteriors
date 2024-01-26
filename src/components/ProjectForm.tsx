@@ -6,20 +6,59 @@ import {
   TProject,
   ProjectStatus,
 } from "../types";
-import { handleChange, handleImage } from "../helpers";
+import {
+  formSubmit,
+  handleChange,
+  handleImage,
+  resetProject,
+} from "../helpers";
 import { useState } from "react";
+import { mapProjectDocument } from "../services";
 
 export const ProjectForm = ({
   legend,
-  setState,
-  formSubmit,
   model,
+  setState,
+  setAllState,
   submit,
+  params,
+  update,
+  setUpdate,
+  setUpdatedState,
+  formType,
 }: IFormProps<TProject>) => {
   const [image, setImage] = useState<File | undefined>(undefined);
 
   return (
-    <form onSubmit={(e) => formSubmit(e, image)}>
+    <form
+      onSubmit={(e) => {
+        formType === "update" && setUpdatedState
+          ? formSubmit(
+              e,
+              "projects",
+              model,
+              setUpdatedState,
+              mapProjectDocument,
+              undefined,
+              undefined,
+              image,
+              params,
+              update,
+              setUpdate,
+            )
+          : formSubmit(
+              e,
+              "projects",
+              model,
+              setState,
+              mapProjectDocument,
+              resetProject,
+              setAllState,
+              image,
+              params,
+            );
+      }}
+    >
       <fieldset className="flex flex-col">
         <legend>{legend}</legend>
         <div>

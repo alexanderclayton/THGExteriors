@@ -19,10 +19,10 @@ export const resetClients = (setState: React.Dispatch<React.SetStateAction<TClie
 //  Reset TProject state variable to clear form fields after adding document to Firebase  //
 export const resetProject = (
     setState: React.Dispatch<React.SetStateAction<TProject>>,
-    params: Readonly<Params<string>>
+    params?: Readonly<Params<string>>
 ) => {
     setState({
-      clientId: params.id as string,
+      clientId: params?.id as string,
       projectName: "",
       projectStartDate: new Date(),
       projectEndDate: new Date(),
@@ -46,7 +46,8 @@ export const resetExpense = (
     expenseDate: new Date(),
     vendor: "",
     description: "",
-    projectId: ""
+    projectId: "",
+    imageUrl: ""
   })
 }
 

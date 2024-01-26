@@ -10,7 +10,6 @@ import {
 } from "../types";
 import {
   getDocument,
-  addDocument,
   deleteDocument,
   deleteClientFields,
   queryDocuments,
@@ -18,7 +17,6 @@ import {
   mapProjectDocument,
 } from "../services";
 import { UpdateClient } from "../components/UpdateClient";
-import { resetProject } from "../helpers";
 import { ProjectForm } from "../components/ProjectForm";
 import { RadarAddress } from "radar-sdk-js/dist/types";
 import { Map } from "../components/Map";
@@ -62,25 +60,6 @@ export const Client = () => {
     );
   }, []);
 
-  const formSubmit = (e: React.FormEvent, image: File | undefined) => {
-    e.preventDefault();
-    addDocument<TProject>(
-      "projects",
-      project,
-      () => resetProject(setProject, params),
-      () =>
-        queryDocuments<TProject>(
-          "projects",
-          "clientId",
-          "==",
-          params.id as string,
-          mapProjectDocument,
-          setClientProjects,
-        ),
-      image,
-    );
-  };
-
   return (
     <div>
       <div>
@@ -110,10 +89,11 @@ export const Client = () => {
       </div>
       <ProjectForm
         legend="Add Project"
-        setState={setProject}
-        formSubmit={formSubmit}
         model={project}
+        setState={setProject}
+        setAllState={setClientProjects}
         submit="submit form"
+        params={params}
       />
       <button onClick={() => setUpdate(!update)}>Update</button>
       {update && (

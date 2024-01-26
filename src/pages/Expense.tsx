@@ -20,6 +20,7 @@ export const Expense = () => {
     vendor: "",
     description: "",
     projectId: "",
+    imageUrl: "",
   });
 
   const [update, setUpdate] = useState<boolean>(false);

@@ -36,6 +36,7 @@ export type TExpense = {
   vendor: string
   description: string
   projectId?: string
+  imageUrl?: string
 }
 
 export type TModels = TClient | TProject | TExpense;

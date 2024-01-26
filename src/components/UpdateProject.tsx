@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { TProject, IUpdateModelProps } from "../types";
-import { mapProjectDocument, updateDocument } from "../services";
 import { ProjectForm } from "./ProjectForm";
 
 export const UpdateProject = ({
@@ -23,27 +22,17 @@ export const UpdateProject = ({
     imageUrl: model.imageUrl,
   });
 
-  const formSubmit = (e: React.FormEvent, image: File | undefined) => {
-    e.preventDefault();
-    updateDocument<TProject>(
-      "projects",
-      params,
-      updatedProject,
-      mapProjectDocument,
-      setFunction,
-      setUpdate,
-      update,
-      image,
-    );
-  };
-
   return (
     <ProjectForm
       legend="Update Project"
-      setState={setUpdatedProject}
-      formSubmit={formSubmit}
       model={updatedProject}
+      setState={setUpdatedProject}
       submit="update!"
+      params={params}
+      update={update}
+      setUpdate={setUpdate}
+      setUpdatedState={setFunction}
+      formType="update"
     />
   );
 };

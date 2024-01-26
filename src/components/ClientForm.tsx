@@ -1,16 +1,27 @@
 //import//
 import { useState } from "react";
-import { handleChange, handleImage } from "../helpers";
+import {
+  formSubmit,
+  handleChange,
+  handleImage,
+  resetClients,
+} from "../helpers";
 import { IFormProps, TClient, TClientValidation } from "../types";
 import { Autocomplete } from "./Autocomplete";
 import "radar-sdk-js/dist/radar.css";
+import { mapClientDocument } from "../services";
 
 export const ClientForm = ({
   legend,
-  setState,
-  formSubmit,
   model,
+  setState,
+  setAllState,
   submit,
+  params,
+  update,
+  setUpdate,
+  setUpdatedState,
+  formType,
 }: IFormProps<TClient>) => {
   const [resetAutocomplete, setResetAutocomplete] = useState(false);
   const [clientValidation, setClientValidation] = useState<TClientValidation>({
@@ -27,8 +38,33 @@ export const ClientForm = ({
       (isValid) => isValid,
     );
     if (isFormValid) {
-      formSubmit(e, image);
-      setResetAutocomplete(!resetAutocomplete);
+      if (formType === "update" && setUpdatedState) {
+        formSubmit(
+          e,
+          "clients",
+          model,
+          setUpdatedState,
+          mapClientDocument,
+          undefined,
+          undefined,
+          image,
+          params,
+          update,
+          setUpdate,
+        );
+      } else {
+        formSubmit(
+          e,
+          "clients",
+          model,
+          setState,
+          mapClientDocument,
+          resetClients,
+          setAllState,
+          image,
+        );
+        setResetAutocomplete(!resetAutocomplete);
+      }
     } else {
       console.error("form invalid");
     }

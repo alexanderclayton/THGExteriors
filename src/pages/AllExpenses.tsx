@@ -2,9 +2,8 @@
 import { useEffect, useState } from "react";
 import { ExpenseForm } from "../components/ExpenseForm";
 import { ExpenseType, PaymentType, TExpense } from "../types";
-import { addDocument, getDocuments, mapExpenseDocument } from "../services";
+import { getDocuments, mapExpenseDocument } from "../services";
 import { useNavigate } from "react-router-dom";
-import { resetExpense } from "../helpers";
 
 export const AllExpenses = () => {
   const navigate = useNavigate();
@@ -16,6 +15,7 @@ export const AllExpenses = () => {
     vendor: "",
     description: "",
     projectId: "",
+    imageUrl: "",
   });
   const [allExpenses, setAllExpenses] = useState<TExpense[]>([]);
 
@@ -23,23 +23,13 @@ export const AllExpenses = () => {
     getDocuments<TExpense>("expenses", mapExpenseDocument, setAllExpenses);
   }, []);
 
-  const formSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    addDocument<TExpense>(
-      "expenses",
-      expense,
-      () => resetExpense(setExpense),
-      () => getDocuments("expenses", mapExpenseDocument, setAllExpenses),
-    );
-  };
-
   return (
     <div>
       <ExpenseForm
         legend="Add Expense"
-        setState={setExpense}
-        formSubmit={formSubmit}
         model={expense}
+        setState={setExpense}
+        setAllState={setAllExpenses}
         submit="Add Expense!"
       />
       {allExpenses.map((expense) => (

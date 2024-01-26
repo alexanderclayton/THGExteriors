@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { TExpense, IUpdateModelProps } from "../types";
 import { ExpenseForm } from "./ExpenseForm";
-import { mapExpenseDocument, updateDocument } from "../services";
 
 export const UpdateExpense = ({
   params,
@@ -18,27 +17,20 @@ export const UpdateExpense = ({
     vendor: model.vendor,
     description: model.description,
     projectId: model.projectId,
+    imageUrl: model.imageUrl,
   });
 
-  const formSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    updateDocument<TExpense>(
-      "expenses",
-      params,
-      updatedExpense,
-      mapExpenseDocument,
-      setFunction,
-      setUpdate,
-      update,
-    );
-  };
   return (
     <ExpenseForm
       legend="Update Expense"
-      setState={setUpdatedExpense}
-      formSubmit={formSubmit}
       model={updatedExpense}
+      setState={setUpdatedExpense}
       submit="update!"
+      params={params}
+      update={update}
+      setUpdate={setUpdate}
+      setUpdatedState={setFunction}
+      formType="update"
     />
   );
 };
