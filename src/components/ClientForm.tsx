@@ -25,10 +25,11 @@ export const ClientForm = ({
 }: IFormProps<TClient>) => {
   const [resetAutocomplete, setResetAutocomplete] = useState(false);
   const [clientValidation, setClientValidation] = useState<TClientValidation>({
-    name: true,
-    phone: true,
-    email: true,
-    address: true,
+    clientFirstName: true,
+    clientLastName: true,
+    clientPhone: true,
+    clientEmail: true,
+    clientAddress: true,
   });
   const [image, setImage] = useState<File | undefined>(undefined);
 
@@ -76,37 +77,49 @@ export const ClientForm = ({
         <fieldset>
           <legend>{legend}</legend>
           <div>
-            <label htmlFor="name">Name:</label>
+            <label htmlFor="clientLastName">Last Name:</label>
             <input
               type="text"
-              id="name"
-              name="name"
+              id="clientLastName"
+              name="clientLastName"
               className="border border-black"
               onChange={(e) => handleChange(e, setState, setClientValidation)}
-              value={model.name}
+              value={model.clientLastName}
               required
             />
           </div>
           <div>
-            <label htmlFor="phone">Phone:</label>
+            <label htmlFor="clientFirstName">First Name:</label>
             <input
-              type="tel"
-              id="phone"
-              name="phone"
+              type="text"
+              id="clientFirstName"
+              name="clientFirstName"
               className="border border-black"
               onChange={(e) => handleChange(e, setState, setClientValidation)}
-              value={model.phone.toString()}
+              value={model.clientFirstName}
+              required
             />
           </div>
           <div>
-            <label htmlFor="email">Email:</label>
+            <label htmlFor="clientPhone">Phone:</label>
             <input
-              type="email"
-              id="email"
-              name="email"
+              type="tel"
+              id="clientPhone"
+              name="clientPhone"
               className="border border-black"
               onChange={(e) => handleChange(e, setState, setClientValidation)}
-              value={model.email}
+              value={model.clientPhone.toString()}
+            />
+          </div>
+          <div>
+            <label htmlFor="clientEmail">Email:</label>
+            <input
+              type="email"
+              id="clientEmail"
+              name="clientEmail"
+              className="border border-black"
+              onChange={(e) => handleChange(e, setState, setClientValidation)}
+              value={model.clientEmail}
             />
           </div>
           <Autocomplete

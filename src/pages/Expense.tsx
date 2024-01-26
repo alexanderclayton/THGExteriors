@@ -15,11 +15,11 @@ export const Expense = () => {
   const [expense, setExpense] = useState<TExpense>({
     expenseType: ExpenseType.None,
     expenseAmount: 0,
-    paymentType: PaymentType.None,
+    expensePaymentType: PaymentType.None,
     expenseDate: new Date(),
-    vendor: "",
-    description: "",
-    projectId: "",
+    expenseVendor: "",
+    expenseDescription: "",
+    expenseProjectId: "",
     imageUrl: "",
   });
 
@@ -32,10 +32,10 @@ export const Expense = () => {
   return (
     <div className="flex flex-col">
       <p>{expense.expenseDate.toDateString()}</p>
-      <p>{expense.vendor}</p>
+      <p>{expense.expenseVendor}</p>
       <p>{expense.expenseAmount}</p>
-      <p>{expense.paymentType}</p>
-      <p>{expense.description}</p>
+      <p>{expense.expensePaymentType}</p>
+      <p>{expense.expenseDescription}</p>
       <button
         onClick={() =>
           deleteDocument(

@@ -7,10 +7,11 @@ import { arraysAreEqual } from ".";
 //  Reset TClient state variable to clear form fields after adding document to Firebase  //
 export const resetClients = (setState: React.Dispatch<React.SetStateAction<TClient>>) => {
     setState({
-      name: "",
-      phone: 0,
-      email: "",
-      address: {} as RadarAddress,
+      clientFirstName: "",
+      clientLastName: "",
+      clientPhone: 0,
+      clientEmail: "",
+      clientAddress: {} as RadarAddress,
       notes: [],
       imageUrl: ""
     });
@@ -22,12 +23,13 @@ export const resetProject = (
     params?: Readonly<Params<string>>
 ) => {
     setState({
-      clientId: params?.id as string,
+      projectClientId: params?.id as string,
       projectName: "",
       projectStartDate: new Date(),
       projectEndDate: new Date(),
-      paid: false,
-      bid: { sent: false, status: BidStatus.Tentative, amount: 0},
+      projectPaid: false,
+      projectPaymentType: PaymentType.None,
+      projectBid: { sent: false, status: BidStatus.Tentative, amount: 0},
       projectType: ProjectType.Other,
       projectStatus: ProjectStatus.Upcoming,
       notes: [],
@@ -42,11 +44,11 @@ export const resetExpense = (
   setState({
     expenseType: ExpenseType.None,
     expenseAmount: 0,
-    paymentType: PaymentType.None,
+    expensePaymentType: PaymentType.None,
     expenseDate: new Date(),
-    vendor: "",
-    description: "",
-    projectId: "",
+    expenseVendor: "",
+    expenseDescription: "",
+    expenseProjectId: "",
     imageUrl: ""
   })
 }
@@ -66,7 +68,7 @@ export const setProjectClients = (
 ) => {
   let projectClients: string[] = [];
   for (let i = 0; i < iteratedArray.length; i++) {
-    projectClients.push(iteratedArray[i].clientId);
+    projectClients.push(iteratedArray[i].projectClientId);
   }
   if (projectClients.length > 0) {
     queryDocuments<TClient>(
@@ -90,7 +92,7 @@ export const setFilteredProjectClientsArray = (
 ) => {
   let projectClients: string[] = [];
   for (let i = 0; i < iteratedArray.length; i++) {
-    projectClients.push(iteratedArray[i].clientId);
+    projectClients.push(iteratedArray[i].projectClientId);
   }
   if (projectClients.length > 0) {
     const filteredArray = arrayToFilter.filter((client) =>

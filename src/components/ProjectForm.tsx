@@ -119,7 +119,7 @@ export const ProjectForm = ({
             onChange={(e) =>
               handleChange(e, setState, undefined, "bidSent", "sent")
             }
-            checked={model.bid.sent}
+            checked={model.projectBid.sent}
           />
           <label htmlFor="bidStatus">Status</label>
           <select
@@ -129,7 +129,7 @@ export const ProjectForm = ({
             onChange={(e) =>
               handleChange(e, setState, undefined, "bidStatus", "status")
             }
-            value={model.bid.status}
+            value={model.projectBid.status}
           >
             <option value={BidStatus.Tentative}>Tentative</option>
             <option value={BidStatus.Accepted}>Accepted</option>
@@ -144,7 +144,7 @@ export const ProjectForm = ({
             onChange={(e) =>
               handleChange(e, setState, undefined, "bidAmount", "amount")
             }
-            value={model.bid.amount.toString()}
+            value={model.projectBid.amount.toString()}
           />
         </div>
         <div>
@@ -162,14 +162,14 @@ export const ProjectForm = ({
           </select>
         </div>
         <div>
-          <label htmlFor="paid">Paid</label>
+          <label htmlFor="projectPaid">Paid</label>
           <input
             type="checkbox"
-            id="paid"
-            name="paid"
+            id="projectPaid"
+            name="projectPaid"
             className="border border-black"
             onChange={(e) => handleChange(e, setState)}
-            checked={model.paid}
+            checked={model.projectPaid}
           />
         </div>
         <div>

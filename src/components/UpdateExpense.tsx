@@ -12,11 +12,11 @@ export const UpdateExpense = ({
   const [updatedExpense, setUpdatedExpense] = useState<TExpense>({
     expenseType: model.expenseType,
     expenseAmount: model.expenseAmount,
-    paymentType: model.paymentType,
+    expensePaymentType: model.expensePaymentType,
     expenseDate: model.expenseDate,
-    vendor: model.vendor,
-    description: model.description,
-    projectId: model.projectId,
+    expenseVendor: model.expenseVendor,
+    expenseDescription: model.expenseDescription,
+    expenseProjectId: model.expenseProjectId,
     imageUrl: model.imageUrl,
   });
 

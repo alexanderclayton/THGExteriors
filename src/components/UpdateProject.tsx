@@ -10,12 +10,13 @@ export const UpdateProject = ({
   update,
 }: IUpdateModelProps<TProject>) => {
   const [updatedProject, setUpdatedProject] = useState<TProject>({
-    clientId: model.clientId,
+    projectClientId: model.projectClientId,
     projectName: model.projectName,
     projectStartDate: model.projectStartDate,
     projectEndDate: model.projectStartDate,
-    paid: model.paid,
-    bid: model.bid,
+    projectPaid: model.projectPaid,
+    projectPaymentType: model.projectPaymentType,
+    projectBid: model.projectBid,
     projectType: model.projectType,
     projectStatus: model.projectStatus,
     notes: model.notes,

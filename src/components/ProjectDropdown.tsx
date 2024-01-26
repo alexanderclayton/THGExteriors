@@ -15,12 +15,12 @@ export const ProjectDropdown = ({
 
   return (
     <>
-      <label htmlFor="projectId">Project:</label>
+      <label htmlFor="expenseProjectId">Project:</label>
       <select
-        id="projectId"
-        name="projectId"
+        id="expenseProjectId"
+        name="expenseProjectId"
         onChange={(e) => handleChange(e, setState)}
-        value={expense.projectId}
+        value={expense.expenseProjectId}
       >
         <option value=""></option>
         {dropdownProjects.map((project) => (

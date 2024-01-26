@@ -81,14 +81,14 @@ export const ExpenseForm = ({
                 />
               </div>
               <div>
-                <label htmlFor="vendor">Vendor:</label>
+                <label htmlFor="expenseVendor">Vendor:</label>
                 <input
                   type="text"
-                  id="vendor"
-                  name="vendor"
+                  id="expenseVendor"
+                  name="expenseVendor"
                   className="border border-black"
                   onChange={(e) => handleChange(e, setState)}
-                  value={model.vendor}
+                  value={model.expenseVendor}
                 />
               </div>
               <div>
@@ -103,28 +103,29 @@ export const ExpenseForm = ({
                 />
               </div>
               <div>
-                <label htmlFor="paymentType">Payment Type:</label>
+                <label htmlFor="expensePaymentType">Payment Type:</label>
                 <select
-                  id="paymentType"
-                  name="paymentType"
+                  id="expensePaymentType"
+                  name="expensePaymentType"
                   onChange={(e) => handleChange(e, setState)}
-                  value={model.paymentType}
+                  value={model.expensePaymentType}
                 >
                   <option value={PaymentType.None}></option>
                   <option value={PaymentType.Cash}>Cash</option>
                   <option value={PaymentType.CreditCard}>Credit Card</option>
+                  <option value={PaymentType.Venmo}>Venmo</option>
                   <option value={PaymentType.Check}>Check</option>
                 </select>
               </div>
               <div>
-                <label htmlFor="description">Description:</label>
+                <label htmlFor="expenseDescription">Description:</label>
                 <input
                   type="text"
-                  id="description"
-                  name="description"
+                  id="expenseDescription"
+                  name="expenseDescription"
                   className="border border-black"
                   onChange={(e) => handleChange(e, setState)}
-                  value={model.description}
+                  value={model.expenseDescription}
                 />
               </div>
               <div>

@@ -10,11 +10,11 @@ export const AllExpenses = () => {
   const [expense, setExpense] = useState<TExpense>({
     expenseType: ExpenseType.None,
     expenseAmount: 0,
-    paymentType: PaymentType.None,
+    expensePaymentType: PaymentType.None,
     expenseDate: new Date(),
-    vendor: "",
-    description: "",
-    projectId: "",
+    expenseVendor: "",
+    expenseDescription: "",
+    expenseProjectId: "",
     imageUrl: "",
   });
   const [allExpenses, setAllExpenses] = useState<TExpense[]>([]);
@@ -35,10 +35,10 @@ export const AllExpenses = () => {
       {allExpenses.map((expense) => (
         <div key={expense.id} className="flex">
           <p>{expense.expenseDate.toDateString()}</p>
-          <p>{expense.vendor}</p>
+          <p>{expense.expenseVendor}</p>
           <p>{expense.expenseAmount}</p>
           <p>{expense.expenseType}</p>
-          <p>{expense.description}</p>
+          <p>{expense.expenseDescription}</p>
           <button onClick={() => navigate(`/expense/${expense.id}`)}>
             Edit
           </button>
