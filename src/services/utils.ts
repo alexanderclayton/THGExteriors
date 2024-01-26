@@ -42,7 +42,8 @@ export const mapExpenseDocument = (
   expenseDate: doc.data().expenseDate.toDate(),
   vendor: doc.data().vendor,
   description: doc.data().description,
-  projectId: doc.data().projectId
+  projectId: doc.data().projectId,
+  imageUrl: doc.data().imageUrl
 })
 
 //  Applies deleteField() to TClient object, used to delete subfields prior to deleting document  //
@@ -51,6 +52,7 @@ export const deleteClientFields = (deleteField: FieldValue) => ({
     phone: deleteField,
     email: deleteField,
     address: deleteField,
+    notes: deleteField,
     imageUrl: deleteField,
 });
 
@@ -58,10 +60,13 @@ export const deleteClientFields = (deleteField: FieldValue) => ({
 export const deleteProjectFields = (deleteFields: FieldValue) => ({
     clientId: deleteFields,
     projectName: deleteFields,
-    projectDate: deleteFields,
+    projectStartDate: deleteFields,
+    projectEndDate: deleteFields,
     paid: deleteFields,
     bid: deleteFields,
     projectType: deleteFields,
+    projectStatus: deleteFields,
+    notes: deleteFields,
     imageUrl: deleteFields,
 });
 
@@ -72,5 +77,8 @@ export const deleteExpenseFields = (deleteFields: FieldValue) => ({
   paymentType: deleteFields,
   expenseDate: deleteFields,
   vendor: deleteFields,
-  description: deleteFields
+  description: deleteFields,
+  projectId: deleteFields,
+  imageUrl: deleteFields
+
 })

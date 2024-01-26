@@ -1,6 +1,6 @@
 import { BidStatus, TModels, TProject } from "../types";
 import { validateEmail, validatePhone } from ".";
-import { addDocument, getDocuments, queryDocuments } from "../services";
+import { addDocument, getDocuments, queryDocuments, updateDocument } from "../services";
 import { Params } from "react-router-dom";
 import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 
@@ -98,23 +98,29 @@ export const formSubmit = <T extends TModels>(
   e: React.FormEvent, 
   collection: string, 
   model: T, 
-  resetFunction: (setState: React.Dispatch<React.SetStateAction<T>>, params?: Readonly<Params<string>>) => void,
   setFunction: React.Dispatch<React.SetStateAction<T>>,
   mapFunction: (doc: QueryDocumentSnapshot<DocumentData>) => T,
-  setAllFunction: React.Dispatch<React.SetStateAction<T[]>>,
+  resetFunction?: (setState: React.Dispatch<React.SetStateAction<T>>, params?: Readonly<Params<string>>) => void,
+  setAllFunction?: React.Dispatch<React.SetStateAction<T[]>>,
   image?: File | undefined,
   params?: Readonly<Params<string>>,
+  update?: boolean,
+  setUpdate?: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
   e.preventDefault()
-
-    const addDocumentCallBack = () => {
-      resetFunction(setFunction, params)
-      if (params !== undefined) {
-        queryDocuments<T>(collection, "clientId", "==", params.id as string, mapFunction, setAllFunction)
-      } else {
-        getDocuments<T>(collection, mapFunction, setAllFunction)
+    if (update && params) {
+      updateDocument<T>(collection, params, model, mapFunction, setFunction, setUpdate, update, image)
+    } else if (setAllFunction !== undefined && resetFunction) {
+      const addDocumentCallBack = () => {
+        resetFunction(setFunction, params)
+        if (params !== undefined) {
+          queryDocuments<T>(collection, "clientId", "==", params.id as string, mapFunction, setAllFunction)
+        } else {
+          getDocuments<T>(collection, mapFunction, setAllFunction)
+        }
       }
+      addDocument<T>(collection, model, addDocumentCallBack, undefined, image)
+    } else {
+      console.log("Unsuccessful form submit")
     }
-    addDocument<T>(collection, model, addDocumentCallBack, undefined, image)
 }
-

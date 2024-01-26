@@ -6,10 +6,14 @@ export interface IFormProps<T> {
     legend: string;
     model: T;
     setState: React.Dispatch<React.SetStateAction<T>>;
-    setAllState: React.Dispatch<React.SetStateAction<T[]>>
+    setAllState?: React.Dispatch<React.SetStateAction<T[]>>
     submit: string; 
     autocompleteRef?: React.MutableRefObject<HTMLDivElement | null>
     params?: Readonly<Params<string>>
+    update?: boolean
+    setUpdate?: React.Dispatch<React.SetStateAction<boolean>>
+    setUpdatedState?: React.Dispatch<React.SetStateAction<T>>
+    formType?: string
 }
 
 export interface IUpdateModelProps<T> {

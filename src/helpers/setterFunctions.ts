@@ -46,7 +46,8 @@ export const resetExpense = (
     expenseDate: new Date(),
     vendor: "",
     description: "",
-    projectId: ""
+    projectId: "",
+    imageUrl: ""
   })
 }
 

@@ -15,6 +15,7 @@ export const AllExpenses = () => {
     vendor: "",
     description: "",
     projectId: "",
+    imageUrl: "",
   });
   const [allExpenses, setAllExpenses] = useState<TExpense[]>([]);
 

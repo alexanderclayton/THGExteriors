@@ -17,6 +17,11 @@ export const ClientForm = ({
   setState,
   setAllState,
   submit,
+  params,
+  update,
+  setUpdate,
+  setUpdatedState,
+  formType,
 }: IFormProps<TClient>) => {
   const [resetAutocomplete, setResetAutocomplete] = useState(false);
   const [clientValidation, setClientValidation] = useState<TClientValidation>({
@@ -33,17 +38,33 @@ export const ClientForm = ({
       (isValid) => isValid,
     );
     if (isFormValid) {
-      formSubmit(
-        e,
-        "clients",
-        model,
-        resetClients,
-        setState,
-        mapClientDocument,
-        setAllState,
-        image,
-      );
-      setResetAutocomplete(!resetAutocomplete);
+      if (formType === "update" && setUpdatedState) {
+        formSubmit(
+          e,
+          "clients",
+          model,
+          setUpdatedState,
+          mapClientDocument,
+          undefined,
+          undefined,
+          image,
+          params,
+          update,
+          setUpdate,
+        );
+      } else {
+        formSubmit(
+          e,
+          "clients",
+          model,
+          setState,
+          mapClientDocument,
+          resetClients,
+          setAllState,
+          image,
+        );
+        setResetAutocomplete(!resetAutocomplete);
+      }
     } else {
       console.error("form invalid");
     }

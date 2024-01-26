@@ -1,7 +1,13 @@
 import { ExpenseType, IFormProps, PaymentType, TExpense } from "../types";
-import { formSubmit, handleChange, resetExpense } from "../helpers";
+import {
+  formSubmit,
+  handleChange,
+  handleImage,
+  resetExpense,
+} from "../helpers";
 import { ProjectDropdown } from "./ProjectDropdown";
 import { mapExpenseDocument } from "../services";
+import { useState } from "react";
 
 export const ExpenseForm = ({
   legend,
@@ -9,21 +15,41 @@ export const ExpenseForm = ({
   setState,
   setAllState,
   submit,
+  params,
+  update,
+  setUpdate,
+  setUpdatedState,
+  formType,
 }: IFormProps<TExpense>) => {
+  const [image, setImage] = useState<File | undefined>(undefined);
   return (
     <>
       <form
-        onSubmit={(e) =>
-          formSubmit(
-            e,
-            "expenses",
-            model,
-            resetExpense,
-            setState,
-            mapExpenseDocument,
-            setAllState,
-          )
-        }
+        onSubmit={(e) => {
+          formType === "update" && setUpdatedState
+            ? formSubmit(
+                e,
+                "expenses",
+                model,
+                setUpdatedState,
+                mapExpenseDocument,
+                undefined,
+                undefined,
+                image,
+                params,
+                update,
+                setUpdate,
+              )
+            : formSubmit(
+                e,
+                "expenses",
+                model,
+                setState,
+                mapExpenseDocument,
+                resetExpense,
+                setAllState,
+              );
+        }}
       >
         <fieldset>
           <legend>{legend}</legend>
@@ -103,6 +129,15 @@ export const ExpenseForm = ({
               </div>
               <div>
                 <ProjectDropdown expense={model} setState={setState} />
+              </div>
+              <div>
+                <label htmlFor="image">Upload Image:</label>
+                <input
+                  type="file"
+                  id="image"
+                  className="border border-black"
+                  onChange={(e) => handleImage(e, setImage)}
+                />
               </div>
               <input type="submit" value={submit} />
             </>
