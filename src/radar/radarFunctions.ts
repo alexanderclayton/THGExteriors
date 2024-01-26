@@ -31,15 +31,15 @@ export const getMap = (
 ) => {
     if (mapRef.current) {
         mapRef.current.innerHTML = ""
-        if (model.address.latitude && model.address.longitude) {
+        if (model.clientAddress.latitude && model.clientAddress.longitude) {
             const map = Radar.ui.map({
                 container: "map",
                 style: "radar-default-v1",
-                center: [model.address.longitude, model.address.latitude],
+                center: [model.clientAddress.longitude, model.clientAddress.latitude],
                 zoom: 14
             })
-            Radar.ui.marker({ text: `${model.name} location`})
-            .setLngLat([model.address.longitude, model.address.latitude])
+            Radar.ui.marker({ text: `${model.clientFirstName} ${model.clientLastName} location`})
+            .setLngLat([model.clientAddress.longitude, model.clientAddress.latitude])
             .addTo(map)
         } else {
             console.log("no lat lon")
@@ -59,10 +59,10 @@ export const getMapWithMarkers = (
                 center: [-94.6708, 38.9822],
                 zoom: 10
             })
-            if (model[0].address.latitude && model[0].address.longitude) {
+            if (model[0].clientAddress.latitude && model[0].clientAddress.longitude) {
             for (let i = 0; i < model.length; i++) {
-                Radar.ui.marker({ text: `${model[i].name} project address`})
-                .setLngLat([model[i].address.longitude, model[i].address.latitude])
+                Radar.ui.marker({ text: `${model[i].clientFirstName} ${model[i].clientLastName} project address`})
+                .setLngLat([model[i].clientAddress.longitude, model[i].clientAddress.latitude])
                 .addTo(map)
             }
         }
