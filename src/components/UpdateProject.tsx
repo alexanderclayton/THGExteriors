@@ -13,7 +13,7 @@ export const UpdateProject = ({
     projectClientId: model.projectClientId,
     projectName: model.projectName,
     projectStartDate: model.projectStartDate,
-    projectEndDate: model.projectStartDate,
+    projectEndDate: model.projectEndDate,
     projectPaid: model.projectPaid,
     projectPaymentType: model.projectPaymentType,
     projectBid: model.projectBid,
