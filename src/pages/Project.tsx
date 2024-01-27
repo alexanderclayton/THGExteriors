@@ -43,7 +43,7 @@ export const Project = () => {
     getDocument<TProject>("projects", params, mapProjectDocument, setProject);
     queryDocuments<TExpense>(
       "expenses",
-      "projectId",
+      "expenseProjectId",
       "==",
       params.id as string,
       mapExpenseDocument,

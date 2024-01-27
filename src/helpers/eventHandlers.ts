@@ -17,7 +17,7 @@ const handleDate = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) 
 const handleBid = (setState: React.Dispatch<React.SetStateAction<TProject>>, field: string, value: boolean | BidStatus | number) => {
   setState((prevProject) => ({
     ...prevProject,
-    bid: {
+    projectBid: {
       ...prevProject.projectBid,
       [field]: value,
     },

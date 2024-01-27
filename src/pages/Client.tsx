@@ -55,7 +55,7 @@ export const Client = () => {
     getDocument<TClient>("clients", params, mapClientDocument, setClient);
     queryDocuments<TProject>(
       "projects",
-      "clientId",
+      "projectClientId",
       "==",
       params.id as string,
       mapProjectDocument,
