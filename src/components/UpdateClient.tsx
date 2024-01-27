@@ -10,10 +10,11 @@ export const UpdateClient = ({
   update,
 }: IUpdateModelProps<TClient>) => {
   const [updatedClient, setUpdatedClient] = useState<TClient>({
-    name: model.name,
-    phone: model.phone,
-    email: model.email,
-    address: model.address,
+    clientFirstName: model.clientFirstName,
+    clientLastName: model.clientLastName,
+    clientPhone: model.clientPhone,
+    clientEmail: model.clientEmail,
+    clientAddress: model.clientAddress,
     notes: model.notes,
     imageUrl: model.imageUrl,
   });

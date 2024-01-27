@@ -6,10 +6,11 @@ export const mapClientDocument = (
     doc: QueryDocumentSnapshot<DocumentData>,
   ): TClient => ({
     id: doc.id,
-    name: doc.data().name,
-    phone: doc.data().phone,
-    email: doc.data().email,
-    address: doc.data().address,
+    clientFirstName: doc.data().clientFirstName,
+    clientLastName: doc.data().clientLastName,
+    clientPhone: doc.data().clientPhone,
+    clientEmail: doc.data().clientEmail,
+    clientAddress: doc.data().clientAddress,
     notes: doc.data().notes,
     imageUrl: doc.data().imageUrl,
 });
@@ -19,12 +20,13 @@ export const mapProjectDocument = (
     doc: QueryDocumentSnapshot<DocumentData>,
   ): TProject => ({
     id: doc.id,
-    clientId: doc.data().clientId,
+    projectClientId: doc.data().projectClientId,
     projectName: doc.data().projectName,
     projectStartDate: doc.data().projectStartDate.toDate(),
     projectEndDate: doc.data().projectEndDate.toDate(),
-    paid: doc.data().paid,
-    bid: doc.data().bid,
+    projectPaid: doc.data().projectPaid,
+    projectPaymentType: doc.data().projectPaymentType,
+    projectBid: doc.data().projectBid,
     projectType: doc.data().projectType,
     projectStatus: doc.data().projectStatus,
     notes: doc.data().notes,
@@ -38,32 +40,34 @@ export const mapExpenseDocument = (
   id: doc.id,
   expenseType: doc.data().expenseType,
   expenseAmount: doc.data().expenseAmount,
-  paymentType: doc.data().paymentType,
+  expensePaymentType: doc.data().expensePaymentType,
   expenseDate: doc.data().expenseDate.toDate(),
-  vendor: doc.data().vendor,
-  description: doc.data().description,
-  projectId: doc.data().projectId,
+  expenseVendor: doc.data().expenseVendor,
+  expenseDescription: doc.data().expenseDescription,
+  expenseProjectId: doc.data().expenseProjectId,
   imageUrl: doc.data().imageUrl
 })
 
 //  Applies deleteField() to TClient object, used to delete subfields prior to deleting document  //
 export const deleteClientFields = (deleteField: FieldValue) => ({
-    name: deleteField,
-    phone: deleteField,
-    email: deleteField,
-    address: deleteField,
+    clientFirstName: deleteField,
+    clientLastName: deleteField,
+    clientPhone: deleteField,
+    clientEmail: deleteField,
+    clientAddress: deleteField,
     notes: deleteField,
     imageUrl: deleteField,
 });
 
 //  Applies deleteField() to TProject object, used to delete subfields prior to deleting document  //
 export const deleteProjectFields = (deleteFields: FieldValue) => ({
-    clientId: deleteFields,
+    projectClientId: deleteFields,
     projectName: deleteFields,
     projectStartDate: deleteFields,
     projectEndDate: deleteFields,
-    paid: deleteFields,
-    bid: deleteFields,
+    projectPaid: deleteFields,
+    projectPaymentType: deleteFields,
+    projectBid: deleteFields,
     projectType: deleteFields,
     projectStatus: deleteFields,
     notes: deleteFields,
@@ -74,11 +78,11 @@ export const deleteProjectFields = (deleteFields: FieldValue) => ({
 export const deleteExpenseFields = (deleteFields: FieldValue) => ({
   expenseType: deleteFields,
   expenseAmount: deleteFields,
-  paymentType: deleteFields,
+  expensePaymentType: deleteFields,
   expenseDate: deleteFields,
-  vendor: deleteFields,
-  description: deleteFields,
-  projectId: deleteFields,
+  expenseVendor: deleteFields,
+  expenseDescription: deleteFields,
+  expenseProjectId: deleteFields,
   imageUrl: deleteFields
 
 })

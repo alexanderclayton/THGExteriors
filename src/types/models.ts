@@ -2,22 +2,24 @@ import { RadarAddress } from "radar-sdk-js/dist/types";
 
 export type TClient = {
   id?: string
-  name: string
-  phone: number
-  email: string
-  address: RadarAddress
+  clientFirstName: string
+  clientLastName: string
+  clientPhone: number
+  clientEmail: string
+  clientAddress: RadarAddress
   imageUrl?: string
   notes: string[] //**Array of strings to track notes */
 };
 
 export type TProject = {
   id?: string
-  clientId: string
+  projectClientId: string
   projectName: string
   projectStartDate: Date
   projectEndDate: Date
-  paid: boolean
-  bid: TBid
+  projectPaid: boolean
+  projectPaymentType: PaymentType
+  projectBid: TBid
   projectType: ProjectType
   // installed: boolean //**for project type lights */
   // teardown: boolean //**for project type lights */
@@ -31,11 +33,11 @@ export type TExpense = {
   // clientId?: string
   expenseType: ExpenseType
   expenseAmount: number
-  paymentType: PaymentType
+  expensePaymentType: PaymentType
   expenseDate: Date
-  vendor: string
-  description: string
-  projectId?: string
+  expenseVendor: string
+  expenseDescription: string
+  expenseProjectId?: string
   imageUrl?: string
 }
 
@@ -77,5 +79,6 @@ export enum PaymentType {
   None = '',
   Cash = 'cash',
   CreditCard = 'credit card',
+  Venmo = 'venmo',
   Check = 'check'
 }

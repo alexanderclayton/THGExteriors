@@ -7,6 +7,7 @@ import {
   ProjectType,
   TExpense,
   ProjectStatus,
+  PaymentType,
 } from "../types";
 import {
   getDocument,
@@ -23,12 +24,13 @@ export const Project = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [project, setProject] = useState<TProject>({
-    clientId: "",
+    projectClientId: "",
     projectName: "",
     projectStartDate: new Date(),
     projectEndDate: new Date(),
-    paid: false,
-    bid: { sent: false, status: BidStatus.Tentative, amount: 0 },
+    projectPaid: false,
+    projectPaymentType: PaymentType.None,
+    projectBid: { sent: false, status: BidStatus.Tentative, amount: 0 },
     projectType: ProjectType.Other,
     projectStatus: ProjectStatus.Upcoming,
     notes: [],
@@ -62,8 +64,8 @@ export const Project = () => {
             <div key={expense.id} className="flex border border-black">
               <p>{expense.expenseDate.toDateString()}</p>
               <p>${expense.expenseAmount}</p>
-              <p>{expense.vendor}</p>
-              <p>{expense.description}</p>
+              <p>{expense.expenseVendor}</p>
+              <p>{expense.expenseDescription}</p>
             </div>
           ))}
         </div>

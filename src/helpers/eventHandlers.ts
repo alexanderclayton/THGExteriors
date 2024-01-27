@@ -18,7 +18,7 @@ const handleBid = (setState: React.Dispatch<React.SetStateAction<TProject>>, fie
   setState((prevProject) => ({
     ...prevProject,
     bid: {
-      ...prevProject.bid,
+      ...prevProject.projectBid,
       [field]: value,
     },
   }));

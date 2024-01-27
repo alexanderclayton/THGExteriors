@@ -7,6 +7,7 @@ import {
   BidStatus,
   ProjectType,
   ProjectStatus,
+  PaymentType,
 } from "../types";
 import {
   getDocument,
@@ -26,21 +27,23 @@ export const Client = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [client, setClient] = useState<TClient>({
-    name: "",
-    phone: 0,
-    email: "",
-    address: {} as RadarAddress,
+    clientFirstName: "",
+    clientLastName: "",
+    clientPhone: 0,
+    clientEmail: "",
+    clientAddress: {} as RadarAddress,
     notes: [],
     imageUrl: "",
   });
   const [clientProjects, setClientProjects] = useState<TProject[]>([]);
   const [project, setProject] = useState<TProject>({
-    clientId: params.id as string,
+    projectClientId: params.id as string,
     projectName: "",
     projectStartDate: new Date(),
     projectEndDate: new Date(),
-    paid: false,
-    bid: { sent: false, status: BidStatus.Tentative, amount: 0 },
+    projectPaid: false,
+    projectPaymentType: PaymentType.None,
+    projectBid: { sent: false, status: BidStatus.Tentative, amount: 0 },
     projectType: ProjectType.Other,
     projectStatus: ProjectStatus.Upcoming,
     notes: [],
@@ -63,11 +66,13 @@ export const Client = () => {
   return (
     <div>
       <div>
-        <p>{client.name}</p>
-        <p>{client.phone.toString()}</p>
-        <p>{client.email}</p>
-        <p>{client.address.addressLabel}</p>
-        {client.address.latitude && (
+        <p>
+          {client.clientLastName}, {client.clientFirstName}
+        </p>
+        <p>{client.clientPhone.toString()}</p>
+        <p>{client.clientEmail}</p>
+        <p>{client.clientAddress.addressLabel}</p>
+        {client.clientAddress.latitude && (
           <Map radarFunction={getMap} model={client} />
         )}
         <div>
@@ -81,7 +86,7 @@ export const Client = () => {
               <p>{project.projectName}</p>
               <p>{project.projectStartDate.toDateString()}</p>
               <p>{project.projectEndDate.toDateString()}</p>
-              <p>{project.paid}</p>
+              <p>{project.projectPaid}</p>
               <p>{project.id}</p>
             </div>
           ))}

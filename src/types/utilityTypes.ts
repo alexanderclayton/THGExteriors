@@ -4,8 +4,9 @@ export type TCredentials = {
 };
 
 export type TClientValidation = {
-    name: boolean,
-    phone: boolean,
-    email: boolean,
-    address: boolean,
+    clientFirstName: boolean,
+    clientLastName: boolean,
+    clientPhone: boolean,
+    clientEmail: boolean,
+    clientAddress: boolean,
 }

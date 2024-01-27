@@ -11,10 +11,11 @@ import { SearchFilter } from "../components/SearchFilter";
 export const AllClients = () => {
   const navigate = useNavigate();
   const [client, setClient] = useState<TClient>({
-    name: "",
-    phone: 0,
-    email: "",
-    address: {} as RadarAddress,
+    clientFirstName: "",
+    clientLastName: "",
+    clientPhone: 0,
+    clientEmail: "",
+    clientAddress: {} as RadarAddress,
     notes: [],
     imageUrl: "",
   });
@@ -44,7 +45,7 @@ export const AllClients = () => {
       <SearchFilter
         model={allClients}
         setFilteredModel={setFilteredClients}
-        filterProperty="name"
+        filterProperty="clientLastName"
       />
       <div>
         {filteredClients.map((client) => (
@@ -55,25 +56,23 @@ export const AllClients = () => {
           >
             <p>
               <span className="font-bold">Name: </span>
-              {client.name}
+              {client.clientLastName}, {client.clientFirstName}
             </p>
             <p>
               <span className="font-bold">email: </span>
-              {client.email}
+              {client.clientEmail}
             </p>
             <p>
               <span className="font-bold">phone: </span>
-              {client.phone.toString()}
+              {client.clientPhone.toString()}
             </p>
             <p>
               <span className="font-bold">address: </span>
-              {client.address.addressLabel}
+              {client.clientAddress.addressLabel}
             </p>
           </div>
         ))}
-        <button onClick={() => console.log(typeof client.phone, client.phone)}>
-          Test
-        </button>
+        <button onClick={() => console.log(client)}>Test</button>
       </div>
     </div>
   );
