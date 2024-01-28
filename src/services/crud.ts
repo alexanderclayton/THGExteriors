@@ -98,6 +98,7 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
       }
       console.error(error)
     }
+    console.log("query complete")
   }
 
   //  Update document in specified collection  //
