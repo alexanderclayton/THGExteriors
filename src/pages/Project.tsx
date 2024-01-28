@@ -8,6 +8,7 @@ import {
   TExpense,
   ProjectStatus,
   PaymentType,
+  ExpenseType,
 } from "../types";
 import {
   getDocument,
@@ -19,6 +20,7 @@ import {
 } from "../services";
 import { UpdateProject } from "../components/UpdateProject";
 import { Notes } from "../components/Notes";
+import { ExpenseForm } from "../components/ExpenseForm";
 
 export const Project = () => {
   const params = useParams();
@@ -34,6 +36,16 @@ export const Project = () => {
     projectType: ProjectType.Other,
     projectStatus: ProjectStatus.Upcoming,
     notes: [],
+    imageUrl: "",
+  });
+  const [expense, setExpense] = useState<TExpense>({
+    expenseType: ExpenseType.None,
+    expenseAmount: 0,
+    expensePaymentType: PaymentType.None,
+    expenseDate: new Date(),
+    expenseVendor: "",
+    expenseDescription: "",
+    expenseProjectId: params.id,
     imageUrl: "",
   });
   const [expenses, setExpenses] = useState<TExpense[]>([]);
@@ -93,6 +105,13 @@ export const Project = () => {
       >
         Delete
       </button>
+      <ExpenseForm
+        legend="Add Expense"
+        model={expense}
+        setState={setExpense}
+        setAllState={setExpenses}
+        submit="Add Expense!"
+      />
       <Notes
         model={project}
         collectionName="projects"
