@@ -5,7 +5,10 @@ import { mapClientDocument, queryDocuments } from "../services";
 import { arraysAreEqual } from ".";
 
 //  Reset TClient state variable to clear form fields after adding document to Firebase  //
-export const resetClients = (setState: React.Dispatch<React.SetStateAction<TClient>>) => {
+export const resetClients = (
+  setState: React.Dispatch<React.SetStateAction<TClient>>, 
+  ref: React.RefObject<HTMLInputElement>
+) => {
     setState({
       clientFirstName: "",
       clientLastName: "",
@@ -15,11 +18,16 @@ export const resetClients = (setState: React.Dispatch<React.SetStateAction<TClie
       notes: [],
       imageUrl: ""
     });
+    if (ref.current) {
+      ref.current.value = ""
+    }
+    console.log("reset client form")
 };
 
 //  Reset TProject state variable to clear form fields after adding document to Firebase  //
 export const resetProject = (
     setState: React.Dispatch<React.SetStateAction<TProject>>,
+    ref: React.RefObject<HTMLInputElement>,
     params?: Readonly<Params<string>>
 ) => {
     setState({
@@ -35,11 +43,16 @@ export const resetProject = (
       notes: [],
       imageUrl: ""
     });
+    if (ref.current) {
+      ref.current.value = ""
+    }
+    console.log("reset project form")
 };
 
 //  Reset TExpense state variable to clear form fields after adding document to Firebase  //
 export const resetExpense = (
-  setState: React.Dispatch<React.SetStateAction<TExpense>>
+  setState: React.Dispatch<React.SetStateAction<TExpense>>,
+  ref: React.RefObject<HTMLInputElement>
 ) => {
   setState({
     expenseType: ExpenseType.None,
@@ -51,6 +64,10 @@ export const resetExpense = (
     expenseProjectId: "",
     imageUrl: ""
   })
+  if (ref.current) {
+    ref.current.value = ""
+  }
+  console.log("reset expense form")
 }
 
 //  Set model state variable when retrieving information from Firebase  //

@@ -1,5 +1,5 @@
 //import//
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   formSubmit,
   handleChange,
@@ -23,6 +23,7 @@ export const ClientForm = ({
   setUpdatedState,
   formType,
 }: IFormProps<TClient>) => {
+  const imageRef = useRef<HTMLInputElement>(null)
   const [resetAutocomplete, setResetAutocomplete] = useState(false);
   const [clientValidation, setClientValidation] = useState<TClientValidation>({
     clientFirstName: true,
@@ -49,6 +50,7 @@ export const ClientForm = ({
           undefined,
           undefined,
           image,
+          imageRef,
           params,
           update,
           setUpdate,
@@ -63,6 +65,7 @@ export const ClientForm = ({
           resetClients,
           setAllState,
           image,
+          imageRef
         );
         setResetAutocomplete(!resetAutocomplete);
       }
@@ -131,6 +134,7 @@ export const ClientForm = ({
             <input
               type="file"
               id="image"
+              ref={imageRef}
               className="border border-black"
               onChange={(e) => handleImage(e, setImage)}
             />

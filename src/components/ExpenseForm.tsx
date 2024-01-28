@@ -7,7 +7,7 @@ import {
 } from "../helpers";
 import { ProjectDropdown } from "./ProjectDropdown";
 import { mapExpenseDocument } from "../services";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export const ExpenseForm = ({
   legend,
@@ -21,6 +21,7 @@ export const ExpenseForm = ({
   setUpdatedState,
   formType,
 }: IFormProps<TExpense>) => {
+  const imageRef = useRef<HTMLInputElement>(null)
   const [image, setImage] = useState<File | undefined>(undefined);
   return (
     <>
@@ -36,6 +37,7 @@ export const ExpenseForm = ({
                 undefined,
                 undefined,
                 image,
+                imageRef,
                 params,
                 update,
                 setUpdate,
@@ -48,6 +50,8 @@ export const ExpenseForm = ({
                 mapExpenseDocument,
                 resetExpense,
                 setAllState,
+                image,
+                imageRef
               );
         }}
       >
@@ -136,6 +140,7 @@ export const ExpenseForm = ({
                 <input
                   type="file"
                   id="image"
+                  ref={imageRef}
                   className="border border-black"
                   onChange={(e) => handleImage(e, setImage)}
                 />

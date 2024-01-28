@@ -12,7 +12,7 @@ import {
   handleImage,
   resetProject,
 } from "../helpers";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { mapProjectDocument } from "../services";
 
 export const ProjectForm = ({
@@ -27,6 +27,7 @@ export const ProjectForm = ({
   setUpdatedState,
   formType,
 }: IFormProps<TProject>) => {
+  const imageRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<File | undefined>(undefined);
 
   return (
@@ -42,6 +43,7 @@ export const ProjectForm = ({
               undefined,
               undefined,
               image,
+              imageRef,
               params,
               update,
               setUpdate,
@@ -55,6 +57,7 @@ export const ProjectForm = ({
               resetProject,
               setAllState,
               image,
+              imageRef,
               params,
             );
       }}
@@ -177,6 +180,7 @@ export const ProjectForm = ({
           <input
             type="file"
             id="image"
+            ref={imageRef}
             className="border border-black"
             onChange={(e) => handleImage(e, setImage)}
           />

@@ -100,9 +100,10 @@ export const formSubmit = <T extends TModels>(
   model: T, 
   setFunction: React.Dispatch<React.SetStateAction<T>>,
   mapFunction: (doc: QueryDocumentSnapshot<DocumentData>) => T,
-  resetFunction?: (setState: React.Dispatch<React.SetStateAction<T>>, params?: Readonly<Params<string>>) => void,
+  resetFunction?: (setState: React.Dispatch<React.SetStateAction<T>>, ref: React.RefObject<HTMLInputElement>, params?: Readonly<Params<string>>) => void,
   setAllFunction?: React.Dispatch<React.SetStateAction<T[]>>,
   image?: File | undefined,
+  ref?: React.RefObject<HTMLInputElement>,
   params?: Readonly<Params<string>>,
   update?: boolean,
   setUpdate?: React.Dispatch<React.SetStateAction<boolean>>
@@ -110,9 +111,9 @@ export const formSubmit = <T extends TModels>(
   e.preventDefault()
     if (update && params) {
       updateDocument<T>(collection, params, model, mapFunction, setFunction, setUpdate, update, image)
-    } else if (setAllFunction !== undefined && resetFunction) {
+    } else if (setAllFunction !== undefined && resetFunction && ref) {
       const addDocumentCallBack = () => {
-        resetFunction(setFunction, params)
+        resetFunction(setFunction, ref, params)
         if (params !== undefined) {
           queryDocuments<T>(collection, "clientId", "==", params.id as string, mapFunction, setAllFunction)
         } else {
