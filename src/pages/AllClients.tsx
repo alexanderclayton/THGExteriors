@@ -32,6 +32,10 @@ export const AllClients = () => {
     }
   }, [allClients]);
 
+  const handleSort = () => {
+    console.log("sort");
+  };
+
   return (
     <div>
       <ClientForm
@@ -47,6 +51,7 @@ export const AllClients = () => {
         setFilteredModel={setFilteredClients}
         filterProperty="clientLastName"
       />
+      <button onClick={handleSort}>Sort</button>
       <div>
         {filteredClients.map((client) => (
           <div

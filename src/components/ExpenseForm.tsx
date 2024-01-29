@@ -21,8 +21,9 @@ export const ExpenseForm = ({
   setUpdatedState,
   formType,
 }: IFormProps<TExpense>) => {
-  const imageRef = useRef<HTMLInputElement>(null)
+  const imageRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<File | undefined>(undefined);
+  const [imageThumbnail, setImageThumbnail] = useState("");
   return (
     <>
       <form
@@ -51,7 +52,7 @@ export const ExpenseForm = ({
                 resetExpense,
                 setAllState,
                 image,
-                imageRef
+                imageRef,
               );
         }}
       >
@@ -136,13 +137,22 @@ export const ExpenseForm = ({
                 <ProjectDropdown expense={model} setState={setState} />
               </div>
               <div>
-                <label htmlFor="image">Upload Image:</label>
-                <input
-                  type="file"
-                  id="image"
-                  ref={imageRef}
-                  className="border border-black"
-                  onChange={(e) => handleImage(e, setImage)}
+                <div>
+                  <label htmlFor="image">Upload Image:</label>
+                  <input
+                    type="file"
+                    id="image"
+                    ref={imageRef}
+                    className="border border-black"
+                    onChange={(e) =>
+                      handleImage(e, setImage, setImageThumbnail)
+                    }
+                  />
+                </div>
+                <img
+                  src={imageThumbnail}
+                  alt="thumbnail"
+                  className="h-40 w-40 rounded-lg object-cover"
                 />
               </div>
               <input type="submit" value={submit} />
