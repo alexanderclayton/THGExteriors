@@ -29,6 +29,7 @@ export const ProjectForm = ({
 }: IFormProps<TProject>) => {
   const imageRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<File | undefined>(undefined);
+  const [imageThumbnail, setImageThumbnail] = useState("");
 
   return (
     <form
@@ -175,14 +176,21 @@ export const ProjectForm = ({
             checked={model.projectPaid}
           />
         </div>
-        <div>
-          <label htmlFor="image">Upload Image:</label>
-          <input
-            type="file"
-            id="image"
-            ref={imageRef}
-            className="border border-black"
-            onChange={(e) => handleImage(e, setImage)}
+        <div className="flex">
+          <div>
+            <label htmlFor="image">Upload Image:</label>
+            <input
+              type="file"
+              id="image"
+              ref={imageRef}
+              className="border border-black"
+              onChange={(e) => handleImage(e, setImage, setImageThumbnail)}
+            />
+          </div>
+          <img
+            src={imageThumbnail}
+            alt="thumbnail"
+            className="h-40 w-40 rounded-lg object-cover"
           />
         </div>
       </fieldset>

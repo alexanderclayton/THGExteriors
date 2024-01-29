@@ -25,10 +25,16 @@ const handleBid = (setState: React.Dispatch<React.SetStateAction<TProject>>, fie
 };
 
 //  Sets image state variable on file upload  //
-export const handleImage = (e: React.ChangeEvent<HTMLInputElement>, setImage: React.Dispatch<React.SetStateAction<File | undefined>>) => {
+export const handleImage = (
+  e: React.ChangeEvent<HTMLInputElement>, 
+  setImage: React.Dispatch<React.SetStateAction<File | undefined>>,
+  setImageThumbnail: React.Dispatch<React.SetStateAction<string>>
+  ) => {
   const files = e.target.files;
   if (files && files.length > 0) {
+    const temporaryImageUrl = URL.createObjectURL(files[0])
     setImage(files[0]);
+    setImageThumbnail(temporaryImageUrl)
     return files[0];
   }
   return undefined;

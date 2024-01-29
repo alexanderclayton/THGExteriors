@@ -23,7 +23,7 @@ export const ClientForm = ({
   setUpdatedState,
   formType,
 }: IFormProps<TClient>) => {
-  const imageRef = useRef<HTMLInputElement>(null)
+  const imageRef = useRef<HTMLInputElement>(null);
   const [resetAutocomplete, setResetAutocomplete] = useState(false);
   const [clientValidation, setClientValidation] = useState<TClientValidation>({
     clientFirstName: true,
@@ -33,6 +33,7 @@ export const ClientForm = ({
     clientAddress: true,
   });
   const [image, setImage] = useState<File | undefined>(undefined);
+  const [imageThumbnail, setImageThumbnail] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -65,7 +66,7 @@ export const ClientForm = ({
           resetClients,
           setAllState,
           image,
-          imageRef
+          imageRef,
         );
         setResetAutocomplete(!resetAutocomplete);
       }
@@ -130,13 +131,20 @@ export const ClientForm = ({
             resetAutocomplete={resetAutocomplete}
           />
           <div>
-            <label htmlFor="image">Upload Image:</label>
-            <input
-              type="file"
-              id="image"
-              ref={imageRef}
-              className="border border-black"
-              onChange={(e) => handleImage(e, setImage)}
+            <div>
+              <label htmlFor="image">Upload Image:</label>
+              <input
+                type="file"
+                id="image"
+                ref={imageRef}
+                className="border border-black"
+                onChange={(e) => handleImage(e, setImage, setImageThumbnail)}
+              />
+            </div>
+            <img
+              src={imageThumbnail}
+              alt="thumbnail"
+              className="h-40 w-40 rounded-lg object-cover"
             />
           </div>
         </fieldset>
