@@ -88,13 +88,15 @@ export const handleSearchFilterChange = <T>(
   e: React.ChangeEvent<HTMLInputElement>,
   model: T[],
   filterProperty: keyof T,
-  setFunction: React.Dispatch<React.SetStateAction<T[]>>) => {
+  setFunction: React.Dispatch<React.SetStateAction<T[]>>,
+  additionalFilterProperty?: keyof T
+  ) => {
   const value = e.target.value;
-  const filtered = model.filter((filteredModel) =>
-    (filteredModel[filterProperty] as string)
-      .toLowerCase()
-      .includes(value.toLowerCase()),
-  );
+  const filtered = model.filter((filteredModel) => {
+    const firstFilter = (filteredModel[filterProperty] as string).toLowerCase()
+    const secondFilter = additionalFilterProperty ? (filteredModel[additionalFilterProperty] as string).toLowerCase() : ""
+    return firstFilter.includes(value) || secondFilter.includes(value)
+  });
   setFunction(filtered);
 };
 

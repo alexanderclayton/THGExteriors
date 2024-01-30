@@ -46,6 +46,7 @@ export interface ISearchFilterProps<T> {
     model: T[];
     setFilteredModel: React.Dispatch<React.SetStateAction<T[]>>;
     filterProperty: keyof T;
+    additionalFilterProperty?: keyof T
 }
 
 export interface ICalendarProps {

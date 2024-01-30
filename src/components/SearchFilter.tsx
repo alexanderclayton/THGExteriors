@@ -7,6 +7,7 @@ export const SearchFilter = <T extends TModels>({
   model,
   setFilteredModel,
   filterProperty,
+  additionalFilterProperty,
 }: ISearchFilterProps<T>) => {
   useEffect(() => {
     setFilteredModel(model);
@@ -16,9 +17,17 @@ export const SearchFilter = <T extends TModels>({
     <input
       type="text"
       placeholder="Search Name"
-      onChange={(e) =>
-        handleSearchFilterChange(e, model, filterProperty, setFilteredModel)
-      }
+      onChange={(e) => {
+        !additionalFilterProperty
+          ? handleSearchFilterChange(e, model, filterProperty, setFilteredModel)
+          : handleSearchFilterChange(
+              e,
+              model,
+              filterProperty,
+              setFilteredModel,
+              additionalFilterProperty,
+            );
+      }}
     />
   );
 };
