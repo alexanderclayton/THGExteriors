@@ -10,3 +10,16 @@ export const arraysAreEqual = <T>(arr1: T[], arr2: T[], property: keyof T): bool
     }
     return true;
 };
+
+export const compareBy = <T>(property: keyof T) => (a: T, b: T): number => {
+  return (a[property] as string).localeCompare(b[property] as string);
+};
+
+export const handleSort = <T>(
+  model: T[],
+  compareFunction: (a: T, b: T) => number,
+  setFunction: React.Dispatch<React.SetStateAction<T[]>>
+  ) => {
+  const sorted = [...model].sort(compareFunction);
+  setFunction(sorted);
+};
