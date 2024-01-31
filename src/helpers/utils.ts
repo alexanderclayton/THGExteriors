@@ -1,3 +1,5 @@
+import { TModels } from "../types";
+
 //  Checks two arrays for equality given a property unique to each item in the array  //
 export const arraysAreEqual = <T>(arr1: T[], arr2: T[], property: keyof T): boolean => {
     if (arr1.length !== arr2.length) {
@@ -11,8 +13,17 @@ export const arraysAreEqual = <T>(arr1: T[], arr2: T[], property: keyof T): bool
     return true;
 };
 
-export const compareBy = <T>(property: keyof T) => (a: T, b: T): number => {
-  return (a[property] as string).localeCompare(b[property] as string);
+export const compareBy = <T extends TModels>(property: keyof T) => (a: T, b: T): number => {
+  if (typeof a[property] === 'string') {
+    console.log("sorted string")
+    return (a[property] as string).localeCompare(b[property] as string);
+  } else if (a[property] instanceof Date) {
+    console.log("sorted date")
+    return (a[property] as Date).getTime() - (b[property] as Date).getTime()
+  } else {
+    console.log("didn't sort")
+    return 0;
+  }
 };
 
 export const handleSort = <T>(
