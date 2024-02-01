@@ -20,6 +20,9 @@ export const compareBy = <T extends TModels>(property: keyof T) => (a: T, b: T):
   } else if (a[property] instanceof Date) {
     console.log("sorted date")
     return (a[property] as Date).getTime() - (b[property] as Date).getTime()
+  } else if (typeof a[property] === 'number') {
+    console.log("sorted number")
+    return (a[property] as number) - (b[property] as number)
   } else {
     console.log("didn't sort")
     return 0;

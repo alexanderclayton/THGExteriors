@@ -4,6 +4,7 @@ import { ExpenseForm } from "../components/ExpenseForm";
 import { ExpenseType, PaymentType, TExpense } from "../types";
 import { getDocuments, mapExpenseDocument } from "../services";
 import { useNavigate } from "react-router-dom";
+import { compareBy, handleSort } from "../helpers";
 
 export const AllExpenses = () => {
   const navigate = useNavigate();
@@ -25,6 +26,13 @@ export const AllExpenses = () => {
 
   return (
     <div>
+      <button
+        onClick={() =>
+          handleSort(allExpenses, compareBy("expenseAmount"), setAllExpenses)
+        }
+      >
+        Sort
+      </button>
       <ExpenseForm
         legend="Add Expense"
         model={expense}
