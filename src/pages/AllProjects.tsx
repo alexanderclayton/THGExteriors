@@ -6,12 +6,8 @@ import { mapProjectDocument } from "../services";
 import { Map } from "../components/Map";
 import { getMapWithMarkers } from "../radar";
 import { SearchFilter } from "../components/SearchFilter";
-import {
-  compareBy,
-  handleSort,
-  setFilteredProjectClientsArray,
-  setProjectClients,
-} from "../helpers";
+import { setFilteredProjectClientsArray, setProjectClients } from "../helpers";
+import { Sort } from "../components/Sort";
 
 export const AllProjects = () => {
   const navigate = useNavigate();
@@ -46,17 +42,11 @@ export const AllProjects = () => {
 
   return (
     <div className="flex">
-      <button
-        onClick={() =>
-          handleSort(
-            filteredProjects,
-            compareBy("projectStartDate"),
-            setFilteredProjects,
-          )
-        }
-      >
-        Sort
-      </button>
+      <Sort
+        model={filteredProjects}
+        setModel={setFilteredProjects}
+        sortBy="projectStartDate"
+      />
       <div>
         <p>Projects</p>
         {allProjects[0] && (

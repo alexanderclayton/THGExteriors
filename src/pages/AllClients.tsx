@@ -7,7 +7,7 @@ import { ClientForm } from "../components/ClientForm";
 import { mapClientDocument } from "../services";
 import { RadarAddress } from "radar-sdk-js/dist/types";
 import { SearchFilter } from "../components/SearchFilter";
-import { compareBy, handleSort } from "../helpers";
+import { Sort } from "../components/Sort";
 
 export const AllClients = () => {
   const navigate = useNavigate();
@@ -49,17 +49,11 @@ export const AllClients = () => {
         filterProperty="clientLastName"
         additionalFilterProperty="clientFirstName"
       />
-      <button
-        onClick={() =>
-          handleSort(
-            filteredClients,
-            compareBy("clientLastName"),
-            setFilteredClients,
-          )
-        }
-      >
-        Sort
-      </button>
+      <Sort
+        model={filteredClients}
+        setModel={setFilteredClients}
+        sortBy="clientLastName"
+      />
       <div>
         {filteredClients.map((client) => (
           <div
