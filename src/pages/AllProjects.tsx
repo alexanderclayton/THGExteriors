@@ -12,6 +12,7 @@ import {
   setFilteredProjectClientsArray,
   setProjectClients,
 } from "../helpers";
+import { Sort } from "../components/Sort";
 
 export const AllProjects = () => {
   const navigate = useNavigate();
@@ -46,17 +47,11 @@ export const AllProjects = () => {
 
   return (
     <div className="flex">
-      <button
-        onClick={() =>
-          handleSort(
-            filteredProjects,
-            compareBy("projectStartDate"),
-            setFilteredProjects,
-          )
-        }
-      >
-        Sort
-      </button>
+      <Sort
+        model={filteredProjects}
+        setModel={setFilteredProjects}
+        sortBy="projectStartDate"
+      />
       <div>
         <p>Projects</p>
         {allProjects[0] && (
