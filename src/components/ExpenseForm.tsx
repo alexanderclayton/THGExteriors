@@ -1,9 +1,15 @@
-import { ExpenseType, IFormProps, PaymentType, TExpense } from "../types";
 import {
-  formSubmit,
+  ExpenseType,
+  IFormProps,
+  PaymentType,
+  TExpense,
+  TExpenseValidation,
+} from "../types";
+import {
   handleChange,
   handleImage,
   resetExpense,
+  validateSubmit,
 } from "../helpers";
 import { ProjectDropdown } from "./ProjectDropdown";
 import { mapExpenseDocument } from "../services";
@@ -24,37 +30,31 @@ export const ExpenseForm = ({
   const imageRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<File | undefined>(undefined);
   const [imageThumbnail, setImageThumbnail] = useState("");
+  const [expenseValidation] = useState<TExpenseValidation>({
+    validate: true,
+  });
   return (
     <>
       <form
-        onSubmit={(e) => {
-          formType === "update" && setUpdatedState
-            ? formSubmit(
-                e,
-                "expenses",
-                model,
-                setUpdatedState,
-                mapExpenseDocument,
-                undefined,
-                undefined,
-                image,
-                imageRef,
-                params,
-                update,
-                setUpdate,
-              )
-            : formSubmit(
-                e,
-                "expenses",
-                model,
-                setState,
-                mapExpenseDocument,
-                resetExpense,
-                setAllState,
-                image,
-                imageRef,
-              );
-        }}
+        onSubmit={(e) =>
+          validateSubmit(
+            e,
+            "expenses",
+            expenseValidation,
+            model,
+            setState,
+            setAllState,
+            resetExpense,
+            mapExpenseDocument,
+            params,
+            image,
+            imageRef,
+            formType,
+            update,
+            setUpdate,
+            setUpdatedState,
+          )
+        }
       >
         <fieldset>
           <legend>{legend}</legend>

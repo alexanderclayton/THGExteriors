@@ -1,5 +1,4 @@
-import { RadarAddress } from "radar-sdk-js/dist/types";
-import { TClient, TExpense, TModels, TProject } from "../types";
+import { TClient, TExpense, TModels, TProject, TableHeader } from "../types";
 
 //  Checks two arrays for equality given a property unique to each item in the array  //
 export const arraysAreEqual = <T>(arr1: T[], arr2: T[], property: keyof T): boolean => {
@@ -44,14 +43,6 @@ export const handleSort = <T>(
   
 };
 
-type TableHeader<T extends TModels> = {
-  property: keyof T
-  sortTitle: string
-  nested?: keyof RadarAddress
-}
-
-
-
 // Array for setting AllClients.tsx table sorting headers //
 export const clientTable: TableHeader<TClient>[] = [
   { property: "clientLastName", sortTitle: "Last Name" },
@@ -80,3 +71,14 @@ export const expenseTable: TableHeader<TExpense>[] = [
   { property: "expensePaymentType", sortTitle: "Payment Type" },
   { property: "expenseType", sortTitle: "Type" },
 ]
+
+// Renders the value of a TModels property in the AllTModels.tsx page tables //
+export const renderValue = (value: any) => {
+  if (typeof value === "string" || typeof value === "number") {
+    return value;
+  } else if (value instanceof Date) {
+    return value.toDateString();
+  } else {
+    return JSON.stringify(value);
+  }
+};

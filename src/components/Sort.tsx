@@ -1,13 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { compareBy, handleSort } from "../helpers";
-import { TModels } from "../types";
-
-interface ISortProps<T> {
-  model: T[];
-  setModel: React.Dispatch<React.SetStateAction<T[]>>;
-  sortBy: keyof T;
-  sortTitle: string
-}
+import { ISortProps, TModels } from "../types";
 
 export const Sort = <T extends TModels>({
   model,

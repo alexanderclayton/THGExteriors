@@ -1,5 +1,5 @@
 import { Params } from "react-router-dom";
-import { TClient, TExpense, TProject } from ".";
+import { TClient, TExpense, TModels, TProject, TableHeader } from ".";
 import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 
 export interface IFormProps<T> {
@@ -61,4 +61,18 @@ export interface ICalendarModalProps {
 export interface IProjectDropdownProps {
     expense: TExpense;
     setState: React.Dispatch<React.SetStateAction<TExpense>>;
+}
+
+export interface ISortProps<T> {
+    model: T[];
+    setModel: React.Dispatch<React.SetStateAction<T[]>>;
+    sortBy: keyof T;
+    sortTitle: string
+}
+
+export interface ITableProps<T extends TModels> {
+    header: TableHeader<T>[];
+    model: T[];
+    setModel: React.Dispatch<React.SetStateAction<T[]>>;
+    navigateUrl: string;
 }

@@ -101,7 +101,7 @@ export const handleSearchFilterChange = <T>(
 };
 
 
-/// Form Submits ///
+/// formSubmit function passed into the validateSubmit function when adding or updating documents ///
 export const formSubmit = <T extends TModels>(
   e: React.FormEvent, 
   collection: string, 

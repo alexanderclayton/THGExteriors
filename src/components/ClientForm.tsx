@@ -1,10 +1,10 @@
 //import//
 import { useRef, useState } from "react";
 import {
-  formSubmit,
   handleChange,
   handleImage,
   resetClients,
+  validateSubmit,
 } from "../helpers";
 import { IFormProps, TClient, TClientValidation } from "../types";
 import { Autocomplete } from "./Autocomplete";
@@ -35,49 +35,31 @@ export const ClientForm = ({
   const [image, setImage] = useState<File | undefined>(undefined);
   const [imageThumbnail, setImageThumbnail] = useState("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const isFormValid = Object.values(clientValidation).every(
-      (isValid) => isValid,
-    );
-    if (isFormValid) {
-      if (formType === "update" && setUpdatedState) {
-        formSubmit(
-          e,
-          "clients",
-          model,
-          setUpdatedState,
-          mapClientDocument,
-          undefined,
-          undefined,
-          image,
-          imageRef,
-          params,
-          update,
-          setUpdate,
-        );
-      } else {
-        formSubmit(
-          e,
-          "clients",
-          model,
-          setState,
-          mapClientDocument,
-          resetClients,
-          setAllState,
-          image,
-          imageRef,
-        );
-        setResetAutocomplete(!resetAutocomplete);
-      }
-    } else {
-      console.error("form invalid");
-    }
-  };
-
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={(e) =>
+          validateSubmit(
+            e,
+            "clients",
+            clientValidation,
+            model,
+            setState,
+            setAllState,
+            resetClients,
+            mapClientDocument,
+            params,
+            image,
+            imageRef,
+            formType,
+            update,
+            setUpdate,
+            setUpdatedState,
+            resetAutocomplete,
+            setResetAutocomplete,
+          )
+        }
+      >
         <fieldset>
           <legend>{legend}</legend>
           <div>
