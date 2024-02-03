@@ -7,6 +7,7 @@ export const Sort = <T extends TModels>({
   setModel,
   sortBy,
   sortTitle,
+  setHighlight,
 }: ISortProps<T>) => {
   const [isAscending, setIsAscending] = useState(true);
   return (
@@ -18,6 +19,7 @@ export const Sort = <T extends TModels>({
           setModel,
           isAscending,
           setIsAscending,
+          () => setHighlight(sortBy),
         )
       }
     >

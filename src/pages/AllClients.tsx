@@ -21,6 +21,7 @@ export const AllClients = () => {
   });
   const [allClients, setAllClients] = useState<TClient[]>([]);
   const [filteredClients, setFilteredClients] = useState<TClient[]>([]);
+  const [toggleAdd] = useState(false);
 
   useEffect(() => {
     getDocuments<TClient>("clients", mapClientDocument, setAllClients);
@@ -33,17 +34,10 @@ export const AllClients = () => {
   }, [allClients]);
 
   return (
-    <div>
-      <ClientForm
-        legend="Add New Client"
-        model={client}
-        setState={setClient}
-        setAllState={setAllClients}
-        submit="Add Client"
-      />
-      <button onClick={() => console.log(allClients)}>All Clients</button>
+    <div className="flex flex-col items-center justify-center">
       <SearchFilter
         model={allClients}
+        placeholder="Search Client Name"
         setFilteredModel={setFilteredClients}
         filterProperty="clientLastName"
         additionalFilterProperty="clientFirstName"
@@ -54,6 +48,15 @@ export const AllClients = () => {
         setModel={setFilteredClients}
         navigateUrl="client"
       />
+      {toggleAdd && (
+        <ClientForm
+          legend="Add New Client"
+          model={client}
+          setState={setClient}
+          setAllState={setAllClients}
+          submit="Add Client"
+        />
+      )}
     </div>
   );
 };

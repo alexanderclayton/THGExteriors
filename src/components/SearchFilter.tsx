@@ -5,6 +5,7 @@ import { handleSearchFilterChange } from "../helpers";
 
 export const SearchFilter = <T extends TModels>({
   model,
+  placeholder,
   setFilteredModel,
   filterProperty,
   additionalFilterProperty,
@@ -16,7 +17,8 @@ export const SearchFilter = <T extends TModels>({
   return (
     <input
       type="text"
-      placeholder="Search Name"
+      placeholder={placeholder}
+      className="w-[50%] p-2 pl-4"
       onChange={(e) => {
         !additionalFilterProperty
           ? handleSearchFilterChange(e, model, filterProperty, setFilteredModel)
