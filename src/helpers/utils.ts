@@ -32,8 +32,13 @@ export const compareBy = <T extends TModels>(property: keyof T) => (a: T, b: T):
 export const handleSort = <T>(
   model: T[],
   compareFunction: (a: T, b: T) => number,
-  setFunction: React.Dispatch<React.SetStateAction<T[]>>
+  setFunction: React.Dispatch<React.SetStateAction<T[]>>,
+  isAscending: boolean,
+  setIsAscending: any
   ) => {
   const sorted = [...model].sort(compareFunction);
-  setFunction(sorted);
+  const sortOrder = isAscending ? sorted : sorted.reverse()
+  setFunction(sortOrder);
+  setIsAscending(!isAscending)
+  
 };

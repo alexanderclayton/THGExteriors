@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { compareBy, handleSort } from "../helpers";
 import { TModels } from "../types";
 
@@ -13,8 +13,19 @@ export const Sort = <T extends TModels>({
   setModel,
   sortBy,
 }: ISortProps<T>) => {
+  const [isAscending, setIsAscending] = useState(true);
   return (
-    <button onClick={() => handleSort(model, compareBy(sortBy), setModel)}>
+    <button
+      onClick={() =>
+        handleSort(
+          model,
+          compareBy(sortBy),
+          setModel,
+          isAscending,
+          setIsAscending,
+        )
+      }
+    >
       Sort
     </button>
   );
