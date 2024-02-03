@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { TClient, TProject } from "../types";
 import { getDocuments } from "../services";
@@ -6,11 +5,14 @@ import { mapProjectDocument } from "../services";
 import { Map } from "../components/Map";
 import { getMapWithMarkers } from "../radar";
 import { SearchFilter } from "../components/SearchFilter";
-import { setFilteredProjectClientsArray, setProjectClients } from "../helpers";
-import { Sort } from "../components/Sort";
+import {
+  projectTable,
+  setFilteredProjectClientsArray,
+  setProjectClients,
+} from "../helpers";
+import { Table } from "../components/Table";
 
 export const AllProjects = () => {
-  const navigate = useNavigate();
   const [allProjects, setAllProjects] = useState<TProject[]>([]);
   const [allProjectClients, setAllProjectClients] = useState<TClient[]>([]);
   const [filteredProjects, setFilteredProjects] = useState<TProject[]>([]);
@@ -42,11 +44,6 @@ export const AllProjects = () => {
 
   return (
     <div className="flex">
-      <Sort
-        model={filteredProjects}
-        setModel={setFilteredProjects}
-        sortBy="projectStartDate"
-      />
       <div>
         <p>Projects</p>
         {allProjects[0] && (
@@ -56,26 +53,12 @@ export const AllProjects = () => {
             filterProperty="projectName"
           />
         )}
-        {filteredProjects.map((project) => (
-          <div
-            key={project.id}
-            className="border border-black hover:cursor-pointer"
-            onClick={() => navigate(`/project/${project.id}`)}
-          >
-            <p>
-              <span className="font-bold">Project Name: </span>{" "}
-              {project.projectName}
-            </p>
-            <p>
-              <span className="font-bold">Project Start Date: </span>{" "}
-              {project.projectStartDate.toDateString()}
-            </p>
-            <p>
-              <span className="font-bold">Project End Date: </span>{" "}
-              {project.projectEndDate.toDateString()}
-            </p>
-          </div>
-        ))}
+        <Table
+          header={projectTable}
+          model={filteredProjects}
+          setModel={setFilteredProjects}
+          navigateUrl="project"
+        />
       </div>
       {filteredProjectClients.length > 0 && (
         <Map radarFunction={getMapWithMarkers} model={filteredProjectClients} />

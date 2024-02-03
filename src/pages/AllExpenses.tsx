@@ -3,11 +3,10 @@ import { useEffect, useState } from "react";
 import { ExpenseForm } from "../components/ExpenseForm";
 import { ExpenseType, PaymentType, TExpense } from "../types";
 import { getDocuments, mapExpenseDocument } from "../services";
-import { useNavigate } from "react-router-dom";
-import { Sort } from "../components/Sort";
+import { Table } from "../components/Table";
+import { expenseTable } from "../helpers";
 
 export const AllExpenses = () => {
-  const navigate = useNavigate();
   const [expense, setExpense] = useState<TExpense>({
     expenseType: ExpenseType.None,
     expenseAmount: 0,
@@ -26,11 +25,6 @@ export const AllExpenses = () => {
 
   return (
     <div>
-      <Sort
-        model={allExpenses}
-        setModel={setAllExpenses}
-        sortBy="expenseAmount"
-      />
       <ExpenseForm
         legend="Add Expense"
         model={expense}
@@ -38,18 +32,12 @@ export const AllExpenses = () => {
         setAllState={setAllExpenses}
         submit="Add Expense!"
       />
-      {allExpenses.map((expense) => (
-        <div key={expense.id} className="flex">
-          <p>{expense.expenseDate.toDateString()}</p>
-          <p>{expense.expenseVendor}</p>
-          <p>{expense.expenseAmount}</p>
-          <p>{expense.expenseType}</p>
-          <p>{expense.expenseDescription}</p>
-          <button onClick={() => navigate(`/expense/${expense.id}`)}>
-            Edit
-          </button>
-        </div>
-      ))}
+      <Table
+        header={expenseTable}
+        model={allExpenses}
+        setModel={setAllExpenses}
+        navigateUrl="expense"
+      />
     </div>
   );
 };
