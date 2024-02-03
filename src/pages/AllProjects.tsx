@@ -49,6 +49,7 @@ export const AllProjects = () => {
         {allProjects[0] && (
           <SearchFilter
             model={allProjects}
+            placeholder="Search Project Name"
             setFilteredModel={setFilteredProjects}
             filterProperty="projectName"
           />

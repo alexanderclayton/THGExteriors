@@ -34,13 +34,14 @@ export const handleSort = <T>(
   compareFunction: (a: T, b: T) => number,
   setFunction: React.Dispatch<React.SetStateAction<T[]>>,
   isAscending: boolean,
-  setIsAscending: any
+  setIsAscending: any,
+  setHighlight: any
   ) => {
   const sorted = [...model].sort(compareFunction);
   const sortOrder = isAscending ? sorted : sorted.reverse()
   setFunction(sortOrder);
   setIsAscending(!isAscending)
-  
+  setHighlight()
 };
 
 // Array for setting AllClients.tsx table sorting headers //

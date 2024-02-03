@@ -44,6 +44,7 @@ export interface IAutocompleteProps {
 
 export interface ISearchFilterProps<T> {
     model: T[];
+    placeholder: string
     setFilteredModel: React.Dispatch<React.SetStateAction<T[]>>;
     filterProperty: keyof T;
     additionalFilterProperty?: keyof T
@@ -68,6 +69,7 @@ export interface ISortProps<T> {
     setModel: React.Dispatch<React.SetStateAction<T[]>>;
     sortBy: keyof T;
     sortTitle: string
+    setHighlight: any
 }
 
 export interface ITableProps<T extends TModels> {
