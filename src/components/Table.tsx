@@ -1,31 +1,8 @@
 //import//
 import { useNavigate } from "react-router-dom";
-import { TModels } from "../types";
+import { ITableProps, TModels } from "../types";
 import { Sort } from "./Sort";
-import { RadarAddress } from "radar-sdk-js/dist/types";
-
-type TableHeader<T extends TModels> = {
-  property: keyof T;
-  sortTitle: string;
-  nested?: keyof RadarAddress;
-};
-
-interface ITableProps<T extends TModels> {
-  header: TableHeader<T>[];
-  model: T[];
-  setModel: React.Dispatch<React.SetStateAction<T[]>>;
-  navigateUrl: string;
-}
-
-const renderValue = (value: any) => {
-  if (typeof value === "string" || typeof value === "number") {
-    return value;
-  } else if (value instanceof Date) {
-    return value.toDateString();
-  } else {
-    return JSON.stringify(value);
-  }
-};
+import { renderValue } from "../helpers";
 
 export const Table = <T extends TModels>({
   header,
