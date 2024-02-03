@@ -6,12 +6,14 @@ interface ISortProps<T> {
   model: T[];
   setModel: React.Dispatch<React.SetStateAction<T[]>>;
   sortBy: keyof T;
+  sortTitle: string
 }
 
 export const Sort = <T extends TModels>({
   model,
   setModel,
   sortBy,
+  sortTitle,
 }: ISortProps<T>) => {
   const [isAscending, setIsAscending] = useState(true);
   return (
@@ -26,7 +28,7 @@ export const Sort = <T extends TModels>({
         )
       }
     >
-      Sort
+      {sortTitle}
     </button>
   );
 };

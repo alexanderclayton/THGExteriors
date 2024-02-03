@@ -1,4 +1,5 @@
-import { TModels } from "../types";
+import { RadarAddress } from "radar-sdk-js/dist/types";
+import { TClient, TExpense, TModels, TProject } from "../types";
 
 //  Checks two arrays for equality given a property unique to each item in the array  //
 export const arraysAreEqual = <T>(arr1: T[], arr2: T[], property: keyof T): boolean => {
@@ -42,3 +43,40 @@ export const handleSort = <T>(
   setIsAscending(!isAscending)
   
 };
+
+type TableHeader<T extends TModels> = {
+  property: keyof T
+  sortTitle: string
+  nested?: keyof RadarAddress
+}
+
+
+
+// Array for setting AllClients.tsx table sorting headers //
+export const clientTable: TableHeader<TClient>[] = [
+  { property: "clientLastName", sortTitle: "Last Name" },
+  { property: "clientFirstName", sortTitle: "First Name" },
+  { property: "clientAddress", sortTitle: "Address", nested: "formattedAddress"},
+  { property: "clientPhone", sortTitle: "Phone" },
+  { property: "clientEmail", sortTitle: "Email" },
+]
+
+// Array for setting AllProjects.tsx table sorting headers //
+export const projectTable: TableHeader<TProject>[] = [
+  { property: "projectName", sortTitle: "Project Name" },
+  { property: "projectClientId", sortTitle: "Client" },
+  { property: "projectStartDate", sortTitle: "Start Date" },
+  { property: "projectEndDate", sortTitle: "End Date" },
+  { property: "projectStatus", sortTitle: "Status" },
+  { property: "projectType", sortTitle: "Type" },
+]
+
+// Array for setting AllExpenses.tsx table sorting headers //
+export const expenseTable: TableHeader<TExpense>[] = [
+  { property: "expenseDate", sortTitle: "Date" },
+  { property: "expenseDescription", sortTitle: "Description" },
+  { property: "expenseVendor", sortTitle: "Vendor" },
+  { property: "expenseAmount", sortTitle: "Amount" },
+  { property: "expensePaymentType", sortTitle: "Payment Type" },
+  { property: "expenseType", sortTitle: "Type" },
+]
