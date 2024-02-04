@@ -1,8 +1,37 @@
 import { BidStatus, TModels, TProject } from "../types";
 import { validateEmail, validatePhone } from ".";
 import { addDocument, getDocuments, queryDocuments, updateDocument } from "../services";
-import { Params } from "react-router-dom";
+import { NavigateFunction, Params } from "react-router-dom";
 import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
+import { auth } from "../firebase/firebaseConfig";
+import { FirebaseError } from "firebase/app";
+import { signInWithEmailAndPassword } from "firebase/auth";
+
+//  Signs user into application  //
+export const handleSignin = async (
+  e: React.FormEvent,
+  email: string,
+  password: string,
+  navigate: NavigateFunction,
+  setError: React.Dispatch<React.SetStateAction<string>>
+) => {
+  e.preventDefault();
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password,
+    );
+    console.log(`User ${email} signed in!`, userCredential);
+    navigate('/')
+    setError("")
+  } catch (error: unknown) {
+    if (error instanceof FirebaseError) {
+      setError(error.message)
+    }
+    console.error(error);
+  }
+};
 
 //  Adjusts selected date from input field to register correctly  //
 const handleDate = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
