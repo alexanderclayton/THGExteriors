@@ -6,8 +6,6 @@ export const UpdateProject = ({
   params,
   model,
   setFunction,
-  setUpdate,
-  update,
 }: IUpdateModelProps<TProject>) => {
   const [updatedProject, setUpdatedProject] = useState<TProject>({
     projectClientId: model.projectClientId,
@@ -22,18 +20,27 @@ export const UpdateProject = ({
     notes: model.notes,
     imageUrl: model.imageUrl,
   });
+  const [toggleUpdate, setToggleUpdate] = useState(false);
 
   return (
-    <ProjectForm
-      legend="Update Project"
-      model={updatedProject}
-      setState={setUpdatedProject}
-      submit="update!"
-      params={params}
-      update={update}
-      setUpdate={setUpdate}
-      setUpdatedState={setFunction}
-      formType="update"
-    />
+    <div>
+      {!toggleUpdate && (
+        <button onClick={() => setToggleUpdate(!toggleUpdate)}>Update</button>
+        // <button onClick={() => console.log(updatedProject)}>Update</button>
+      )}
+      {toggleUpdate && (
+        <ProjectForm
+          legend="Update Project"
+          model={updatedProject}
+          setState={setUpdatedProject}
+          submit="update!"
+          toggle={toggleUpdate}
+          setToggle={setToggleUpdate}
+          params={params}
+          setUpdatedState={setFunction}
+          formType="update"
+        />
+      )}
+    </div>
   );
 };

@@ -49,7 +49,7 @@ export const Project = () => {
     imageUrl: "",
   });
   const [expenses, setExpenses] = useState<TExpense[]>([]);
-  const [update, setUpdate] = useState<boolean>(false);
+  const [toggleAdd, setToggleAdd] = useState(false);
 
   useEffect(() => {
     getDocument<TProject>("projects", params, mapProjectDocument, setProject);
@@ -82,16 +82,14 @@ export const Project = () => {
           ))}
         </div>
       </div>
-      <button onClick={() => setUpdate(!update)}>Update</button>
-      {update && (
+      {project.projectClientId !== "" && (
         <UpdateProject
           params={params}
           model={project}
           setFunction={setProject}
-          setUpdate={setUpdate}
-          update={update}
         />
       )}
+
       <button
         onClick={() =>
           deleteDocument(
@@ -105,13 +103,18 @@ export const Project = () => {
       >
         Delete
       </button>
-      <ExpenseForm
-        legend="Add Expense"
-        model={expense}
-        setState={setExpense}
-        setAllState={setExpenses}
-        submit="Add Expense!"
-      />
+      {!toggleAdd && (
+        <button onClick={() => setToggleAdd(!toggleAdd)}>Add Client</button>
+      )}
+      {toggleAdd && (
+        <ExpenseForm
+          legend="Add Expense"
+          model={expense}
+          setState={setExpense}
+          setAllState={setExpenses}
+          submit="Add Expense!"
+        />
+      )}
       <Notes
         model={project}
         collectionName="projects"

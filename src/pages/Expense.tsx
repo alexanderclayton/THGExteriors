@@ -23,8 +23,6 @@ export const Expense = () => {
     imageUrl: "",
   });
 
-  const [update, setUpdate] = useState<boolean>(false);
-
   useEffect(() => {
     getDocument<TExpense>("expenses", params, mapExpenseDocument, setExpense);
   });
@@ -49,14 +47,11 @@ export const Expense = () => {
       >
         Delete
       </button>
-      <button onClick={() => setUpdate(!update)}>Update</button>
-      {update && (
+      {expense.expenseType !== ExpenseType.None && (
         <UpdateExpense
           params={params}
           model={expense}
           setFunction={setExpense}
-          setUpdate={setUpdate}
-          update={update}
         />
       )}
     </div>

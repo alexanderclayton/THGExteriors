@@ -18,7 +18,7 @@ export const SearchFilter = <T extends TModels>({
     <input
       type="text"
       placeholder={placeholder}
-      className="w-[50%] p-2 pl-4"
+      className="w-full p-2 pl-4"
       onChange={(e) => {
         !additionalFilterProperty
           ? handleSearchFilterChange(e, model, filterProperty, setFilteredModel)
