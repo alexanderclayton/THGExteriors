@@ -8,10 +8,10 @@ export interface IFormProps<T> {
     setState: React.Dispatch<React.SetStateAction<T>>;
     setAllState?: React.Dispatch<React.SetStateAction<T[]>>
     submit: string; 
+    toggle?: boolean
+    setToggle?: React.Dispatch<React.SetStateAction<boolean>>
     autocompleteRef?: React.MutableRefObject<HTMLDivElement | null>
     params?: Readonly<Params<string>>
-    update?: boolean
-    setUpdate?: React.Dispatch<React.SetStateAction<boolean>>
     setUpdatedState?: React.Dispatch<React.SetStateAction<T>>
     formType?: string
 }
@@ -20,8 +20,6 @@ export interface IUpdateModelProps<T> {
     params: Readonly<Params<string>>;
     model: T;
     setFunction: React.Dispatch<React.SetStateAction<T>>;
-    setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
-    update: boolean;
 }
 
 export interface INotesProps<T> {

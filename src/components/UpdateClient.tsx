@@ -6,8 +6,6 @@ export const UpdateClient = ({
   params,
   model,
   setFunction,
-  setUpdate,
-  update,
 }: IUpdateModelProps<TClient>) => {
   const [updatedClient, setUpdatedClient] = useState<TClient>({
     clientFirstName: model.clientFirstName,
@@ -18,20 +16,26 @@ export const UpdateClient = ({
     notes: model.notes,
     imageUrl: model.imageUrl,
   });
+  const [toggleUpdate, setToggleUpdate] = useState(false);
 
   return (
     <div>
-      <ClientForm
-        legend="Update Client Information"
-        model={updatedClient}
-        setState={setUpdatedClient}
-        submit="Update"
-        params={params}
-        update={update}
-        setUpdate={setUpdate}
-        setUpdatedState={setFunction}
-        formType="update"
-      />
+      {!toggleUpdate && (
+        <button onClick={() => setToggleUpdate(!toggleUpdate)}>Update</button>
+      )}
+      {toggleUpdate && (
+        <ClientForm
+          legend="Update Client Information"
+          model={updatedClient}
+          setState={setUpdatedClient}
+          submit="Update"
+          toggle={toggleUpdate}
+          setToggle={setToggleUpdate}
+          params={params}
+          setUpdatedState={setFunction}
+          formType="update"
+        />
+      )}
     </div>
   );
 };

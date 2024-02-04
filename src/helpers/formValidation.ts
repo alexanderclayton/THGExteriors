@@ -29,8 +29,8 @@ export const validateSubmit = <T extends TModels, U extends TModelsValidation>(
     image: File | undefined,
     imageRef: React.RefObject<HTMLInputElement>,
     formType: string | undefined,
-    update: boolean | undefined,
-    setUpdate: React.Dispatch<React.SetStateAction<boolean>> | undefined,
+    toggle: boolean | undefined,
+    setToggle: React.Dispatch<React.SetStateAction<boolean>> | undefined,
     setUpdatedState: React.Dispatch<React.SetStateAction<T>> | undefined,
     resetAutocomplete?: boolean,
     setResetAutocomplete?: React.Dispatch<React.SetStateAction<boolean>>,
@@ -47,13 +47,14 @@ export const validateSubmit = <T extends TModels, U extends TModelsValidation>(
           model,
           setUpdatedState,
           mapFunction,
+          toggle,
+          setToggle,
           undefined,
           undefined,
           image,
           imageRef,
           params,
-          update,
-          setUpdate,
+          formType
         );
       } else {
         formSubmit(
@@ -62,10 +63,14 @@ export const validateSubmit = <T extends TModels, U extends TModelsValidation>(
           model,
           setState,
           mapFunction,
+          toggle,
+          setToggle,
           resetState,
           setAllState,
           image,
           imageRef,
+          params,
+          formType
         );
         if (resetAutocomplete && setResetAutocomplete) {
             setResetAutocomplete(!resetAutocomplete);

@@ -108,8 +108,6 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
     updatedDocument: T,
     mapFunction: (doc: QueryDocumentSnapshot<DocumentData>) => T,
     setFunction: React.Dispatch<React.SetStateAction<T>>,
-    setUpdate?: React.Dispatch<React.SetStateAction<boolean>>,
-    update?: boolean,
     image?: File | undefined,
     note?: string,
     setNote?: React.Dispatch<React.SetStateAction<string>>,
@@ -141,9 +139,6 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
       }
       console.log(`updated ${collectionName}`);
       getDocument(collectionName, params, mapFunction, setFunction)
-      if (setUpdate) {
-        setUpdate(!update)
-      }
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         console.error(error.message);

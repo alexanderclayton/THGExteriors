@@ -49,7 +49,7 @@ export const Client = () => {
     notes: [],
     imageUrl: "",
   });
-  const [update, setUpdate] = useState<boolean>(false);
+  const [toggleAdd, setToggleAdd] = useState(false);
 
   useEffect(() => {
     getDocument<TClient>("clients", params, mapClientDocument, setClient);
@@ -92,24 +92,25 @@ export const Client = () => {
           ))}
         </div>
       </div>
-      <ProjectForm
-        legend="Add Project"
-        model={project}
-        setState={setProject}
-        setAllState={setClientProjects}
-        submit="submit form"
-        params={params}
-      />
-      <button onClick={() => setUpdate(!update)}>Update</button>
-      {update && (
-        <UpdateClient
+      {!toggleAdd && (
+        <button onClick={() => setToggleAdd(!toggleAdd)}>Add Project</button>
+      )}
+      {toggleAdd && (
+        <ProjectForm
+          legend="Add Project"
+          model={project}
+          setState={setProject}
+          setAllState={setClientProjects}
+          submit="submit form"
+          toggle={toggleAdd}
+          setToggle={setToggleAdd}
           params={params}
-          model={client}
-          setFunction={setClient}
-          setUpdate={setUpdate}
-          update={update}
         />
       )}
+      {client.clientLastName !== "" && (
+        <UpdateClient params={params} model={client} setFunction={setClient} />
+      )}
+
       <button
         onClick={() =>
           deleteDocument(
@@ -128,7 +129,9 @@ export const Client = () => {
       ) : (
         <img src={client.imageUrl} alt="client home exterior" />
       )}
-      <button onClick={() => console.log(client)}>See Client</button>
+      <button onClick={() => console.log(clientProjects)}>
+        See Client Projects
+      </button>
     </div>
   );
 };

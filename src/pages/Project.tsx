@@ -48,8 +48,8 @@ export const Project = () => {
     expenseProjectId: params.id,
     imageUrl: "",
   });
-  const [expenses, setExpenses] = useState<TExpense[]>([]);
-  const [update, setUpdate] = useState<boolean>(false);
+  const [projectExpenses, setProjectExpenses] = useState<TExpense[]>([]);
+  const [toggleAdd, setToggleAdd] = useState(false);
 
   useEffect(() => {
     getDocument<TProject>("projects", params, mapProjectDocument, setProject);
@@ -59,7 +59,7 @@ export const Project = () => {
       "==",
       params.id as string,
       mapExpenseDocument,
-      setExpenses,
+      setProjectExpenses,
     );
   }, []);
 
@@ -72,7 +72,7 @@ export const Project = () => {
         <p>{project.projectStatus}</p>
         <div className="border border-black">
           <p className="font-bold">Expenses:</p>
-          {expenses.map((expense) => (
+          {projectExpenses.map((expense) => (
             <div key={expense.id} className="flex border border-black">
               <p>{expense.expenseDate.toDateString()}</p>
               <p>${expense.expenseAmount}</p>
@@ -82,16 +82,14 @@ export const Project = () => {
           ))}
         </div>
       </div>
-      <button onClick={() => setUpdate(!update)}>Update</button>
-      {update && (
+      {project.projectClientId !== "" && (
         <UpdateProject
           params={params}
           model={project}
           setFunction={setProject}
-          setUpdate={setUpdate}
-          update={update}
         />
       )}
+
       <button
         onClick={() =>
           deleteDocument(
@@ -105,13 +103,21 @@ export const Project = () => {
       >
         Delete
       </button>
-      <ExpenseForm
-        legend="Add Expense"
-        model={expense}
-        setState={setExpense}
-        setAllState={setExpenses}
-        submit="Add Expense!"
-      />
+      {!toggleAdd && (
+        <button onClick={() => setToggleAdd(!toggleAdd)}>Add Expense</button>
+      )}
+      {toggleAdd && (
+        <ExpenseForm
+          legend="Add Expense"
+          model={expense}
+          setState={setExpense}
+          setAllState={setProjectExpenses}
+          submit="Add Expense!"
+          toggle={toggleAdd}
+          setToggle={setToggleAdd}
+          params={params}
+        />
+      )}
       <Notes
         model={project}
         collectionName="projects"
@@ -124,8 +130,6 @@ export const Project = () => {
       ) : (
         <img src={project.imageUrl} alt="project exterior" />
       )}
-      <button onClick={() => console.log(project)}>Project</button>
-      <button onClick={() => console.log(expenses)}>Expenses</button>
     </div>
   );
 };

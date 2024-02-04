@@ -13,7 +13,7 @@ export const Table = <T extends TModels>({
   const navigate = useNavigate();
   const [sortedColumn, setSortedColumn] = useState<string | null>(null);
   return (
-    <div className="mx-auto max-w-[80%] overflow-x-auto">
+    <div className="mx-auto h-full w-full overflow-x-auto overflow-y-auto">
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>
@@ -21,7 +21,7 @@ export const Table = <T extends TModels>({
               <th
                 key={head.sortTitle}
                 className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 ${
-                  head.property === sortedColumn && "bg-blue-200"
+                  head.property === sortedColumn && "bg-blue-50"
                 }`}
               >
                 <Sort
@@ -46,7 +46,7 @@ export const Table = <T extends TModels>({
                 <td
                   key={index}
                   className={`whitespace-nowrap px-6 py-4 ${
-                    head.property === sortedColumn && "bg-blue-200"
+                    head.property === sortedColumn && "bg-blue-50"
                   }`}
                 >
                   {head.nested
