@@ -6,6 +6,7 @@ import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 import { auth } from "../firebase/firebaseConfig";
 import { FirebaseError } from "firebase/app";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import emailjs from "@emailjs/browser";
 
 //  Signs user into application  //
 export const handleSignin = async (
@@ -169,3 +170,49 @@ export const formSubmit = <T extends TModels>(
       console.log("Unsuccessful form submit")
     }
 }
+
+//  form submit for sending emails via email.js in Contact.tsx  //
+export const sendEmail = (
+  e: React.FormEvent, 
+  form: React.MutableRefObject<HTMLFormElement | null>, 
+  setEmailError: React.Dispatch<React.SetStateAction<string>>, 
+  setIsSubmitting: React.Dispatch<React.SetStateAction<boolean>>,
+  setSubmitSuccess: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+  e.preventDefault();
+  console.log("form", form.current)
+    
+  if (form.current !== null && form.current.checkValidity()) {
+    const emailInput = form.current.elements.namedItem(
+      "user_email",
+    ) as HTMLInputElement;
+    const email = emailInput.value.trim();
+
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid email address");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setEmailError("");
+    emailjs
+      .sendForm(
+        "service_41ujjab",
+        "template_965u3gf",
+        form.current,
+        "kJthuFNYVpXF8bJnA",
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          setSubmitSuccess(true);
+        },
+        (error) => {
+          console.log(error.text);
+        },
+      )
+      .finally(() => setIsSubmitting(false));
+  } else {
+    console.log("not submitted")
+  }
+};
