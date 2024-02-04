@@ -108,27 +108,34 @@ export const formSubmit = <T extends TModels>(
   model: T, 
   setFunction: React.Dispatch<React.SetStateAction<T>>,
   mapFunction: (doc: QueryDocumentSnapshot<DocumentData>) => T,
+  toggle?: boolean,
+  setToggle?: React.Dispatch<React.SetStateAction<boolean>>,
   resetFunction?: (setState: React.Dispatch<React.SetStateAction<T>>, ref: React.RefObject<HTMLInputElement>, params?: Readonly<Params<string>>) => void,
   setAllFunction?: React.Dispatch<React.SetStateAction<T[]>>,
   image?: File | undefined,
   ref?: React.RefObject<HTMLInputElement>,
   params?: Readonly<Params<string>>,
-  update?: boolean,
-  setUpdate?: React.Dispatch<React.SetStateAction<boolean>>
+  formType?: string
   ) => {
   e.preventDefault()
-    if (update && params) {
-      updateDocument<T>(collection, params, model, mapFunction, setFunction, setUpdate, update, image)
-    } else if (setAllFunction !== undefined && resetFunction && ref) {
+    if (toggle && setToggle && params && formType === "update") {
+      updateDocument<T>(collection, params, model, mapFunction, setFunction, image)
+      setToggle(!toggle)
+    } else if (setAllFunction !== undefined && resetFunction !== undefined && ref && toggle && setToggle) {
       const addDocumentCallBack = () => {
         resetFunction(setFunction, ref, params)
         if (params !== undefined) {
-          queryDocuments<T>(collection, "clientId", "==", params.id as string, mapFunction, setAllFunction)
+          if (collection === "projects") {
+            queryDocuments<T>(collection, "projectClientId", "==", params.id as string, mapFunction, setAllFunction)
+          } else {
+            queryDocuments<T>(collection, "expenseProjectId", "==", params.id as string, mapFunction, setAllFunction)
+          }
         } else {
           getDocuments<T>(collection, mapFunction, setAllFunction)
         }
       }
       addDocument<T>(collection, model, addDocumentCallBack, undefined, image)
+      setToggle(!toggle)
     } else {
       console.log("Unsuccessful form submit")
     }

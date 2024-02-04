@@ -93,7 +93,7 @@ export const Client = () => {
         </div>
       </div>
       {!toggleAdd && (
-        <button onClick={() => setToggleAdd(!toggleAdd)}>Add Client</button>
+        <button onClick={() => setToggleAdd(!toggleAdd)}>Add Project</button>
       )}
       {toggleAdd && (
         <ProjectForm
@@ -129,7 +129,9 @@ export const Client = () => {
       ) : (
         <img src={client.imageUrl} alt="client home exterior" />
       )}
-      <button onClick={() => console.log(client)}>See Client</button>
+      <button onClick={() => console.log(clientProjects)}>
+        See Client Projects
+      </button>
     </div>
   );
 };
