@@ -21,6 +21,7 @@ export const Expense = () => {
     expenseDescription: "",
     expenseProjectId: "",
     imageUrl: "",
+    notes: []
   });
 
   useEffect(() => {

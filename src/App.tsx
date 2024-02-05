@@ -20,7 +20,7 @@ function App() {
   return (
     <>
       <Router>
-        <div className="bg-background-50">
+        <div className="h-screen w-full bg-background-50">
           <Header />
           <Routes>
             {/* Public Routes */}

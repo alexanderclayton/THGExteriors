@@ -16,6 +16,7 @@ export const AllExpenses = () => {
     expenseDescription: "",
     expenseProjectId: "",
     imageUrl: "",
+    notes: []
   });
   const [allExpenses, setAllExpenses] = useState<TExpense[]>([]);
   const [toggleAdd, setToggleAdd] = useState(false);

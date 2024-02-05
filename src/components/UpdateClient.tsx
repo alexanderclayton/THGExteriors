@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { TClient, IUpdateModelProps } from "../types";
 import { ClientForm } from "./ClientForm";
+import { HiOutlinePaintBrush } from "react-icons/hi2";
 
 export const UpdateClient = ({
   params,
@@ -21,7 +22,11 @@ export const UpdateClient = ({
   return (
     <div>
       {!toggleUpdate && (
-        <button onClick={() => setToggleUpdate(!toggleUpdate)}>Update</button>
+        <HiOutlinePaintBrush
+          size={25}
+          onClick={() => setToggleUpdate(!toggleUpdate)}
+          className="cursor-pointer"
+        />
       )}
       {toggleUpdate && (
         <ClientForm

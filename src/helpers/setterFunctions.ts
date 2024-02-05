@@ -62,7 +62,8 @@ export const resetExpense = (
     expenseVendor: "",
     expenseDescription: "",
     expenseProjectId: "",
-    imageUrl: ""
+    notes: [],
+    imageUrl: "",
   })
   if (ref.current) {
     ref.current.value = ""

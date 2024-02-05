@@ -69,22 +69,23 @@ export const renderDays = (
       }
 
       const { projects } = isProjectDate(cellDate, model);
-      const cellStyle = {
-        width: "calc(100% / 7)", // Each cell takes 1/7 of the container's width
-        height: "80px", // Each cell takes 1/6 of the container's height
-      };
+      const isCurrentDay =
+        cellDate.getFullYear() === currentDay.getFullYear() &&
+        cellDate.getMonth() === currentDay.getMonth() &&
+        cellDate.getDate() === currentDay.getDate();
 
       week.push(
         <td
           key={`${cellDate.getTime()}`}
           className={`relative border border-gray-300 p-2 ${
-            i === 0 && j < startingWeekday
-              ? "text-red-600"
+            isCurrentDay
+              ? "border-2 border-blue-800 font-bold"
+              : i === 0 && j < startingWeekday
+              ? "text-gray-400"
               : dayCounter <= totalDaysInMonth + 1
-              ? ""
-              : "text-red-600"
-          } ${projects[0] && "cursor-pointer bg-blue-200"}`}
-          style={cellStyle}
+              ? "font-bold"
+              : "text-gray-400"
+          } ${projects[0] ? "cursor-pointer bg-blue-100" : ""}`}
           onClick={projects[0] && (() => setProjectArray(projects))}
         >
           <p className="absolute left-0 top-0">{dayValue}</p>
