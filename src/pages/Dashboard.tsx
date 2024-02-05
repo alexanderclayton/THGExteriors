@@ -9,7 +9,7 @@ export const Dashboard = () => {
     getDocuments("projects", mapProjectDocument, setProjects);
   }, []);
   return (
-    <div>
+    <div className="h-screen w-full">
       {projects[0] && <Calendar header="dashboard calendar" model={projects} />}
     </div>
   );

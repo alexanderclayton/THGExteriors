@@ -45,6 +45,7 @@ export const mapExpenseDocument = (
   expenseVendor: doc.data().expenseVendor,
   expenseDescription: doc.data().expenseDescription,
   expenseProjectId: doc.data().expenseProjectId,
+  notes: doc.data().notes,
   imageUrl: doc.data().imageUrl
 })
 
@@ -83,6 +84,7 @@ export const deleteExpenseFields = (deleteFields: FieldValue) => ({
   expenseVendor: deleteFields,
   expenseDescription: deleteFields,
   expenseProjectId: deleteFields,
+  notes: deleteFields,
   imageUrl: deleteFields
 
 })

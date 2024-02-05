@@ -12,12 +12,12 @@ export const Notes = <T extends TModels>({
   const [note, setNote] = React.useState("");
 
   return (
-    <>
+    <div className="mt-4">
       <div>
         {"notes" in model && model.notes !== undefined
           ? model.notes.map((data, index: number) => (
-              <div key={index} className="flex">
-                <p>{data}</p>
+              <div key={index} className="mb-2 flex items-center">
+                <p className="mr-2 flex-grow">{data}</p>
                 <button
                   onClick={() =>
                     updateDocument(
@@ -32,6 +32,7 @@ export const Notes = <T extends TModels>({
                       index,
                     )
                   }
+                  className="text-red-500 hover:text-red-700"
                 >
                   Delete
                 </button>
@@ -39,13 +40,15 @@ export const Notes = <T extends TModels>({
             ))
           : null}
       </div>
-      <div>
-        <label htmlFor="note">Note</label>
+      <div className="mt-4">
+        <label htmlFor="note" className="block">
+          Note
+        </label>
         <input
           type="text"
           id="note"
           name="note"
-          className="border border-black"
+          className="rounded border border-gray-300 p-1"
           onChange={(e) => setNote(e.target.value)}
           value={note}
         />
@@ -62,10 +65,11 @@ export const Notes = <T extends TModels>({
               setNote,
             )
           }
+          className="mt-2 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Add Note
         </button>
       </div>
-    </>
+    </div>
   );
 };

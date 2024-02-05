@@ -10,7 +10,7 @@ export const Header = () => {
   const { user } = useAuth();
 
   return (
-    <header className="bg-gray-900 text-white shadow-md">
+    <header className="w-full bg-gray-900 text-white shadow-md">
       <div className="mx-auto px-4 py-4">
         <div className="flex w-full items-center justify-between">
           <Link to="/">

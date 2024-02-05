@@ -16,6 +16,7 @@ export const UpdateExpense = ({
     expenseDescription: model.expenseDescription,
     expenseProjectId: model.expenseProjectId,
     imageUrl: model.imageUrl,
+    notes: model.notes,
   });
   const [toggleUpdate, setToggleUpdate] = useState(false);
 

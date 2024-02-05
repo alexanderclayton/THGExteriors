@@ -39,6 +39,7 @@ export type TExpense = {
   expenseDescription: string
   expenseProjectId?: string
   imageUrl?: string
+  notes?: string[] //**Array of strings to track notes */
 }
 
 export type TModels = TClient | TProject | TExpense;
