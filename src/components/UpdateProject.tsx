@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { TProject, IUpdateModelProps } from "../types";
 import { ProjectForm } from "./ProjectForm";
+import { HiOutlinePaintBrush } from "react-icons/hi2";
 
 export const UpdateProject = ({
   params,
@@ -25,8 +26,11 @@ export const UpdateProject = ({
   return (
     <div>
       {!toggleUpdate && (
-        <button onClick={() => setToggleUpdate(!toggleUpdate)}>Update</button>
-        // <button onClick={() => console.log(updatedProject)}>Update</button>
+        <HiOutlinePaintBrush
+        size={25}
+        onClick={() => setToggleUpdate(!toggleUpdate)}
+        className="cursor-pointer"
+      />
       )}
       {toggleUpdate && (
         <ProjectForm

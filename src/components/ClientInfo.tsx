@@ -4,7 +4,7 @@ import { UpdateClient } from "./UpdateClient";
 import { deleteClientFields, deleteDocument } from "../services";
 import { FaRegImage } from "react-icons/fa6";
 
-interface IClientInfoProps<T> {
+export interface IModelInfoProps<T> {
   model: T;
   setModel: React.Dispatch<React.SetStateAction<T>>;
   params: Readonly<Params<string>>;
@@ -14,7 +14,7 @@ export const ClientInfo = ({
   model,
   setModel,
   params,
-}: IClientInfoProps<TClient>) => {
+}: IModelInfoProps<TClient>) => {
   const navigate = useNavigate();
   return (
     <div className="flex flex-col justify-center">

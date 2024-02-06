@@ -43,17 +43,20 @@ export const AllProjects = () => {
   }, [allProjectClients, filteredProjects]);
 
   return (
-    <div className="flex">
-      <div>
-        <p>Projects</p>
-        {allProjects[0] && (
+    <div className="mx-auto flex flex-col items-center px-4 py-8">
+      <h1 className="mb-6 text-3xl font-bold">Projects</h1>
+
+      {allProjects[0] && (
+        <div className="mb-6 w-[50%]">
           <SearchFilter
             model={allProjects}
             placeholder="Search Project Name"
             setFilteredModel={setFilteredProjects}
             filterProperty="projectName"
           />
-        )}
+        </div>
+      )}
+      <div className="h-96 w-[80%] overflow-y-auto">
         <Table
           header={projectTable}
           model={filteredProjects}

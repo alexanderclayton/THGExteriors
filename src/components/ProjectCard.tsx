@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { TProject } from "../types";
 
-interface IProjectCardProps<T> {
+export interface IModelCardProps<T> {
   model: T;
 }
 
-export const ProjectCard = ({ model }: IProjectCardProps<TProject[]>) => {
+export const ProjectCard = ({ model }: IModelCardProps<TProject[]>) => {
   const navigate = useNavigate();
   return (
     <div className="flex overflow-x-auto">

@@ -1,6 +1,6 @@
 //import//
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   TProject,
   BidStatus,
@@ -12,19 +12,16 @@ import {
 } from "../types";
 import {
   getDocument,
-  deleteDocument,
-  deleteProjectFields,
   mapProjectDocument,
   queryDocuments,
   mapExpenseDocument,
 } from "../services";
-import { UpdateProject } from "../components/UpdateProject";
 import { Notes } from "../components/Notes";
-import { ExpenseForm } from "../components/ExpenseForm";
+import { ProjectInfo } from "../components/ProjectInfo";
+import { ProjectExpenses } from "../components/ProjectExpenses";
 
 export const Project = () => {
   const params = useParams();
-  const navigate = useNavigate();
   const [project, setProject] = useState<TProject>({
     projectClientId: "",
     projectName: "",
@@ -64,72 +61,34 @@ export const Project = () => {
   }, []);
 
   return (
-    <div>
-      <div>
-        <p>{project.projectStartDate.toDateString()}</p>
-        <p>{project.projectEndDate.toDateString()}</p>
-        <p>{project.projectName}</p>
-        <p>{project.projectStatus}</p>
-        <div className="border border-black">
-          <p className="font-bold">Expenses:</p>
-          {projectExpenses.map((expense) => (
-            <div key={expense.id} className="flex border border-black">
-              <p>{expense.expenseDate.toDateString()}</p>
-              <p>${expense.expenseAmount}</p>
-              <p>{expense.expenseVendor}</p>
-              <p>{expense.expenseDescription}</p>
-            </div>
-          ))}
-        </div>
+    <div className="flex h-full w-full flex-col items-center justify-center bg-gray-100">
+      <div className="mb-4 flex w-full justify-between rounded-lg bg-white px-8 py-4 shadow-md">
+        <ProjectInfo model={project} setModel={setProject} params={params} />
+        {project.imageUrl !== undefined && (
+          <img src={project.imageUrl} alt="project exterior" />
+        )}
       </div>
-      {project.projectClientId !== "" && (
-        <UpdateProject
-          params={params}
-          model={project}
-          setFunction={setProject}
-        />
-      )}
-
-      <button
-        onClick={() =>
-          deleteDocument(
-            "projects",
-            params,
-            deleteProjectFields,
-            navigate,
-            "/allprojects",
-          )
-        }
-      >
-        Delete
-      </button>
-      {!toggleAdd && (
-        <button onClick={() => setToggleAdd(!toggleAdd)}>Add Expense</button>
-      )}
-      {toggleAdd && (
-        <ExpenseForm
-          legend="Add Expense"
+      <div className="flex w-full px-8">
+        <ProjectExpenses
           model={expense}
-          setState={setExpense}
-          setAllState={setProjectExpenses}
-          submit="Add Expense!"
+          setModel={setExpense}
+          setAllModel={setProjectExpenses}
+          cardModel={projectExpenses}
+          params={params}
           toggle={toggleAdd}
           setToggle={setToggleAdd}
-          params={params}
         />
-      )}
-      <Notes
-        model={project}
-        collectionName="projects"
-        params={params}
-        mapFunction={mapProjectDocument}
-        setFunction={setProject}
-      />
-      {project.imageUrl === undefined ? (
-        <p>No Project Image</p>
-      ) : (
-        <img src={project.imageUrl} alt="project exterior" />
-      )}
+        <div className="ml-4 flex w-1/2 flex-col">
+          <p className="mb-2 text-2xl font-semibold text-gray-800">Notes:</p>
+          <Notes
+            model={project}
+            collectionName="projects"
+            params={params}
+            mapFunction={mapProjectDocument}
+            setFunction={setProject}
+          />
+        </div>
+      </div>
     </div>
   );
 };

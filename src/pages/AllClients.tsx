@@ -52,7 +52,6 @@ export const AllClients = () => {
           navigateUrl="client"
         />
       </div>
-      {/* ClientForm component */}
       {!toggleAdd && (
         <button onClick={() => setToggleAdd(!toggleAdd)}>Add Client</button>
       )}
