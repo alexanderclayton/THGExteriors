@@ -5,7 +5,7 @@ import { TProject } from "../types";
 import { ProjectForm } from "./ProjectForm";
 import { ProjectCard } from "./ProjectCard";
 
-interface IClientProjectsProps<T> {
+export interface IModelDependentsProps<T> {
   model: T;
   setModel: React.Dispatch<React.SetStateAction<T>>;
   setAllModel: React.Dispatch<React.SetStateAction<T[]>>;
@@ -23,7 +23,7 @@ export const ClientProjects = ({
   params,
   toggle,
   setToggle,
-}: IClientProjectsProps<TProject>) => {
+}: IModelDependentsProps<TProject>) => {
   return (
     <div className="mr-4 flex w-1/2 flex-col">
       <div className="mb-4">
