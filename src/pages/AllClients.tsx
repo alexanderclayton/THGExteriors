@@ -7,6 +7,7 @@ import { RadarAddress } from "radar-sdk-js/dist/types";
 import { SearchFilter } from "../components/SearchFilter";
 import { clientTable } from "../helpers";
 import { Table } from "../components/Table";
+import { LuPlusCircle } from "react-icons/lu";
 
 export const AllClients = () => {
   const [client, setClient] = useState<TClient>({
@@ -35,13 +36,18 @@ export const AllClients = () => {
   return (
     <div className="mx-auto flex flex-col items-center px-4 py-8">
       <h1 className="mb-6 text-3xl font-bold">All Clients</h1>
-      <div className="mb-6 w-[50%]">
+      <div className="mb-6 flex w-[50%] items-center">
         <SearchFilter
           model={allClients}
           placeholder="Search Client Name"
           setFilteredModel={setFilteredClients}
           filterProperty="clientLastName"
           additionalFilterProperty="clientFirstName"
+        />
+        <LuPlusCircle
+          size={25}
+          onClick={() => setToggleAdd(!toggleAdd)}
+          className="ml-4 text-green-600 duration-300 hover:scale-125 hover:cursor-pointer"
         />
       </div>
       <div className="w-[80%]">
@@ -52,9 +58,6 @@ export const AllClients = () => {
           navigateUrl="client"
         />
       </div>
-      {!toggleAdd && (
-        <button onClick={() => setToggleAdd(!toggleAdd)}>Add Client</button>
-      )}
       {toggleAdd && (
         <div className="mt-8">
           <ClientForm
