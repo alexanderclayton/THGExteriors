@@ -1,11 +1,10 @@
-//import//
 import Hero from "../assets/THG Large.png";
 
 export const Home = () => {
   return (
-    <div className="flex h-screen flex-col justify-center px-12 md:flex-row md:items-center">
+    <div className="flex h-full justify-center bg-background-50 px-12 md:flex-row md:items-center">
       <div className="flex w-full justify-end md:w-[50%]">
-        <img src={Hero} alt="thg logo" className="max-h-96" />
+        <img src={Hero} alt="THG logo" className="max-h-96" />
       </div>
       <div className="mr-12 flex flex-col items-center md:items-start">
         <p className="text-9xl font-bold text-text-900">
