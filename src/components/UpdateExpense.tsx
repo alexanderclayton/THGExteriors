@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { TExpense, IUpdateModelProps } from "../types";
 import { ExpenseForm } from "./ExpenseForm";
+import { HiOutlinePaintBrush } from "react-icons/hi2";
 
 export const UpdateExpense = ({
   params,
@@ -23,7 +24,11 @@ export const UpdateExpense = ({
   return (
     <div>
       {!toggleUpdate && (
-        <button onClick={() => setToggleUpdate(!toggleUpdate)}>Update</button>
+        <HiOutlinePaintBrush
+          size={25}
+          onClick={() => setToggleUpdate(!toggleUpdate)}
+          className="cursor-pointer"
+        />
       )}
       {toggleUpdate && (
         <ExpenseForm
