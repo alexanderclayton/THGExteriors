@@ -43,6 +43,7 @@ export const AllExpenses = () => {
           placeholder="Search Expense Description"
           setFilteredModel={setFilteredExpenses}
           filterProperty="expenseDescription"
+          additionalFilterProperty="expenseVendor"
         />
         <LuPlusCircle
           size={25}

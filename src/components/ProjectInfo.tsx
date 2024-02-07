@@ -2,7 +2,7 @@
 
 import { useNavigate } from "react-router-dom";
 import { deleteDocument, deleteProjectFields } from "../services";
-import { TProject } from "../types";
+import { TClient, TProject } from "../types";
 import { UpdateProject } from "./UpdateProject";
 import { IModelInfoProps } from "./ClientInfo";
 
@@ -10,7 +10,8 @@ export const ProjectInfo = ({
   model,
   setModel,
   params,
-}: IModelInfoProps<TProject>) => {
+  secondModel,
+}: IModelInfoProps<TProject, TClient>) => {
   const navigate = useNavigate();
   return (
     <div className="flex flex-col justify-center">
@@ -24,7 +25,9 @@ export const ProjectInfo = ({
       </div>
       <div className="flex">
         <div className="mr-4">
-          <p className="text-gray-600">{model.projectClientId}</p>
+          <p className="text-gray-600">
+            {secondModel?.clientFirstName} {secondModel?.clientLastName}
+          </p>
           <p className="text-gray-600">
             {model.projectStartDate.toDateString()}
           </p>
@@ -47,8 +50,9 @@ export const ProjectInfo = ({
                 "/allprojects",
               )
             }
+            className="text-red-500 hover:text-red-700"
           >
-            Delete
+            Delete Project
           </button>
         </div>
       </div>

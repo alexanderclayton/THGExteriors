@@ -1,5 +1,6 @@
 // import //
 
+import { LuPlusCircle } from "react-icons/lu";
 import { TExpense } from "../types";
 import { IModelDependentsProps } from "./ClientProjects";
 import { ExpenseCard } from "./ExpenseCard";
@@ -16,15 +17,14 @@ export const ProjectExpenses = ({
 }: IModelDependentsProps<TExpense>) => {
   return (
     <div className="mr-4 flex w-1/2 flex-col">
-      <div className="mb-4">
-        <p className="mb-2 text-2xl font-semibold text-gray-800">Expenses:</p>
+      <div className="mb-4 flex items-center">
+        <p className="mb-2 text-2xl font-semibold text-gray-800">Expenses</p>
         {!toggle && (
-          <button
-            className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+          <LuPlusCircle
+            size={25}
             onClick={() => setToggle(!toggle)}
-          >
-            Add Expense
-          </button>
+            className="ml-4 text-green-600 duration-300 hover:scale-125 hover:cursor-pointer"
+          />
         )}
         {toggle && (
           <ExpenseForm

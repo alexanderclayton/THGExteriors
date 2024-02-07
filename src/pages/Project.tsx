@@ -9,16 +9,20 @@ import {
   ProjectStatus,
   PaymentType,
   ExpenseType,
+  TClient,
 } from "../types";
 import {
   getDocument,
   mapProjectDocument,
   queryDocuments,
   mapExpenseDocument,
+  mapClientDocument,
 } from "../services";
 import { Notes } from "../components/Notes";
 import { ProjectInfo } from "../components/ProjectInfo";
 import { ProjectExpenses } from "../components/ProjectExpenses";
+import { FaRegImage } from "react-icons/fa6";
+import { RadarAddress } from "radar-sdk-js/dist/types";
 
 export const Project = () => {
   const params = useParams();
@@ -45,6 +49,15 @@ export const Project = () => {
     expenseProjectId: params.id,
     imageUrl: "",
   });
+  const [projectClient, setProjectClient] = useState<TClient>({
+    clientFirstName: "",
+    clientLastName: "",
+    clientPhone: 0,
+    clientEmail: "",
+    clientAddress: {} as RadarAddress,
+    imageUrl: "",
+    notes: [],
+  });
   const [projectExpenses, setProjectExpenses] = useState<TExpense[]>([]);
   const [toggleAdd, setToggleAdd] = useState(false);
 
@@ -60,12 +73,34 @@ export const Project = () => {
     );
   }, []);
 
+  useEffect(() => {
+    if (project.projectClientId !== "") {
+      getDocument(
+        "clients",
+        project.projectClientId,
+        mapClientDocument,
+        setProjectClient,
+      );
+    }
+  }, [project.projectClientId]);
+
   return (
     <div className="flex h-full w-full flex-col items-center justify-center bg-gray-100">
       <div className="mb-4 flex w-full justify-between rounded-lg bg-white px-8 py-4 shadow-md">
-        <ProjectInfo model={project} setModel={setProject} params={params} />
-        {project.imageUrl !== undefined && (
-          <img src={project.imageUrl} alt="project exterior" />
+        <ProjectInfo
+          model={project}
+          setModel={setProject}
+          params={params}
+          secondModel={projectClient}
+        />
+        {project.imageUrl !== "" ? (
+          <img
+            src={project.imageUrl}
+            alt="project exterior"
+            className="max-h-[240px] max-w-[240px] rounded-md object-cover"
+          />
+        ) : (
+          <FaRegImage size={240} className="text-gray-400" />
         )}
       </div>
       <div className="flex w-full px-8">

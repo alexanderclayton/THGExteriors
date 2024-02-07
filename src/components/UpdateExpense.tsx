@@ -27,7 +27,7 @@ export const UpdateExpense = ({
         <HiOutlinePaintBrush
           size={25}
           onClick={() => setToggleUpdate(!toggleUpdate)}
-          className="cursor-pointer"
+          className="cursor-pointer duration-300 hover:scale-125"
         />
       )}
       {toggleUpdate && (

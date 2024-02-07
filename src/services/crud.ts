@@ -39,15 +39,23 @@ export const addDocument = async<T extends WithFieldValue<DocumentData>>(
   //  Get individual document from Firebase  //
   export const getDocument = async<T>(
     collectionName: string,
-    params: Readonly<Params<string>>,
+    params: Readonly<Params<string>> | string,
     mapFunction: (doc: QueryDocumentSnapshot<DocumentData>) => T,
     setFunction: React.Dispatch<React.SetStateAction<T>>
     ) => {
     try {
-      const docSnap = await getDoc(doc(db, `${collectionName}`, `${params.id}`));
-      if (docSnap.exists()) {
-        const mappedData = mapFunction(docSnap)
-        setModelData(setFunction, mappedData);
+      if (typeof params === "string") {
+        const docSnap = await getDoc(doc(db, `${collectionName}`, params))
+        if (docSnap.exists()) {
+          const mappedData = mapFunction(docSnap)
+          setModelData(setFunction, mappedData);
+        }
+      } else {
+        const docSnap = await getDoc(doc(db, `${collectionName}`, `${params.id}`));
+        if (docSnap.exists()) {
+          const mappedData = mapFunction(docSnap)
+          setModelData(setFunction, mappedData);
+        }
       }
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
