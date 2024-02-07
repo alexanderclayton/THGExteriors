@@ -20,27 +20,29 @@ function App() {
   return (
     <>
       <Router>
-        <div className="h-screen w-full bg-background-50">
+        <div className="flex h-screen w-full flex-col bg-background-50">
           <Header />
-          <Routes>
-            {/* Public Routes */}
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/holiday-heroes" element={<HolidayHeroes />} />
-            <Route path="/signin" element={<Signin />} />
-            {/* User Authenticated Routes */}
-            <Route element={<ProtectedRoute />}>
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/allclients" element={<AllClients />} />
-              <Route path="/client/:id" element={<Client />} />
-              <Route path="/allprojects" element={<AllProjects />} />
-              <Route path="/project/:id" element={<Project />} />
-              <Route path="/allexpenses" element={<AllExpenses />} />
-              <Route path="/expense/:id" element={<Expense />} />
-            </Route>
-          </Routes>
+          <div className="flex-1">
+            <Routes>
+              {/* Public Routes */}
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/holiday-heroes" element={<HolidayHeroes />} />
+              <Route path="/signin" element={<Signin />} />
+              {/* User Authenticated Routes */}
+              <Route element={<ProtectedRoute />}>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/allclients" element={<AllClients />} />
+                <Route path="/client/:id" element={<Client />} />
+                <Route path="/allprojects" element={<AllProjects />} />
+                <Route path="/project/:id" element={<Project />} />
+                <Route path="/allexpenses" element={<AllExpenses />} />
+                <Route path="/expense/:id" element={<Expense />} />
+              </Route>
+            </Routes>
+          </div>
         </div>
       </Router>
     </>
