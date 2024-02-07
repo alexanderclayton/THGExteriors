@@ -1,6 +1,7 @@
 import { Params } from "react-router-dom";
 import { TClient, TExpense, TModels, TProject, TableHeader } from ".";
 import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
+import React from "react";
 
 export interface IFormProps<T> {
     legend: string;
@@ -55,6 +56,9 @@ export interface ICalendarProps {
 
 export interface ICalendarModalProps {
     model: TProject[];
+    modalDate: Date
+    toggle: boolean
+    setToggle: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export interface IProjectDropdownProps {

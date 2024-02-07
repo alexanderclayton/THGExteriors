@@ -29,6 +29,7 @@ export const renderDays = (
   currentDay: Date,
   model: TProject[],
   setProjectArray: React.Dispatch<React.SetStateAction<TProject[]>>,
+  setModalDate: React.Dispatch<React.SetStateAction<Date>>,
 ) => {
   const days = [];
   const { startingWeekday, totalDaysInMonth, totalDaysInPrevMonth } =
@@ -74,19 +75,28 @@ export const renderDays = (
         cellDate.getMonth() === currentDay.getMonth() &&
         cellDate.getDate() === currentDay.getDate();
 
+      const calendarModal = () => {
+        setProjectArray(projects);
+        setModalDate(cellDate);
+      };
+
       week.push(
         <td
           key={`${cellDate.getTime()}`}
           className={`relative border border-gray-300 p-2 ${
             isCurrentDay
-              ? "border-2 border-blue-800 font-bold"
+              ? "border-2 border-primary-500 font-bold"
               : i === 0 && j < startingWeekday
               ? "text-gray-400"
               : dayCounter <= totalDaysInMonth + 1
               ? "font-bold"
               : "text-gray-400"
-          } ${projects[0] ? "cursor-pointer bg-blue-100" : ""}`}
-          onClick={projects[0] && (() => setProjectArray(projects))}
+          } ${
+            projects[0]
+              ? "cursor-pointer bg-accent-200 hover:bg-primary-200"
+              : "bg-white hover:bg-primary-200"
+          }`}
+          onClick={projects[0] && calendarModal}
         >
           <p className="absolute left-0 top-0">{dayValue}</p>
         </td>,
