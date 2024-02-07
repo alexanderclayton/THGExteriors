@@ -1,5 +1,3 @@
-//import//
-
 import { useNavigate } from "react-router-dom";
 import { deleteDocument, deleteProjectFields } from "../services";
 import { TClient, TProject } from "../types";
@@ -13,6 +11,7 @@ export const ProjectInfo = ({
   secondModel,
 }: IModelInfoProps<TProject, TClient>) => {
   const navigate = useNavigate();
+
   return (
     <div className="flex flex-col justify-center">
       <div className="mb-2 flex items-center">
@@ -23,23 +22,46 @@ export const ProjectInfo = ({
           <UpdateProject params={params} model={model} setFunction={setModel} />
         )}
       </div>
-      <div className="flex">
-        <div className="mr-4">
+      <div className="flex flex-wrap">
+        {secondModel && (
+          <>
+            <div className="mr-4 w-full lg:w-1/2">
+              <p className="text-gray-600">
+                <strong>Client:</strong> {secondModel.clientFirstName}{" "}
+                {secondModel.clientLastName}
+              </p>
+            </div>
+            <div className="lg-w-1/2 mb-2 mr-4 w-full">
+              <p className="text-gray-600">
+                <strong>Address:</strong>{" "}
+                {secondModel.clientAddress.formattedAddress}
+              </p>
+            </div>
+          </>
+        )}
+        <div className="mb-2 mr-4 w-full lg:w-1/2">
           <p className="text-gray-600">
-            {secondModel?.clientFirstName} {secondModel?.clientLastName}
+            <strong>Start Date:</strong> {model.projectStartDate.toDateString()}
           </p>
           <p className="text-gray-600">
-            {model.projectStartDate.toDateString()}
+            <strong>End Date:</strong> {model.projectEndDate.toDateString()}
           </p>
-          <p className="text-gray-600">{model.projectEndDate.toDateString()}</p>
-          <p className="text-gray-600">{model.projectType}</p>
-          <p className="text-gray-600">{model.projectStatus}</p>
           <p className="text-gray-600">
-            {model.projectBid.sent} {model.projectBid.status}{" "}
-            {model.projectBid.amount}
+            <strong>Type:</strong> {model.projectType}
           </p>
-          <p className="text-gray-600">{model.projectPaid}</p>
-          <p className="text-gray-600">{model.projectPaymentType}</p>
+          <p className="text-gray-600">
+            <strong>Status:</strong> {model.projectStatus}
+          </p>
+          <p className="text-gray-600">
+            <strong>Bid:</strong> {model.projectBid.sent ? "Sent" : "Pending"}{" "}
+            {model.projectBid.status} {" $" + model.projectBid.amount}
+          </p>
+          <p className="text-gray-600">
+            <strong>Paid:</strong> {(model.projectPaid && "Yes") || "No"}
+          </p>
+          <p className="text-gray-600">
+            <strong>Payment Type:</strong> {model.projectPaymentType}
+          </p>
           <button
             onClick={() =>
               deleteDocument(
@@ -50,7 +72,7 @@ export const ProjectInfo = ({
                 "/allprojects",
               )
             }
-            className="text-red-500 hover:text-red-700"
+            className="inline-block text-red-500 hover:text-red-700"
           >
             Delete Project
           </button>

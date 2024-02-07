@@ -2,6 +2,7 @@ import { useState } from "react";
 import { handleChange, handleSignin } from "../helpers";
 import { TCredentials } from "../types";
 import { useNavigate } from "react-router-dom";
+import { VscEye } from "react-icons/vsc";
 
 export const Signin = () => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ export const Signin = () => {
     password: "",
   });
   const [err, setErr] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
@@ -34,7 +36,7 @@ export const Signin = () => {
             type="text"
             id="email"
             name="email"
-            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
+            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none"
             onChange={(e) => handleChange(e, setCredentials)}
             value={credentials.email}
           />
@@ -48,14 +50,23 @@ export const Signin = () => {
           <label htmlFor="password" className="mb-1 block text-gray-600">
             Password:
           </label>
-          <input
-            type="text"
-            id="password"
-            name="password"
-            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
-            onChange={(e) => handleChange(e, setCredentials)}
-            value={credentials.password}
-          />
+          <div className="flex w-full items-center justify-between rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500">
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              name="password"
+              className="focus:outline-none"
+              onChange={(e) => handleChange(e, setCredentials)}
+              value={credentials.password}
+            />
+            <VscEye
+              size={25}
+              className="text-gray-400"
+              onMouseDown={() => setShowPassword(true)}
+              onMouseUp={() => setShowPassword(false)}
+              onMouseLeave={() => setShowPassword(false)}
+            />
+          </div>
           <div className="h-4">
             {err === "Firebase: Error (auth/missing-password)." && (
               <p className="text-red-500">Must enter a password</p>

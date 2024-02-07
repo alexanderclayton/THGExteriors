@@ -46,7 +46,7 @@ export const Project = () => {
     expenseDate: new Date(),
     expenseVendor: "",
     expenseDescription: "",
-    expenseProjectId: params.id,
+    expenseProjectId: "",
     imageUrl: "",
   });
   const [projectClient, setProjectClient] = useState<TClient>({
