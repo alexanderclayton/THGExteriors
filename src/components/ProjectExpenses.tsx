@@ -5,6 +5,7 @@ import { TExpense } from "../types";
 import { IModelDependentsProps } from "./ClientProjects";
 import { ExpenseCard } from "./ExpenseCard";
 import { ExpenseForm } from "./ExpenseForm";
+import { useEffect } from "react";
 
 export const ProjectExpenses = ({
   model,
@@ -15,6 +16,12 @@ export const ProjectExpenses = ({
   toggle,
   setToggle,
 }: IModelDependentsProps<TExpense>) => {
+  useEffect(() => {
+    setModel((prevModel) => ({
+      ...prevModel,
+      expenseProjectId: params.id,
+    }));
+  }, [cardModel]);
   return (
     <div className="mr-4 flex w-1/2 flex-col">
       <div className="mb-4 flex items-center">

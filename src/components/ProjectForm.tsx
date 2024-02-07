@@ -221,7 +221,6 @@ export const ProjectForm = ({
             {setToggle && toggle && (
               <button onClick={() => setToggle(!toggle)}>Cancel</button>
             )}
-            <button onClick={() => console.log(model)}>Test</button>
           </div>
         </form>
       </div>
