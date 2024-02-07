@@ -4,17 +4,18 @@ import { UpdateClient } from "./UpdateClient";
 import { deleteClientFields, deleteDocument } from "../services";
 import { FaRegImage } from "react-icons/fa6";
 
-export interface IModelInfoProps<T> {
+export interface IModelInfoProps<T, U> {
   model: T;
   setModel: React.Dispatch<React.SetStateAction<T>>;
   params: Readonly<Params<string>>;
+  secondModel?: U;
 }
 
 export const ClientInfo = ({
   model,
   setModel,
   params,
-}: IModelInfoProps<TClient>) => {
+}: IModelInfoProps<TClient, undefined>) => {
   const navigate = useNavigate();
   return (
     <div className="flex flex-col justify-center">
@@ -41,7 +42,7 @@ export const ClientInfo = ({
                 "/allclients",
               )
             }
-            className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+            className="text-red-500 hover:text-red-700"
           >
             Delete Client
           </button>

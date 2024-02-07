@@ -27,10 +27,10 @@ export const UpdateProject = ({
     <div>
       {!toggleUpdate && (
         <HiOutlinePaintBrush
-        size={25}
-        onClick={() => setToggleUpdate(!toggleUpdate)}
-        className="cursor-pointer"
-      />
+          size={25}
+          onClick={() => setToggleUpdate(!toggleUpdate)}
+          className="cursor-pointer duration-300 hover:scale-125"
+        />
       )}
       {toggleUpdate && (
         <ProjectForm

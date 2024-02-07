@@ -1,6 +1,7 @@
 import React from "react";
 import { updateDocument } from "../services";
 import { INotesProps, TModels } from "../types";
+import { LuPlusCircle } from "react-icons/lu";
 
 export const Notes = <T extends TModels>({
   model,
@@ -44,31 +45,32 @@ export const Notes = <T extends TModels>({
         <label htmlFor="note" className="block">
           Note
         </label>
-        <input
-          type="text"
-          id="note"
-          name="note"
-          className="rounded border border-gray-300 p-1"
-          onChange={(e) => setNote(e.target.value)}
-          value={note}
-        />
-        <button
-          onClick={() =>
-            updateDocument(
-              collectionName,
-              params,
-              model,
-              mapFunction,
-              setFunction,
-              undefined,
-              note,
-              setNote,
-            )
-          }
-          className="mt-2 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          Add Note
-        </button>
+        <div className="flex items-center">
+          <input
+            type="text"
+            id="note"
+            name="note"
+            className="rounded border border-gray-300 p-1"
+            onChange={(e) => setNote(e.target.value)}
+            value={note}
+          />
+          <LuPlusCircle
+            size={25}
+            onClick={() =>
+              updateDocument(
+                collectionName,
+                params,
+                model,
+                mapFunction,
+                setFunction,
+                undefined,
+                note,
+                setNote,
+              )
+            }
+            className="ml-4 text-green-600 duration-300 hover:scale-125 hover:cursor-pointer"
+          />
+        </div>
       </div>
     </div>
   );

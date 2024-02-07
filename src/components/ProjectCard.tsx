@@ -8,7 +8,7 @@ export interface IModelCardProps<T> {
 export const ProjectCard = ({ model }: IModelCardProps<TProject[]>) => {
   const navigate = useNavigate();
   return (
-    <div className="flex overflow-x-auto">
+    <div className="flex overflow-x-auto p-2">
       {model.map((project) => (
         <div
           key={project.id}

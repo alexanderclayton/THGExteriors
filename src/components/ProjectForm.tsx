@@ -190,7 +190,7 @@ export const ProjectForm = ({
                 checked={model.projectPaid}
               />
             </div>
-            <div className="mb-4 flex">
+            <div className="mb-4 flex flex-col">
               <div>
                 <label htmlFor="image" className="mb-1 block">
                   Upload Image:

@@ -8,7 +8,7 @@ export const ExpenseInfo = ({
   model,
   setModel,
   params,
-}: IModelInfoProps<TExpense>) => {
+}: IModelInfoProps<TExpense, undefined>) => {
   const navigate = useNavigate();
   return (
     <div className="rounded-md border p-6 shadow-md">
