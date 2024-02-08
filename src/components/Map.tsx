@@ -33,5 +33,5 @@ export const Map = <T extends TModels | TModels[]>({
 }: IMapProps<T>) => {
   const mapRef = useRef<HTMLDivElement | null>(null);
   useMapEffect(radarFunction, model, mapRef);
-  return <div id="map" ref={mapRef} className="h-96 w-96" />;
+  return <div id="map" ref={mapRef} className="h-full w-full" />;
 };
