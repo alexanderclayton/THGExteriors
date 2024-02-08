@@ -20,7 +20,7 @@ function App() {
   return (
     <>
       <Router>
-        <div className="flex h-screen w-full flex-col bg-background-50">
+        <div className="flex h-screen w-full flex-col">
           <Header />
           <div className="flex-1">
             <Routes>

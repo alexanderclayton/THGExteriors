@@ -36,7 +36,7 @@ export const AllExpenses = () => {
 
   return (
     <div className="mx-auto flex flex-col items-center px-4 py-8">
-      <h1 className="mb-6 text-3xl font-bold">All Expenses</h1>
+      <h1 className="text-primary mb-6 text-3xl font-bold">All Expenses</h1>
       <div className="mb-6 flex w-[50%] items-center">
         <SearchFilter
           model={allExpenses}
@@ -51,7 +51,7 @@ export const AllExpenses = () => {
           className="ml-4 text-green-600 duration-300 hover:scale-125 hover:cursor-pointer"
         />
       </div>
-      <div className="w-[80%]">
+      <div className="aspect-[2/1] w-full lg:w-[80%]">
         <Table
           header={expenseTable}
           model={filteredExpenses}
@@ -60,15 +60,17 @@ export const AllExpenses = () => {
         />
       </div>
       {toggleAdd && (
-        <ExpenseForm
-          legend="Add Expense"
-          model={expense}
-          setState={setExpense}
-          setAllState={setAllExpenses}
-          submit="Add Expense!"
-          toggle={toggleAdd}
-          setToggle={setToggleAdd}
-        />
+        <div className="mt-8">
+          <ExpenseForm
+            legend="Add Expense"
+            model={expense}
+            setState={setExpense}
+            setAllState={setAllExpenses}
+            submit="Add Expense!"
+            toggle={toggleAdd}
+            setToggle={setToggleAdd}
+          />
+        </div>
       )}
     </div>
   );

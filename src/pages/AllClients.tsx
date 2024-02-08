@@ -35,7 +35,7 @@ export const AllClients = () => {
 
   return (
     <div className="mx-auto flex flex-col items-center px-4 py-8">
-      <h1 className="mb-6 text-3xl font-bold">All Clients</h1>
+      <h1 className="text-primary mb-6 text-3xl font-bold">All Clients</h1>
       <div className="mb-6 flex w-[50%] items-center">
         <SearchFilter
           model={allClients}
@@ -50,7 +50,7 @@ export const AllClients = () => {
           className="ml-4 text-green-600 duration-300 hover:scale-125 hover:cursor-pointer"
         />
       </div>
-      <div className="w-[80%]">
+      <div className="aspect-[2/1] w-full lg:w-[80%]">
         <Table
           header={clientTable}
           model={filteredClients}
