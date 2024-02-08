@@ -50,7 +50,7 @@ export const AllClients = () => {
           className="ml-4 text-green-600 duration-300 hover:scale-125 hover:cursor-pointer"
         />
       </div>
-      <div className="w-full lg:w-[80%]">
+      <div className="aspect-[2/1] w-full lg:w-[80%]">
         <Table
           header={clientTable}
           model={filteredClients}
