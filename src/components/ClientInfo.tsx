@@ -1,8 +1,10 @@
 import { Params, useNavigate } from "react-router-dom";
 import { TClient } from "../types";
 import { UpdateClient } from "./UpdateClient";
-import { deleteClientFields, deleteDocument } from "../services";
+import { deleteClientFields } from "../services";
 import { FaRegImage } from "react-icons/fa6";
+import { useState } from "react";
+import { DeleteModal } from "./DeleteModal";
 
 export interface IModelInfoProps<T, U> {
   model: T;
@@ -17,6 +19,7 @@ export const ClientInfo = ({
   params,
 }: IModelInfoProps<TClient, undefined>) => {
   const navigate = useNavigate();
+  const [toggleDelete, setToggleDelete] = useState(false);
   return (
     <div className="flex flex-col justify-center">
       <div className="mb-2 flex items-center">
@@ -33,19 +36,23 @@ export const ClientInfo = ({
           <p className="text-gray-600">{model.clientPhone}</p>
           <p className="text-gray-600">{model.clientEmail}</p>
           <button
-            onClick={() =>
-              deleteDocument(
-                "clients",
-                params,
-                deleteClientFields,
-                navigate,
-                "/allclients",
-              )
-            }
-            className="text-red-500 hover:text-red-700"
+            className="inline-block text-red-500 hover:text-red-700"
+            onClick={() => setToggleDelete(true)}
           >
             Delete Client
           </button>
+          {toggleDelete && (
+            <DeleteModal
+              onCancel={() => setToggleDelete(false)}
+              documentType="client"
+              confirmationString={model.id as string}
+              collectionName="clients"
+              params={params}
+              deleteFieldsFunction={deleteClientFields}
+              navigate={navigate}
+              navigateUrl="/allclients"
+            />
+          )}
         </div>
         <div>
           {model.imageUrl === "" ? (

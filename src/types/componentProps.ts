@@ -1,6 +1,6 @@
-import { Params } from "react-router-dom";
+import { NavigateFunction, Params } from "react-router-dom";
 import { TClient, TExpense, TModels, TProject, TableHeader } from ".";
-import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
+import { DocumentData, FieldValue, QueryDocumentSnapshot } from "firebase/firestore";
 import React from "react";
 
 export interface IFormProps<T> {
@@ -78,5 +78,16 @@ export interface ITableProps<T extends TModels> {
     header: TableHeader<T>[];
     model: T[];
     setModel: React.Dispatch<React.SetStateAction<T[]>>;
+    navigateUrl: string;
+}
+
+export interface IDeleteModalProps {
+    onCancel: any;
+    documentType: string;
+    confirmationString: string;
+    collectionName: string;
+    params: Readonly<Params<string>>;
+    deleteFieldsFunction: (deleteField: FieldValue) => Record<string, FieldValue>;
+    navigate: NavigateFunction;
     navigateUrl: string;
 }

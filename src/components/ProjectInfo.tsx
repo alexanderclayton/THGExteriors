@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { deleteDocument, deleteProjectFields } from "../services";
+import { deleteProjectFields } from "../services";
 import { TClient, TProject } from "../types";
 import { UpdateProject } from "./UpdateProject";
 import { IModelInfoProps } from "./ClientInfo";
+import { useState } from "react";
+import { DeleteModal } from "./DeleteModal";
 
 export const ProjectInfo = ({
   model,
@@ -11,6 +13,7 @@ export const ProjectInfo = ({
   secondModel,
 }: IModelInfoProps<TProject, TClient>) => {
   const navigate = useNavigate();
+  const [toggleDelete, setToggleDelete] = useState(false);
 
   return (
     <div className="flex flex-col justify-center">
@@ -63,19 +66,23 @@ export const ProjectInfo = ({
             <strong>Payment Type:</strong> {model.projectPaymentType}
           </p>
           <button
-            onClick={() =>
-              deleteDocument(
-                "projects",
-                params,
-                deleteProjectFields,
-                navigate,
-                "/allprojects",
-              )
-            }
             className="inline-block text-red-500 hover:text-red-700"
+            onClick={() => setToggleDelete(true)}
           >
             Delete Project
           </button>
+          {toggleDelete && (
+            <DeleteModal
+              onCancel={() => setToggleDelete(false)}
+              documentType="project"
+              confirmationString={model.id as string}
+              collectionName="projects"
+              params={params}
+              deleteFieldsFunction={deleteProjectFields}
+              navigate={navigate}
+              navigateUrl="/allprojects"
+            />
+          )}
         </div>
       </div>
     </div>
