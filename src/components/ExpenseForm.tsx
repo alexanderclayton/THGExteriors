@@ -30,7 +30,7 @@ export const ExpenseForm = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="w-96 rounded-lg bg-white p-8">
+      <div className="w-96 rounded-lg bg-white p-8 shadow-lg">
         <form
           onSubmit={(e) =>
             validateSubmit(
@@ -53,15 +53,20 @@ export const ExpenseForm = ({
           }
         >
           <fieldset>
-            <legend className="mb-4 text-lg font-bold">{legend}</legend>
+            <legend className="mb-4 text-center text-2xl font-bold text-primary-500">
+              {legend}
+            </legend>
             <div className="mb-4">
-              <label htmlFor="expenseType" className="mb-1 block">
+              <label
+                htmlFor="expenseType"
+                className="mb-1 block text-sm font-semibold text-text-800"
+              >
                 Expense Type:
               </label>
               <select
                 id="expenseType"
                 name="expenseType"
-                className="w-full border border-black px-2 py-1"
+                className="w-full rounded-md border border-primary-500 bg-accent-100 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
                 onChange={(e) => handleChange(e, setState)}
                 value={model.expenseType}
               >
@@ -74,52 +79,69 @@ export const ExpenseForm = ({
             {model.expenseType && (
               <>
                 <div className="mb-4">
-                  <label htmlFor="expenseDate" className="mb-1 block">
+                  <label
+                    htmlFor="expenseDate"
+                    className="mb-1 block text-sm font-semibold text-text-800"
+                  >
                     Date:
                   </label>
                   <input
                     type="date"
                     id="expenseDate"
                     name="expenseDate"
-                    className="w-full border border-black px-2 py-1"
+                    className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
                     onChange={(e) => handleChange(e, setState)}
                     value={model.expenseDate.toISOString().split("T")[0]}
                   />
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="expenseVendor" className="mb-1 block">
+                  <label
+                    htmlFor="expenseVendor"
+                    className="mb-1 block text-sm font-semibold text-text-800"
+                  >
                     Vendor:
                   </label>
                   <input
                     type="text"
                     id="expenseVendor"
                     name="expenseVendor"
-                    className="w-full border border-black px-2 py-1"
+                    className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
                     onChange={(e) => handleChange(e, setState)}
                     value={model.expenseVendor}
                   />
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="expenseAmount" className="mb-1 block">
+                  <label
+                    htmlFor="expenseAmount"
+                    className="mb-1 block text-sm font-semibold text-text-800"
+                  >
                     Amount:
                   </label>
-                  <input
-                    type="number"
-                    id="expenseAmount"
-                    name="expenseAmount"
-                    className="w-full border border-black px-2 py-1"
-                    onChange={(e) => handleChange(e, setState)}
-                    value={model.expenseAmount}
-                  />
+                  <div className="flex items-center">
+                    <span className="mr-2 text-2xl font-bold text-primary-500">
+                      $
+                    </span>
+                    <input
+                      type="number"
+                      id="expenseAmount"
+                      name="expenseAmount"
+                      className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      onChange={(e) => handleChange(e, setState)}
+                      value={model.expenseAmount}
+                    />
+                  </div>
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="expensePaymentType" className="mb-1 block">
+                  <label
+                    htmlFor="expensePaymentType"
+                    className="mb-1 block text-sm font-semibold text-text-800"
+                  >
                     Payment Type:
                   </label>
                   <select
                     id="expensePaymentType"
                     name="expensePaymentType"
-                    className="w-full border border-black px-2 py-1"
+                    className="w-full rounded-md border border-primary-500 bg-accent-100 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
                     onChange={(e) => handleChange(e, setState)}
                     value={model.expensePaymentType}
                   >
@@ -131,14 +153,17 @@ export const ExpenseForm = ({
                   </select>
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="expenseDescription" className="mb-1 block">
+                  <label
+                    htmlFor="expenseDescription"
+                    className="mb-1 block text-sm font-semibold text-text-800"
+                  >
                     Description:
                   </label>
                   <input
                     type="text"
                     id="expenseDescription"
                     name="expenseDescription"
-                    className="w-full border border-black px-2 py-1"
+                    className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
                     onChange={(e) => handleChange(e, setState)}
                     value={model.expenseDescription}
                   />
@@ -147,14 +172,17 @@ export const ExpenseForm = ({
                   <ProjectDropdown expense={model} setState={setState} />
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="image" className="mb-1 block">
+                  <label
+                    htmlFor="image"
+                    className="mb-1 block text-sm font-semibold text-text-800"
+                  >
                     Upload Image:
                   </label>
                   <input
                     type="file"
                     id="image"
                     ref={imageRef}
-                    className="border border-black"
+                    className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
                     onChange={(e) =>
                       handleImage(e, setImage, setImageThumbnail)
                     }
@@ -174,7 +202,7 @@ export const ExpenseForm = ({
             <input
               type="submit"
               value={submit}
-              className="rounded-md border border-black bg-gray-100 px-4 py-2 hover:bg-gray-200"
+              className="rounded-md border border-primary-500 bg-primary-500 px-4 py-2 text-white transition-all duration-300 hover:cursor-pointer hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
             />
             {setToggle && toggle && (
               <button onClick={() => setToggle(!toggle)}>Cancel</button>
