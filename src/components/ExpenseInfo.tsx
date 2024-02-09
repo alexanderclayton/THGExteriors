@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { deleteDocument, deleteExpenseFields } from "../services";
+import { deleteExpenseFields } from "../services";
 import { ExpenseType, TExpense } from "../types";
 import { UpdateExpense } from "./UpdateExpense";
 import { IModelInfoProps } from "./ClientInfo";
+import { useState } from "react";
+import { DeleteModal } from "./DeleteModal";
 
 export const ExpenseInfo = ({
   model,
@@ -10,6 +12,7 @@ export const ExpenseInfo = ({
   params,
 }: IModelInfoProps<TExpense, undefined>) => {
   const navigate = useNavigate();
+  const [toggleDelete, setToggleDelete] = useState(false);
   return (
     <div className="rounded-md border p-6 shadow-md">
       <div className="mb-2 flex items-center">
@@ -46,19 +49,23 @@ export const ExpenseInfo = ({
       </div>
       <div className="flex items-center justify-between">
         <button
-          className="text-red-500 hover:text-red-700"
-          onClick={() =>
-            deleteDocument(
-              "expenses",
-              params,
-              deleteExpenseFields,
-              navigate,
-              "/allexpenses",
-            )
-          }
+          className="inline-block text-red-500 hover:text-red-700"
+          onClick={() => setToggleDelete(true)}
         >
-          Delete
+          Delete Expense
         </button>
+        {toggleDelete && (
+          <DeleteModal
+            onCancel={() => setToggleDelete(false)}
+            documentType="expense"
+            confirmationString={model.id as string}
+            collectionName="expenses"
+            params={params}
+            deleteFieldsFunction={deleteExpenseFields}
+            navigate={navigate}
+            navigateUrl="/allexpenses"
+          />
+        )}
       </div>
     </div>
   );

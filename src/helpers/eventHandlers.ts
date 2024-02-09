@@ -1,8 +1,8 @@
 import { BidStatus, TModels, TProject } from "../types";
 import { validateEmail, validatePhone } from ".";
-import { addDocument, getDocuments, queryDocuments, updateDocument } from "../services";
+import { addDocument, deleteDocument, getDocuments, queryDocuments, updateDocument } from "../services";
 import { NavigateFunction, Params } from "react-router-dom";
-import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
+import { DocumentData, FieldValue, QueryDocumentSnapshot } from "firebase/firestore";
 import { auth } from "../firebase/firebaseConfig";
 import { FirebaseError } from "firebase/app";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -170,6 +170,31 @@ export const formSubmit = <T extends TModels>(
       console.log("Unsuccessful form submit")
     }
 }
+
+//  Checks delete document confirmation input before removing document from firebase //
+export const handleConfirmDelete = (
+  confirmationInput: string, 
+  confirmationString: string,
+  collectionName: string,
+  params: Readonly<Params<string>>,
+  deleteFieldsFunction: (deleteField: FieldValue) => Record<string, FieldValue>,
+  navigate: NavigateFunction,
+  navigateUrl: string,
+  setShowError: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+  if (confirmationInput.toLowerCase() === confirmationString.toLowerCase()) {
+    deleteDocument(
+      collectionName,
+      params,
+      deleteFieldsFunction,
+      navigate,
+      navigateUrl,
+    );
+    setShowError(false);
+  } else {
+    setShowError(true);
+  }
+};
 
 //  form submit for sending emails via email.js in Contact.tsx  //
 export const sendEmail = (

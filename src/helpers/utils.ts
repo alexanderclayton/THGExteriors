@@ -1,5 +1,10 @@
 import { TClient, TExpense, TModels, TProject, TableHeader } from "../types";
 
+// Capitalizes the first letter of a string  //
+export const capitalizeString = (string: string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
 //  Checks two arrays for equality given a property unique to each item in the array  //
 export const arraysAreEqual = <T>(arr1: T[], arr2: T[], property: keyof T): boolean => {
     if (arr1.length !== arr2.length) {
