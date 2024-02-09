@@ -21,6 +21,7 @@ import { getMap } from "../radar";
 import { Notes } from "../components/Notes";
 import { ClientInfo } from "../components/ClientInfo";
 import { ClientProjects } from "../components/ClientProjects";
+import { FaRegImage } from "react-icons/fa6";
 
 export const Client = () => {
   const params = useParams();
@@ -63,15 +64,26 @@ export const Client = () => {
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center bg-gray-100">
-      <div className="mb-4 flex w-full justify-between rounded-lg bg-white px-8 py-4 shadow-md">
+      <div className="mb-4 flex h-[50%] w-full justify-between rounded-lg bg-white px-8 py-4 shadow-md lg:w-[80%]">
         <ClientInfo model={client} setModel={setClient} params={params} />
-        <div className="">
+        <div className="flex items-center justify-center">
+          {client.imageUrl === "" ? (
+            <FaRegImage size={60} className="text-gray-400" />
+          ) : (
+            <img
+              src={client.imageUrl}
+              alt="client home exterior"
+              className="aspect-square h-[80%] w-[80%] rounded-md object-cover shadow-md"
+            />
+          )}
+        </div>
+        <div className="aspect-square h-full">
           {client.clientAddress.latitude && (
             <Map radarFunction={getMap} model={client} />
           )}
         </div>
       </div>
-      <div className="flex w-full px-8">
+      <div className="mt-4 flex w-full px-8 lg:w-[80%]">
         <ClientProjects
           model={project}
           setModel={setProject}

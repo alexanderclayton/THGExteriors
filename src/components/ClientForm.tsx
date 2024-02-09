@@ -75,7 +75,7 @@ export const ClientForm = ({
                 type="text"
                 id="clientLastName"
                 name="clientLastName"
-                className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="flex w-full items-center justify-between rounded-md border border-primary-500 px-3 py-2 focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
                 onChange={(e) => handleChange(e, setState, setClientValidation)}
                 value={model.clientLastName}
                 required
@@ -92,7 +92,7 @@ export const ClientForm = ({
                 type="text"
                 id="clientFirstName"
                 name="clientFirstName"
-                className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="flex w-full items-center justify-between rounded-md border border-primary-500 px-3 py-2 focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
                 onChange={(e) => handleChange(e, setState, setClientValidation)}
                 value={model.clientFirstName}
                 required
@@ -110,7 +110,7 @@ export const ClientForm = ({
                 id="clientPhone"
                 name="clientPhone"
                 placeholder="eg. 123-456-7890"
-                className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="flex w-full items-center justify-between rounded-md border border-primary-500 px-3 py-2 focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
                 onChange={(e) => handleChange(e, setState, setClientValidation)}
                 value={
                   model.clientPhone.toString() !== "0"
@@ -131,7 +131,7 @@ export const ClientForm = ({
                 id="clientEmail"
                 name="clientEmail"
                 placeholder="eg. address@email.com"
-                className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="flex w-full items-center justify-between rounded-md border border-primary-500 px-3 py-2 focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
                 onChange={(e) => handleChange(e, setState, setClientValidation)}
                 value={model.clientEmail}
                 required
@@ -159,7 +159,7 @@ export const ClientForm = ({
                 type="file"
                 id="image"
                 ref={imageRef}
-                className="my-1 w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="flex w-full items-center justify-between rounded-md border border-primary-500 px-3 py-2 focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
                 onChange={(e) => handleImage(e, setImage, setImageThumbnail)}
               />
               {imageThumbnail && (
@@ -175,7 +175,7 @@ export const ClientForm = ({
             <input
               type="submit"
               value={submit}
-              className="mr-4 rounded-md border border-primary-500 bg-primary-500 px-4 py-2 text-white transition-all duration-300 hover:cursor-pointer hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="mr-4 rounded-md border border-primary-500 bg-primary-500 px-4 py-2 text-white transition-all duration-300 hover:cursor-pointer hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-accent-500"
             />
             {setToggle && toggle && (
               <button

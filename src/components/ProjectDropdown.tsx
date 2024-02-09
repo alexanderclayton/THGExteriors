@@ -19,7 +19,7 @@ export const ProjectDropdown = ({
       <select
         id="expenseProjectId"
         name="expenseProjectId"
-        className="w-full rounded-md border border-primary-500 bg-accent-100 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+        className="w-full rounded-md border border-primary-500 bg-accent-100 px-3 py-2 shadow-sm focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
         onChange={(e) => handleChange(e, setState)}
         value={expense.expenseProjectId}
       >

@@ -12,7 +12,7 @@ import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 export const Calendar = ({ header, model }: ICalendarProps) => {
   const [currentDay, setCurrentDay] = useState<Date>(new Date());
   const [projectArray, setProjectArray] = useState<TProject[]>([]);
-  const [modalDate, setModalDate] = useState(new Date)
+  const [modalDate, setModalDate] = useState(new Date());
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export const Calendar = ({ header, model }: ICalendarProps) => {
                 onChange={(e) =>
                   handleTimeChange(e, "setMonth", currentDay, setCurrentDay)
                 }
-                className="mx-2 cursor-pointer rounded-md border-gray-300 bg-accent-200 p-2 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
+                className="mx-2 cursor-pointer rounded-md border-gray-300 bg-accent-200 p-2 text-center text-xl shadow-sm focus:border-primary-500 focus:ring-primary-500"
               >
                 {months.map((month, index) => (
                   <option key={index} value={index}>
@@ -51,7 +51,7 @@ export const Calendar = ({ header, model }: ICalendarProps) => {
                 onChange={(e) =>
                   handleTimeChange(e, "setFullYear", currentDay, setCurrentDay)
                 }
-                className="mx-2 cursor-pointer rounded-md border-gray-300 bg-accent-200 p-2 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
+                className="mx-2 cursor-pointer rounded-md border-gray-300 bg-accent-200 p-2 text-center text-xl shadow-sm focus:border-primary-500 focus:ring-primary-500"
               >
                 {Array.from({ length: 10 }, (_, index) => (
                   <option

@@ -46,7 +46,7 @@ export const Table = <T extends TModels>({
                 <td
                   key={index}
                   className={`whitespace-nowrap px-6 py-4 ${
-                    head.property === sortedColumn && "bg-blue-50"
+                    head.property === sortedColumn && "bg-accent-50"
                   }`}
                 >
                   {head.nested

@@ -12,11 +12,13 @@ export const CalendarModal = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="w-full rounded-lg bg-white p-8 shadow-lg sm:w-96">
-        <h2 className="mb-4 text-xl font-bold">{modalDate.toDateString()}</h2>
+        <h2 className="mb-4 text-xl font-bold text-primary-500">
+          {modalDate.toDateString()}
+        </h2>
         {model.map((project) => (
           <div
             key={project.id}
-            className="mb-4 cursor-pointer rounded-md border border-gray-300 p-4 transition duration-300 hover:border-primary-500"
+            className="mb-4 cursor-pointer rounded-md border border-gray-300 p-4 hover:border-accent-500 hover:ring-2 hover:ring-accent-500"
             onClick={() => navigate(`/project/${project.id}`)}
           >
             <h3 className="mb-1 text-lg font-semibold">
