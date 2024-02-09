@@ -12,6 +12,7 @@ import {
   BidStatus,
   ProjectStatus,
   TProjectValidation,
+  PaymentType,
 } from "../types";
 import { mapProjectDocument } from "../services";
 
@@ -35,8 +36,8 @@ export const ProjectForm = ({
   });
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="w-96 rounded-lg bg-white p-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background-950 bg-opacity-50">
+      <div className="w-96 rounded-lg bg-white p-8 shadow-lg">
         <form
           onSubmit={(e) =>
             validateSubmit(
@@ -59,55 +60,69 @@ export const ProjectForm = ({
           }
         >
           <fieldset>
-            <legend className="mb-4 text-lg font-bold">{legend}</legend>
+            <legend className="mb-4 text-center text-2xl font-bold text-primary-500">
+              {legend}
+            </legend>
             <div className="mb-4">
-              <label htmlFor="projectName" className="mb-1 block">
+              <label
+                htmlFor="projectName"
+                className="mb-1 block text-sm font-semibold text-text-800"
+              >
                 Project Name:
               </label>
               <input
                 type="text"
                 id="projectName"
                 name="projectName"
-                className="w-full border border-black px-2 py-1"
+                className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
                 onChange={(e) => handleChange(e, setState)}
                 value={model.projectName}
                 required
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="projectStartDate" className="mb-1 block">
+              <label
+                htmlFor="projectStartDate"
+                className="mb-1 block text-sm font-semibold text-text-800"
+              >
                 Project Start Date:
               </label>
               <input
                 type="date"
                 id="projectStartDate"
                 name="projectStartDate"
-                className="w-full border border-black px-2 py-1"
+                className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
                 onChange={(e) => handleChange(e, setState)}
                 value={model.projectStartDate.toISOString().split("T")[0]}
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="projectEndDate" className="mb-1 block">
+              <label
+                htmlFor="projectEndDate"
+                className="mb-1 block text-sm font-semibold text-text-800"
+              >
                 Project End Date:
               </label>
               <input
                 type="date"
                 id="projectEndDate"
                 name="projectEndDate"
-                className="w-full border border-black px-2 py-1"
+                className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
                 onChange={(e) => handleChange(e, setState)}
                 value={model.projectEndDate.toISOString().split("T")[0]}
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="projectType" className="mb-1 block">
+              <label
+                htmlFor="projectType"
+                className="mb-1 block text-sm font-semibold text-text-800"
+              >
                 Project Type:
               </label>
               <select
                 id="projectType"
                 name="projectType"
-                className="w-full border border-black px-2 py-1"
+                className="w-full rounded-md border border-primary-500 bg-accent-100 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
                 onChange={(e) => handleChange(e, setState)}
                 value={model.projectType}
               >
@@ -117,58 +132,16 @@ export const ProjectForm = ({
               </select>
             </div>
             <div className="mb-4">
-              <p className="mb-1">Bid:</p>
-              <label htmlFor="bidSent" className="mr-2 inline-block">
-                Sent
-              </label>
-              <input
-                type="checkbox"
-                id="bidSent"
-                name="bidSent"
-                className="border border-black"
-                onChange={(e) =>
-                  handleChange(e, setState, undefined, "bidSent", "sent")
-                }
-                checked={model.projectBid.sent}
-              />
-              <label htmlFor="bidStatus" className="mx-2 inline-block">
-                Status
-              </label>
-              <select
-                name="bidStatus"
-                id="bidStatus"
-                className="border border-black px-2 py-1"
-                onChange={(e) =>
-                  handleChange(e, setState, undefined, "bidStatus", "status")
-                }
-                value={model.projectBid.status}
+              <label
+                htmlFor="projectStatus"
+                className="mb-1 block text-sm font-semibold text-text-800"
               >
-                <option value={BidStatus.Tentative}>Tentative</option>
-                <option value={BidStatus.Accepted}>Accepted</option>
-                <option value={BidStatus.Declined}>Declined</option>
-              </select>
-              <label htmlFor="bidAmount" className="mx-2 inline-block">
-                Amount
-              </label>
-              <input
-                type="number"
-                id="bidAmount"
-                name="bidAmount"
-                className="border border-black px-2 py-1"
-                onChange={(e) =>
-                  handleChange(e, setState, undefined, "bidAmount", "amount")
-                }
-                value={model.projectBid.amount.toString()}
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="projectStatus" className="mb-1 block">
                 Project Status:
               </label>
               <select
                 name="projectStatus"
                 id="projectStatus"
-                className="w-full border border-black px-2 py-1"
+                className="w-full rounded-md border border-primary-500 bg-accent-100 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
                 onChange={(e) => handleChange(e, setState)}
                 value={model.projectStatus}
               >
@@ -177,29 +150,110 @@ export const ProjectForm = ({
                 <option value={ProjectStatus.Complete}>Complete</option>
               </select>
             </div>
+            <div className="mb-4 flex items-center justify-between">
+              <div className="my-4 flex">
+                <label
+                  htmlFor="projectPaid"
+                  className="mr-4 block text-sm font-semibold text-text-800"
+                >
+                  Paid:
+                </label>
+                <input
+                  type="checkbox"
+                  id="projectPaid"
+                  name="projectPaid"
+                  className="border border-primary-500"
+                  onChange={(e) => handleChange(e, setState)}
+                  checked={model.projectPaid}
+                />
+              </div>
+              <div className={model.projectPaid ? "block" : "hidden"}>
+                <label
+                  htmlFor="projectPaymentType"
+                  className="mr-4 text-sm font-semibold text-text-800"
+                >
+                  Payment Type
+                </label>
+                <select
+                  name="projectPaymentType"
+                  id="projectPaymentType"
+                  className="rounded-md border border-primary-500 bg-accent-100 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  onChange={(e) => handleChange(e, setState)}
+                  value={model.projectPaymentType}
+                >
+                  <option value={PaymentType.None}>None</option>
+                  <option value={PaymentType.Cash}>Cash</option>
+                  <option value={PaymentType.Check}>Check</option>
+                  <option value={PaymentType.CreditCard}>Credit Card</option>
+                  <option value={PaymentType.Venmo}>Venmo</option>
+                </select>
+              </div>
+            </div>
             <div className="mb-4">
-              <label htmlFor="projectPaid" className="mr-2 inline-block">
-                Paid
-              </label>
-              <input
-                type="checkbox"
-                id="projectPaid"
-                name="projectPaid"
-                className="border border-black"
-                onChange={(e) => handleChange(e, setState)}
-                checked={model.projectPaid}
-              />
+              <p className="mb-1 text-sm font-semibold text-text-800">Bid:</p>
+              <div className="mb-4 flex items-center justify-between">
+                <label htmlFor="bidSent" className="mr-2">
+                  Sent
+                </label>
+                <input
+                  type="checkbox"
+                  id="bidSent"
+                  name="bidSent"
+                  className="mr-8 border border-primary-500"
+                  onChange={(e) =>
+                    handleChange(e, setState, undefined, "bidSent", "sent")
+                  }
+                  checked={model.projectBid.sent}
+                />
+                <label htmlFor="bidStatus" className="ml-8">
+                  Status
+                </label>
+                <select
+                  name="bidStatus"
+                  id="bidStatus"
+                  className="rounded-md border border-primary-500 bg-accent-100 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  onChange={(e) =>
+                    handleChange(e, setState, undefined, "bidStatus", "status")
+                  }
+                  value={model.projectBid.status}
+                >
+                  <option value={BidStatus.Tentative}>Tentative</option>
+                  <option value={BidStatus.Accepted}>Accepted</option>
+                  <option value={BidStatus.Declined}>Declined</option>
+                </select>
+              </div>
+              <div className="relative mt-2 flex items-center">
+                <label htmlFor="bidAmount" className="mr-2 flex items-center">
+                  Amount{" "}
+                  <span className="ml-4 text-2xl font-bold text-primary-500">
+                    $
+                  </span>
+                </label>
+                <input
+                  type="number"
+                  id="bidAmount"
+                  name="bidAmount"
+                  className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  onChange={(e) =>
+                    handleChange(e, setState, undefined, "bidAmount", "amount")
+                  }
+                  value={model.projectBid.amount}
+                />
+              </div>
             </div>
             <div className="mb-4 flex flex-col">
               <div>
-                <label htmlFor="image" className="mb-1 block">
+                <label
+                  htmlFor="image"
+                  className="mb-1 block text-sm font-semibold text-text-800"
+                >
                   Upload Image:
                 </label>
                 <input
                   type="file"
                   id="image"
                   ref={imageRef}
-                  className="border border-black"
+                  className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
                   onChange={(e) => handleImage(e, setImage, setImageThumbnail)}
                 />
               </div>
@@ -207,7 +261,7 @@ export const ProjectForm = ({
                 <img
                   src={imageThumbnail}
                   alt="thumbnail"
-                  className="ml-2 h-40 w-40 rounded-lg object-cover"
+                  className="mt-2 h-40 w-40 rounded-lg object-cover"
                 />
               )}
             </div>
@@ -216,10 +270,15 @@ export const ProjectForm = ({
             <input
               type="submit"
               value={submit}
-              className="ml-2 rounded-md border border-black bg-gray-100 px-4 py-2 hover:bg-gray-200"
+              className="rounded-md border border-primary-500 bg-primary-500 px-4 py-2 text-white transition-all duration-300 hover:cursor-pointer hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
             />
             {setToggle && toggle && (
-              <button onClick={() => setToggle(!toggle)}>Cancel</button>
+              <button
+                onClick={() => setToggle(!toggle)}
+                className="rounded-md border border-gray-300 px-4 py-2 transition-all duration-300 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300"
+              >
+                Cancel
+              </button>
             )}
           </div>
         </form>

@@ -15,8 +15,8 @@ export const Table = <T extends TModels>({
   return (
     <div className="mx-auto h-full w-full overflow-x-auto overflow-y-auto">
       <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
-          <tr>
+        <thead className="sticky top-0 z-10 bg-gray-200">
+          <tr className="">
             {header.map((head) => (
               <th
                 key={head.sortTitle}

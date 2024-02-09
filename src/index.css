@@ -3,9 +3,24 @@
 @tailwind utilities;
 
 @layer base {
+  /* Consistent background across app */
   body,
   html {
     height: 100%;
     background-color: #f6f4ef;
+  }
+
+  /* Remove arrows from number input */
+  input[type="number"] {
+    -webkit-appearance: none; /* WebKit/Blink */
+    -moz-appearance: textfield; /* Firefox */
+    appearance: textfield; /* Standard */
+  }
+
+  /* Remove the arrows from number input in WebKit/Blink browsers */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 }

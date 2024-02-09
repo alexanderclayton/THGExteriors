@@ -8,7 +8,9 @@ export const Autocomplete = ({
 }: IAutocompleteProps) => {
   const autocompleteRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
-    getAutocomplete(autocompleteRef, "600px", setState);
+    getAutocomplete(autocompleteRef, "w-full", setState);
   }, [resetAutocomplete]);
-  return <div id="autocomplete" ref={autocompleteRef} />;
+  return (
+    <div id="autocomplete" ref={autocompleteRef} className="h-full w-full" />
+  );
 };
