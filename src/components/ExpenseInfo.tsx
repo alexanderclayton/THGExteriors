@@ -37,7 +37,7 @@ export const ExpenseInfo = ({
       </div>
       <div className="mb-4">
         <p className="text-gray-600">Amount:</p>
-        <p className="font-semibold">{model.expenseAmount.toFixed(2)}</p>
+        <p className="font-semibold">${model.expenseAmount.toFixed(2)}</p>
       </div>
       <div className="mb-4">
         <p className="text-gray-600">Payment Type:</p>

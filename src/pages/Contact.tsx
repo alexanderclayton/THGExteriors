@@ -16,7 +16,7 @@ export const Contact = () => {
       )}
       {!submitSuccess && (
         <div className="w-full max-w-lg rounded-lg bg-white p-8 shadow-md">
-          <h2 className="mb-6 text-2xl font-semibold text-text-900">
+          <h2 className="mb-6 text-2xl font-semibold text-primary-500">
             Contact Us
           </h2>
           <form
@@ -34,7 +34,7 @@ export const Contact = () => {
             <div className="mb-4">
               <label
                 htmlFor="user_name"
-                className="block text-sm font-medium text-text-900"
+                className="block text-sm font-medium text-text-800"
               >
                 Name
               </label>
@@ -42,7 +42,7 @@ export const Contact = () => {
                 type="text"
                 name="user_name"
                 id="user_name"
-                className="mt-1 block h-12 w-full rounded-md border border-text-900 pl-3 placeholder-gray-400 shadow-sm focus:border-accent-500 focus:ring-accent-500 sm:text-sm"
+                className="mt-1 block w-full rounded-md border border-primary-500 px-3 py-3 placeholder-gray-400 shadow-sm focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500 sm:text-sm"
                 placeholder="Enter your name"
                 required
               />
@@ -50,7 +50,7 @@ export const Contact = () => {
             <div className="mb-4">
               <label
                 htmlFor="user_email"
-                className="block text-sm font-medium text-text-900"
+                className="block text-sm font-medium text-text-800"
               >
                 Email
               </label>
@@ -58,7 +58,7 @@ export const Contact = () => {
                 type="email"
                 name="user_email"
                 id="user_email"
-                className={`mt-1 block h-12 w-full rounded-md border border-text-900 pl-3 shadow-sm focus:border-accent-500 focus:ring-accent-500 sm:text-sm ${
+                className={`mt-1 block w-full rounded-md border border-primary-500 px-3 py-3 placeholder-gray-400 shadow-sm focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500 sm:text-sm ${
                   emailError && "border-red-500"
                 } placeholder-gray-400`}
                 placeholder="Enter your email"
@@ -71,7 +71,7 @@ export const Contact = () => {
             <div className="mb-4">
               <label
                 htmlFor="message"
-                className="block text-sm font-medium text-text-900"
+                className="block text-sm font-medium text-text-800"
               >
                 Message
               </label>
@@ -79,7 +79,7 @@ export const Contact = () => {
                 id="message"
                 name="message"
                 rows={4}
-                className=" mt-1 block h-32 w-full rounded-md border border-text-900 px-3 py-3 placeholder-gray-400 shadow-sm focus:border-accent-500 focus:ring-accent-500 sm:text-sm"
+                className="mt-1 block h-32 w-full rounded-md border border-primary-500 px-3 py-3 placeholder-gray-400 shadow-sm focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500 sm:text-sm"
                 placeholder="Enter your message"
                 required
               ></textarea>
@@ -90,7 +90,7 @@ export const Contact = () => {
               className={`inline-flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white shadow-sm ${
                 isSubmitting || submitSuccess
                   ? "cursor-not-allowed bg-gray-400"
-                  : "transform bg-primary-500 transition-transform duration-300 hover:scale-105 hover:bg-primary-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                  : "border-primary-500 bg-primary-500 transition-all duration-300 hover:cursor-pointer hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
               }`}
             >
               {isSubmitting ? "Sending..." : submitSuccess ? "Sent!" : "Send"}

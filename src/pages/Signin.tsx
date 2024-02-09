@@ -14,7 +14,7 @@ export const Signin = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
+    <div className="flex min-h-screen items-center justify-center bg-background-50">
       <form
         onSubmit={(e) =>
           handleSignin(
@@ -27,16 +27,18 @@ export const Signin = () => {
         }
         className="w-full max-w-md rounded-md bg-white p-8 shadow-md"
       >
-        <h2 className="mb-6 text-center text-2xl font-semibold">Sign In</h2>
+        <h2 className="mb-6 text-center text-2xl font-semibold text-primary-500">
+          Sign In
+        </h2>
         <div className="mb-4">
-          <label htmlFor="email" className="mb-1 block text-gray-600">
+          <label htmlFor="email" className="mb-1 block text-text-800">
             Email:
           </label>
           <input
             type="text"
             id="email"
             name="email"
-            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none"
+            className="flex w-full items-center justify-between rounded-md border border-primary-500 px-3 py-2 focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
             onChange={(e) => handleChange(e, setCredentials)}
             value={credentials.email}
           />
@@ -47,21 +49,21 @@ export const Signin = () => {
           </div>
         </div>
         <div className="mb-4">
-          <label htmlFor="password" className="mb-1 block text-gray-600">
+          <label htmlFor="password" className="mb-1 block text-text-800">
             Password:
           </label>
-          <div className="flex w-full items-center justify-between rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500">
+          <div className="flex w-full items-center justify-between rounded-md border border-primary-500 px-3 py-2 focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500">
             <input
               type={showPassword ? "text" : "password"}
               id="password"
               name="password"
-              className="focus:outline-none"
+              className="w-full focus:outline-none"
               onChange={(e) => handleChange(e, setCredentials)}
               value={credentials.password}
             />
             <VscEye
               size={25}
-              className="text-gray-400"
+              className="text-text-800"
               onMouseDown={() => setShowPassword(true)}
               onMouseUp={() => setShowPassword(false)}
               onMouseLeave={() => setShowPassword(false)}
@@ -75,7 +77,7 @@ export const Signin = () => {
         </div>
         <button
           type="submit"
-          className="w-full rounded-md bg-blue-500 px-4 py-2 text-white transition duration-300 ease-in-out hover:bg-blue-600"
+          className="w-full rounded-md bg-primary-500 px-4 py-2 text-white transition duration-300 ease-in-out hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
         >
           Sign In
         </button>

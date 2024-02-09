@@ -86,24 +86,26 @@ export const Project = () => {
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center bg-gray-100">
-      <div className="mb-4 flex w-full justify-between rounded-lg bg-white px-8 py-4 shadow-md">
+      <div className="mb-4 flex w-full items-center justify-between rounded-lg bg-white px-8 py-4 shadow-md lg:w-[80%]">
         <ProjectInfo
           model={project}
           setModel={setProject}
           params={params}
           secondModel={projectClient}
         />
-        {project.imageUrl !== "" ? (
-          <img
-            src={project.imageUrl}
-            alt="project exterior"
-            className="max-h-[240px] max-w-[240px] rounded-md object-cover"
-          />
-        ) : (
-          <FaRegImage size={240} className="text-gray-400" />
-        )}
+        <div className="flex items-center justify-center">
+          {project.imageUrl !== "" ? (
+            <img
+              src={project.imageUrl}
+              alt="project exterior"
+              className="h-[85%] w-[85%] rounded-md object-cover"
+            />
+          ) : (
+            <FaRegImage size={240} className="text-gray-400" />
+          )}
+        </div>
       </div>
-      <div className="flex w-full px-8">
+      <div className="mt-4 flex w-full px-8 lg:w-[80%]">
         <ProjectExpenses
           model={expense}
           setModel={setExpense}

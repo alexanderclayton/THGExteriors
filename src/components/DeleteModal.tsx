@@ -30,7 +30,7 @@ export const DeleteModal = ({
           type="text"
           value={confirmationInput}
           onChange={(e) => setConfirmationInput(e.target.value)}
-          className="my-1 w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+          className="my-1 w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
         />
         {showError && (
           <p className="mb-4 text-red-500">

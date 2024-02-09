@@ -2,7 +2,6 @@ import { Params, useNavigate } from "react-router-dom";
 import { TClient } from "../types";
 import { UpdateClient } from "./UpdateClient";
 import { deleteClientFields } from "../services";
-import { FaRegImage } from "react-icons/fa6";
 import { useState } from "react";
 import { DeleteModal } from "./DeleteModal";
 
@@ -51,17 +50,6 @@ export const ClientInfo = ({
               deleteFieldsFunction={deleteClientFields}
               navigate={navigate}
               navigateUrl="/allclients"
-            />
-          )}
-        </div>
-        <div>
-          {model.imageUrl === "" ? (
-            <FaRegImage size={60} className="text-gray-400" />
-          ) : (
-            <img
-              src={model.imageUrl}
-              alt="client home exterior"
-              className="h-32 w-32 rounded-md object-cover shadow-md"
             />
           )}
         </div>

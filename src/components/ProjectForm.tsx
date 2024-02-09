@@ -74,7 +74,7 @@ export const ProjectForm = ({
                 type="text"
                 id="projectName"
                 name="projectName"
-                className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="flex w-full items-center justify-between rounded-md border border-primary-500 px-3 py-2 focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
                 onChange={(e) => handleChange(e, setState)}
                 value={model.projectName}
                 required
@@ -91,7 +91,7 @@ export const ProjectForm = ({
                 type="date"
                 id="projectStartDate"
                 name="projectStartDate"
-                className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="flex w-full items-center justify-between rounded-md border border-primary-500 px-3 py-2 focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
                 onChange={(e) => handleChange(e, setState)}
                 value={model.projectStartDate.toISOString().split("T")[0]}
               />
@@ -107,7 +107,7 @@ export const ProjectForm = ({
                 type="date"
                 id="projectEndDate"
                 name="projectEndDate"
-                className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="flex w-full items-center justify-between rounded-md border border-primary-500 px-3 py-2 focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
                 onChange={(e) => handleChange(e, setState)}
                 value={model.projectEndDate.toISOString().split("T")[0]}
               />
@@ -122,7 +122,7 @@ export const ProjectForm = ({
               <select
                 id="projectType"
                 name="projectType"
-                className="w-full rounded-md border border-primary-500 bg-accent-100 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full rounded-md border border-primary-500 bg-accent-100 px-3 py-2 shadow-sm focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
                 onChange={(e) => handleChange(e, setState)}
                 value={model.projectType}
               >
@@ -141,7 +141,7 @@ export const ProjectForm = ({
               <select
                 name="projectStatus"
                 id="projectStatus"
-                className="w-full rounded-md border border-primary-500 bg-accent-100 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full rounded-md border border-primary-500 bg-accent-100 px-3 py-2 shadow-sm focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
                 onChange={(e) => handleChange(e, setState)}
                 value={model.projectStatus}
               >
@@ -177,7 +177,7 @@ export const ProjectForm = ({
                 <select
                   name="projectPaymentType"
                   id="projectPaymentType"
-                  className="rounded-md border border-primary-500 bg-accent-100 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="rounded-md border border-primary-500 bg-accent-100 px-3 py-2 shadow-sm focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
                   onChange={(e) => handleChange(e, setState)}
                   value={model.projectPaymentType}
                 >
@@ -211,7 +211,7 @@ export const ProjectForm = ({
                 <select
                   name="bidStatus"
                   id="bidStatus"
-                  className="rounded-md border border-primary-500 bg-accent-100 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="rounded-md border border-primary-500 bg-accent-100 px-3 py-2 shadow-sm focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
                   onChange={(e) =>
                     handleChange(e, setState, undefined, "bidStatus", "status")
                   }
@@ -233,7 +233,7 @@ export const ProjectForm = ({
                   type="number"
                   id="bidAmount"
                   name="bidAmount"
-                  className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
                   onChange={(e) =>
                     handleChange(e, setState, undefined, "bidAmount", "amount")
                   }
@@ -253,7 +253,7 @@ export const ProjectForm = ({
                   type="file"
                   id="image"
                   ref={imageRef}
-                  className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
                   onChange={(e) => handleImage(e, setImage, setImageThumbnail)}
                 />
               </div>

@@ -5,7 +5,13 @@ import {
   resetExpense,
   validateSubmit,
 } from "../helpers";
-import { IFormProps, TExpense, TExpenseValidation } from "../types";
+import {
+  ExpenseType,
+  IFormProps,
+  PaymentType,
+  TExpense,
+  TExpenseValidation,
+} from "../types";
 import { ProjectDropdown } from "./ProjectDropdown";
 import { mapExpenseDocument } from "../services";
 
@@ -66,14 +72,14 @@ export const ExpenseForm = ({
               <select
                 id="expenseType"
                 name="expenseType"
-                className="w-full rounded-md border border-primary-500 bg-accent-100 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full rounded-md border border-primary-500 bg-accent-100 px-3 py-2 shadow-sm focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
                 onChange={(e) => handleChange(e, setState)}
                 value={model.expenseType}
               >
-                <option value="">Select an option</option>
-                <option value="Materials">Materials</option>
-                <option value="Labor">Labor</option>
-                <option value="Other">Other</option>
+                <option value={ExpenseType.None}>Select an option</option>
+                <option value={ExpenseType.Materials}>Materials</option>
+                <option value={ExpenseType.Labor}>Labor</option>
+                <option value={ExpenseType.Other}>Other</option>
               </select>
             </div>
             {model.expenseType && (
@@ -89,7 +95,7 @@ export const ExpenseForm = ({
                     type="date"
                     id="expenseDate"
                     name="expenseDate"
-                    className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
                     onChange={(e) => handleChange(e, setState)}
                     value={model.expenseDate.toISOString().split("T")[0]}
                   />
@@ -105,7 +111,7 @@ export const ExpenseForm = ({
                     type="text"
                     id="expenseVendor"
                     name="expenseVendor"
-                    className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
                     onChange={(e) => handleChange(e, setState)}
                     value={model.expenseVendor}
                   />
@@ -125,7 +131,7 @@ export const ExpenseForm = ({
                       type="number"
                       id="expenseAmount"
                       name="expenseAmount"
-                      className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
                       onChange={(e) => handleChange(e, setState)}
                       value={model.expenseAmount}
                     />
@@ -141,15 +147,15 @@ export const ExpenseForm = ({
                   <select
                     id="expensePaymentType"
                     name="expensePaymentType"
-                    className="w-full rounded-md border border-primary-500 bg-accent-100 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full rounded-md border border-primary-500 bg-accent-100 px-3 py-2 shadow-sm focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
                     onChange={(e) => handleChange(e, setState)}
                     value={model.expensePaymentType}
                   >
-                    <option value="">Select an option</option>
-                    <option value="Cash">Cash</option>
-                    <option value="CreditCard">Credit Card</option>
-                    <option value="Venmo">Venmo</option>
-                    <option value="Check">Check</option>
+                    <option value={PaymentType.None}>None</option>
+                    <option value={PaymentType.Cash}>Cash</option>
+                    <option value={PaymentType.CreditCard}>Credit Card</option>
+                    <option value={PaymentType.Venmo}>Venmo</option>
+                    <option value={PaymentType.Check}>Check</option>
                   </select>
                 </div>
                 <div className="mb-4">
@@ -163,7 +169,7 @@ export const ExpenseForm = ({
                     type="text"
                     id="expenseDescription"
                     name="expenseDescription"
-                    className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
                     onChange={(e) => handleChange(e, setState)}
                     value={model.expenseDescription}
                   />
@@ -182,7 +188,7 @@ export const ExpenseForm = ({
                     type="file"
                     id="image"
                     ref={imageRef}
-                    className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full rounded-md border border-primary-500 px-3 py-2 shadow-sm focus-within:border-accent-500 focus-within:ring-2 focus-within:ring-accent-500 focus:outline-none"
                     onChange={(e) =>
                       handleImage(e, setImage, setImageThumbnail)
                     }
