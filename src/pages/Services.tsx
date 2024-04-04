@@ -1,5 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { ServiceCard } from "../components/ServiceCard";
+import Placeholder from "../assets/THG Small (2).png";
+import Painting from "../assets/11019FrontAfter3.png";
+import Exteriors from "../assets/DeckRightAfter3.png";
 
 export const Services = () => {
   const navigate = useNavigate();
@@ -16,16 +19,19 @@ export const Services = () => {
       </p>
       <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
         <ServiceCard
+          imageUrl={Painting}
           title="Painting"
           description="Transform your home with a fresh coat of paint."
           onClick={() => navigate("/painting")}
         />
         <ServiceCard
+          imageUrl={Exteriors}
           title="Exteriors"
           description="Enhance your home's exterior appearance and protection."
           onClick={() => navigate("/exteriors")}
         />
         <ServiceCard
+          imageUrl={Placeholder}
           title="Christmas Lights"
           description="Let us brighten your holidays with professional light installation."
           onClick={() => navigate("/holiday-heroes")}
